@@ -35,10 +35,12 @@ body{
   z-index: 1;
   top: 0;
   left: 0;
-  background-color: white;
+  background-color: #F5F7F8;
   overflow: hidden;
   transition: 0.5s;
   padding-top: 30px;
+  
+  
 }
 .sidenav a {
   padding: 15px 8px 15px 32px;
@@ -47,6 +49,7 @@ body{
   color: #8e8b8b;
   display: block;
   transition: 0.3s;
+  
 }
 .sidenav a:hover {
   color: white;

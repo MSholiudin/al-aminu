@@ -21,11 +21,13 @@
 		<div id="mySidenav" class="sidenav">
 		<p class="logo" style="position: relative; right: 5px;"><span>AL</span>-AMIN</p>
 	  <a href="index.html" class="icon-a"><i class="fa fa-dashboard icons"></i>   Dashboard</a>
+	  <a href="jadwal.html"class="icon-a"><i class="fa fa-user icons"></i>   Jadwal</a>
 	  <a href="murid.html"class="icon-a"><i class="fa fa-users icons"></i>   Murid</a>
 	  <a href="pemesanan.html"class="icon-a"><i class="fa fa-list icons"></i>   Pemesanan</a>
-	  <a href="cicilan.html"class="icon-a"><i class="fa fa-shopping-bag icons"></i>   Cicilan</a>
 	  <a href="riwayat.html"class="icon-a"><i class="fa fa-list-alt icons"></i>  Riwayat</a>
-	  <a href="akun.html"class="icon-a"><i class="fa fa-user icons"></i>   Jadwal</a>
+	  
+
+	 
 	  
 
 	</div>
@@ -43,6 +45,7 @@
 			<img src="images/user.png" class="pro-img" />
 			<p style="color: #748DA6;">M fajar dwi p <span>Admin</span></p>
 			<i class="fa fa-regular fa-bell"style="position: relative; right: 30%; bottom: 43px;"></p></i>
+			<button id="logoutButton" class="icon-a"><i class="fa fa-users icons"></i> Logout</a>
 		</div>
 	</div>
 		
@@ -102,7 +105,7 @@
 		<div class="col-div-8" style="position: relative; bottom: 40px;">
 			<div class="box-8">
 			<div class="content-box">
-				<p>Cicilan <span>See All</span></p>
+				<p>Pemesanan <span>See All</span></p>
 				<br/>
 				<table >
 	  <tr>
@@ -203,7 +206,13 @@
     // Memanggil updateDateTime() saat halaman dimuat
     window.onload = updateDateTime;
 </script>
-
+<script>
+	document.getElementById("logoutButton").addEventListener("click", function() {
+	  if (confirm("Apakah Anda yakin ingin keluar?")) {
+		window.close(); // Menutup halaman saat pengguna menekan OK
+	  }
+	});
+	</script>
 	</body>
 
 
