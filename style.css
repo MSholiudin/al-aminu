@@ -401,6 +401,72 @@ footer .credit a {
 	font-weight: 700;
 }
 
+/*Login admin*/
+.basic {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%; /* Gunakan lebar penuh */
+    max-width: 400px; /* Lebar maksimum */
+    padding: 28px;
+    margin: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--primary);
+    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h2 {
+	margin-bottom: 20px;
+}
+
+.value {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.inputan {
+    margin-bottom: 20px;
+    width: 100%; /* Lebar penuh */
+}
+
+.inputan label {
+    font-weight: 600;
+    font-size: 16px;
+    /*color: #fff;*/
+}
+
+.inputan input {
+	margin-top: 7.5px;
+    width: 100%; /* Lebar penuh */
+    padding: 10px; /* Tambahkan padding jika diperlukan */
+}
+
+.button {
+    text-align: center;
+    margin: 15px 0;
+}
+
+.button button {
+	width: 100%;
+	margin-top: 10px;
+	padding: 10px;
+	display: block;
+	font-size: 20px;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	background-image: linear-gradient(to right, #80B3FF, #98E4FF);
+	cursor: pointer;
+	transition: 0.3s;
+}
+.button button:hover {
+	background-image: linear-gradient(to right, #98E4FF, #80B3FF);
+}
 
 /*Form Daftar*/
 .container {

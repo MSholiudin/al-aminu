@@ -1,18 +1,14 @@
-<?php 
-class koneksi {
-	private $host ="localhost";
-	private $user="root";
-	private $pass="";
-	private $db ="al-amin";
-	protected $koneksi;
-	public function __construct() {
-		try {
-			$this->koneksi = new PDO("mysql:host=$this->host; dbname=$this->db", $this->user, $this->pass);
-			$this->koneksi->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		}catch(PDOException $e){
-			echo $e->getMessage();
-		}
-		// return $this->koneksi;
-	}
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "alaminu";
+
+// Membuat koneksi
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Memeriksa koneksi
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
 ?>
