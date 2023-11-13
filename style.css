@@ -474,9 +474,9 @@ h2 {
   	top: 50%;
   	left: 50%;
   	transform: translate(-50%, -50%);
-	max-width: 650px;
+  	width: 75%;
 	padding: 28px;
-	margin: 0 28px;
+	margin: 0;
 	border-radius: 10px;
 	overflow: hidden;
 	background: var(--primary);
@@ -493,7 +493,7 @@ h2 {
 .content {
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-between;
+	justify-content: center;
 	padding: 20px 0;
 }
 .input-box {
@@ -531,6 +531,7 @@ h2 {
 }
 .gender-category {
 	color: gainsboro;
+	text-align: center;
 }
 .gender-category label, .gender-category input {
 	cursor: pointer;

@@ -1,4 +1,4 @@
-<!Doctype HTML>
+ <!Doctype HTML>
 	<html>
 	<head>
 		<title></title>
@@ -209,11 +209,9 @@
 <script>
 	document.getElementById("logoutButton").addEventListener("click", function() {
 	  if (confirm("Apakah Anda yakin ingin keluar?")) {
-		window.close(); // Menutup halaman saat pengguna menekan OK
+		window.location.href = "login-admin.php"; // Mengarahkan ke halaman login-admin.php setelah konfirmasi OK
 	  }
 	});
-	</script>
-	</body>
-
-
-	</html>
+</script>
+</body>
+</html>

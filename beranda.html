@@ -11,6 +11,9 @@
 	<!-- feather icon -->
 	<script src="https://unpkg.com/feather-icons"></script>
 
+	<!-- Link Swiper's CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
 	<!-- my style -->
 	<link rel="stylesheet" href="style.css">
 </head>
@@ -24,7 +27,8 @@
 		<div class="navbar-nav">
 			<a href="#home">Home</a>
 			<a href="#about">Tentang Kami</a>
-			<a href="#menu">Menu</a>
+			<a href="#slide">Program</a>
+			<a href="#swiper">Kata Mereka</a>
 			<a href="#contact">Kontak</a>
 		</div>
 
@@ -52,7 +56,7 @@
 
 	<div class="row">
 		<div class="about-img">
-			<img src="img/tentang-kami.jpeg" alt="Tentang Kami">
+			<img src="img/tentang-kami.jpg" alt="Tentang Kami">
 		</div>
 		<div class="content">
 			<h3>Kenapa memilih bimbel kami?</h3>
@@ -63,34 +67,122 @@
 </section>
 <!-- About section end -->
 
-<!-- Menu Section start -->
-<section id="menu" class="menu">
-	<h2><span>Menu</span> Kami</h2>
-	<p>Program bimbel menyediakan guru terampil, materi berkualitas, latihan intensif, dan dukungan penuh untuk membantu siswa</p>
-	<div class="row">
-		<div class="menu-card">
-			<img src="img/1.jpg" alt="SMK1" class="menu-card-img">
-			<h3 class="menu-card-title">-SMP KELAS 9-</h3>
-			<p class="menu-card-price">IDR 1000K</p>
+<!-- Menu geser start -->
+<section id="slide" class="slide">
+<h2><span>Pogram</span> Kami</h2>
+<div class= "card-row">
+		<div class="card">
+			<img src="img/1.jpg">
+			<h3>Program Kelas 1 SMA</h3>
+			<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+				Obcaecati rem possimus corrupti,
+				 necessitatibus et eligendi ullam esse totam natus rerum.</p>
 		</div>
-		<div class="menu-card">
-			<img src="img/1.jpg" alt="SMK1" class="menu-card-img">
-			<h3 class="menu-card-title">-SMA/SMK KELAS 10-</h3>
-			<p class="menu-card-price">IDR 1000K</p>
+		<div class="card">
+			<img src="img/1.jpg">
+			<h3>Program Kelas 1 SMA</h3>
+			<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+				Obcaecati rem possimus corrupti,
+				 necessitatibus et eligendi ullam esse totam natus rerum.</p>
 		</div>
-		<div class="menu-card">
-			<img src="img/1.jpg" alt="SMK1" class="menu-card-img">
-			<h3 class="menu-card-title">-SMA/SMK KELAS 11-</h3>
-			<p class="menu-card-price">IDR 1000K</p>
+		<div class="card">
+			<img src="img/1.jpg">
+			<h3>Program Kelas 1 SMA</h3>
+			<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+				Obcaecati rem possimus corrupti,
+				 necessitatibus et eligendi ullam esse totam natus rerum.</p>
 		</div>
-		<div class="menu-card">
-			<img src="img/1.jpg" alt="SMK1" class="menu-card-img">
-			<h3 class="menu-card-title">-SMA/SMK KELAS 12-</h3>
-			<p class="menu-card-price">IDR 1000K</p>
+		<div class="card">
+			<img src="img/1.jpg">
+			<h3>Program Kelas 1 SMA</h3>
+			<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+				Obcaecati rem possimus corrupti,
+				 necessitatibus et eligendi ullam esse totam natus rerum.</p>
+		</div>
+		<div class="card">
+			<img src="img/1.jpg">
+			<h3>Program Kelas 1 SMA</h3>
+			<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
+				Obcaecati rem possimus corrupti,
+				 necessitatibus et eligendi ullam esse totam natus rerum.</p>
+		</div>
+</div>
+</section>
+
+<!-- Menu geser end -->
+
+<!-- Kata guru -->
+<section id="swiper" class="swiper mySwiper">
+<h2><span>Kata</span> Mereka</h2>
+	<div class="swiper-wrapper">
+		<div class="card swiper-slide">
+			<div class="card_image">
+				<img src="img/1.jpg" alt="card image">
+			</div>
+
+			<div class="card_content">
+				<span class="card_title">Web Designer</span>
+				<span class="card_name">Joko Suteno</span>
+				<p class="card_text">
+					Lorem ipsum dolor sit amet consectetur adipisicing elit. Et sapiente distinctio laboriosam debitis nesciunt amet omnis perferendis velit totam. Ullam?
+				</p>
+			</div>
+		</div>
+		<div class="card swiper-slide">
+			<div class="card_image">
+				<img src="img/1.jpg" alt="card image">
+			</div>
+
+			<div class="card_content">
+				<span class="card_title">Web Designer</span>
+				<span class="card_name">Joko Suteno</span>
+				<p class="card_text">
+					Lorem ipsum dolor sit amet consectetur adipisicing elit. Et sapiente distinctio laboriosam debitis nesciunt amet omnis perferendis velit totam. Ullam?
+				</p>
+			</div>
+		</div>
+		<div class="card swiper-slide">
+			<div class="card_image">
+				<img src="img/1.jpg" alt="card image">
+			</div>
+
+			<div class="card_content">
+				<span class="card_title">Web Designer</span>
+				<span class="card_name">Joko Suteno</span>
+				<p class="card_text">
+					Lorem ipsum dolor sit amet consectetur adipisicing elit. Et sapiente distinctio laboriosam debitis nesciunt amet omnis perferendis velit totam. Ullam?
+				</p>
+			</div>
+		</div>
+		<div class="card swiper-slide">
+			<div class="card_image">
+				<img src="img/1.jpg" alt="card image">
+			</div>
+
+			<div class="card_content">
+				<span class="card_title">Web Designer</span>
+				<span class="card_name">Joko Suteno</span>
+				<p class="card_text">
+					Lorem ipsum dolor sit amet consectetur adipisicing elit. Et sapiente distinctio laboriosam debitis nesciunt amet omnis perferendis velit totam. Ullam?
+				</p>
+			</div>
+		</div>
+		<div class="card swiper-slide">
+			<div class="card_image">
+				<img src="img/1.jpg" alt="card image">
+			</div>
+
+			<div class="card_content">
+				<span class="card_title">Web Designer</span>
+				<span class="card_name">Joko Suteno</span>
+				<p class="card_text">
+					Lorem ipsum dolor sit amet consectetur adipisicing elit. Et sapiente distinctio laboriosam debitis nesciunt amet omnis perferendis velit totam. Ullam?
+				</p>
+			</div>
 		</div>
 	</div>
 </section>
-<!-- Menu Section end -->
+<!-- Kata guru -->
 
 <!-- Contact Section start -->
 <section id="contact" class="contact">
@@ -130,7 +222,8 @@
 	<div class="links">
 		<a href="#home">Home</a>
 		<a href="#about">Tentang Kami</a>
-		<a href="#menu">Menu</a>
+		<a href="#slide">Program</a>
+		<a href="#swiper">Kata Mereka</a>
 		<a href="#contact">Kontak</a>
 	</div>
 
@@ -145,7 +238,33 @@
       feather.replace();
     </script>
 
+<!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+  <!-- Initialize Swiper -->
+  <script>
+    var swiper = new Swiper(".mySwiper", {
+      effect: "coverflow",
+      grabCursor: true,
+      centeredSlides: true,
+      slidesPerView: "auto",
+      coverflowEffect: {
+        rotate: 0,
+        stretch: 0,
+        depth: 300,
+        modifier: 1,
+        slideShadows: false,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+      },
+    });
+  </script>
+
 <!-- My Javascript -->
 <script src="js/script.js"></script>
 </body>
 </html>
+
+<!-- https://youtu.be/oE3Zhjt-k98?si=iWw3CUOaWuSKHMrZ -->
+<!-- https://youtu.be/6qrsWYLlTbg?si=pSOTwlKTuSPfcvL4 -->

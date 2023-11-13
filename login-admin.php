@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once 'php/koneksi.php';
+$message = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST["uname"];
@@ -11,20 +12,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-
-    // Verifikasi password tanpa hashing
-    if ($password === $row["password"]) {
-        $_SESSION["username"] = $username;
-        header("Location: index.html"); // Ganti dengan halaman setelah login
-        exit();
+        $row = $result->fetch_assoc();
+        if ($password === $row["password"]) {
+            // Tambahkan kondisi untuk memeriksa status admin
+            if ($row["status"] == "admin") {
+                $_SESSION["username"] = $username;
+                $message = "Login berhasil!";
+                ?>
+                <script>
+                    alert("<?php echo $message; ?>");
+                    window.location.href = "index.html"; // Redirect ke halaman index.html
+                </script>
+                <?php
+            } else {
+                $message = "Anda bukan admin. Hanya admin yang diizinkan login.";
+                ?>
+                <script>
+                    alert("<?php echo $message; ?>");
+                </script>
+                <?php
+            }
+        } else {
+            $message = "Password salah";
+            ?>
+            <script>
+                alert("<?php echo $message; ?>");
+            </script>
+            <?php
+        }
     } else {
-        $error_message = "Password salah";
+        $message = "Username tidak ditemukan";
+        ?>
+        <script>
+            alert("<?php echo $message; ?>");
+        </script>
+        <?php
     }
-} else {
-    $error_message = "Username tidak ditemukan";
-}
-
 }
 ?>
 <!DOCTYPE html>
@@ -40,11 +63,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="basic">
         <form action="" method="post">
             <h2>LOGIN</h2>
-            <?php
-            if (isset($error_message)) {
-                echo '<p style="color: red;">' . $error_message . '</p>';
-            }
-            ?>
             <div class="value">
                 <div class="inputan">
                     <label for="username">Username</label>
