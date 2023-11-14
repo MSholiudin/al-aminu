@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 ?>
                 <script>
                     alert("<?php echo $message; ?>");
-                    window.location.href = "index.html"; // Redirect ke halaman index.html
+                    window.location.href = "index.php";
                 </script>
                 <?php
             } else {

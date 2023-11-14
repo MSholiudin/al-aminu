@@ -10,12 +10,12 @@
 		
 		<div id="mySidenav" class="sidenav">
 			<p class="logo" style="position: relative; right: 5px;"><span>AL</span>-AMIN</p>
-			<a href="index.html" class="icon-a"><i class="fa fa-dashboard icons"></i>   Dashboard</a>
-			<a href="jadwal.html"class="icon-a"><i class="fa fa-user icons"></i>   Jadwal</a>
-			<a href="murid.html"class="icon-a"><i class="fa fa-users icons"></i>   Murid</a>
-			<a href="pemesanan.html"class="icon-a"><i class="fa fa-list icons"></i>   Pemesanan</a>
-			<a href="riwayat.html"class="icon-a"><i class="fa fa-list-alt icons"></i>  Riwayat</a>
-			
+			<a href="index.php" class="icon-a"><i class="fa fa-dashboard icons"></i>   Dashboard</a>
+			<a href="jadwal.php"class="icon-a"><i class="fa fa-user icons"></i>   Jadwal</a>
+			<a href="murid.php"class="icon-a"><i class="fa fa-users icons"></i>   Murid</a>
+			<a href="pemesanan.php"class="icon-a"><i class="fa fa-list icons"></i>   Pemesanan</a>
+			<a href="riwayat.php"class="icon-a"><i class="fa fa-list-alt icons"></i>  Riwayat</a>
+		
 		  <script>
 			// Fungsi untuk menampilkan data pada baris tabel
 			function viewRow(button) {
@@ -73,7 +73,7 @@
 
 		<div class="head">
 			<div class="col-div-6">
-	<span style="font-size:30px;cursor:pointer; color: black;" class="nav"  >☰ Pemesanan</span>
+	<span style="font-size:30px;cursor:pointer; color: black;" class="nav"  >Murid</span>
 	<span style="font-size:30px;cursor:pointer; color: black;" class="nav2"  >☰ Murid</span>
 	</div>
 		
@@ -113,7 +113,9 @@
 	    <td>Germany</td>
 		<td>Germany</td>
 		<td>
-			<button class="view-button" onclick="viewRow(this)">Confirm</button>
+			<button class="view-button" onclick="viewRow(this)">View</button>
+			<button class="edit-button" onclick="editRow(this)">Edit</button>
+ 			 <button class="delete-button" onclick="deleteRow(this)">Hapus</button>
 		  </td>
 	  </tr>
 	  <tr>
@@ -122,7 +124,9 @@
 	    <td>Mexico</td>
 		<td>Germany</td>
 		<td>
-			<button class="view-button" onclick="viewRow(this)">Confirm</button>
+			<button class="view-button" onclick="viewRow(this)">View</button>
+			<button class="edit-button" onclick="editRow(this)">Edit</button>
+			<button class="delete-button" onclick="deleteRow(this)">Hapus</button>
 		  </td>
 	  </tr>
 	  <tr>
@@ -131,7 +135,9 @@
 	    <td>Austria</td>
 		<td>Germany</td>
 		<td>
-			<button class="view-button" onclick="viewRow(this)">Confirm</button>
+			<button class="view-button" onclick="viewRow(this)">View</button>
+			<button class="edit-button" onclick="editRow(this)">Edit</button>
+			<button class="delete-button" onclick="deleteRow(this)">Hapus</button>
 		  </td>
 	  </tr>
 	  <tr>
@@ -140,7 +146,9 @@
 	    <td>UK</td>
 		<td>Germany</td>
 		<td>
-			<button class="view-button" onclick="viewRow(this)">Confrim</button>
+			<button class="view-button" onclick="viewRow(this)">View</button>
+			<button class="edit-button" onclick="editRow(this)">Edit</button>
+			<button class="delete-button" onclick="deleteRow(this)">Hapus</button>
 		  </td>
 	  </tr>
       <tr>
@@ -149,7 +157,9 @@
 	    <td>UK</td>
 		<td>Germany</td>
 		<td>
-			<button class="view-button" onclick="viewRow(this)">Confirm</button>
+			<button class="view-button" onclick="viewRow(this)">View</button>
+			<button class="edit-button" onclick="editRow(this)">Edit</button>
+			<button class="delete-button" onclick="deleteRow(this)">Hapus</button>
 		  </td>
 	  </tr>
       <tr>
@@ -158,7 +168,9 @@
 	    <td>UK</td>
 		<td>Germany</td>
 		<td>
-			<button class="view-button" onclick="viewRow(this)">Confirm</button>
+			<button class="view-button" onclick="viewRow(this)">View</button>
+			<button class="edit-button" onclick="editRow(this)">Edit</button>
+			<button class="delete-button" onclick="deleteRow(this)">Hapus</button>
 		  </td>
 	  </tr>
       <tr>
@@ -167,7 +179,10 @@
 	    <td>UK</td>
 		<td>Germany</td>
 		<td>
-			<button class="view-button" onclick="viewRow(this)">Confirm</button>
+			<button class="view-button" onclick="viewRow(this)">View</button>
+			<button class="edit-button" onclick="editRow(this)">Edit</button>
+			<button class="delete-button" onclick="deleteRow(this)">Hapus</button>
+		  </td>
 	  </tr>
       <tr>
 	    <td>Island Trading</td>
@@ -175,8 +190,9 @@
 	    <td>UK</td>
 		<td>Germany</td>
 		<td>
-			<button class="view-button" onclick="viewRow(this)">Confirm</button>
-
+			<button class="view-button" onclick="viewRow(this)">View</button>
+			<button class="edit-button" onclick="editRow(this)">Edit</button>
+			<button class="delete-button" onclick="deleteRow(this)">Hapus</button>
 		  </td>
 	  </tr>
 	  
