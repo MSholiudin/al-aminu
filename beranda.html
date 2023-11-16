@@ -10,6 +10,7 @@
 
 	<!-- feather icon -->
 	<script src="https://unpkg.com/feather-icons"></script>
+	
 
 	<!-- Link Swiper's CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
@@ -22,7 +23,8 @@
 
 <!-- Navbar start -->
 	<nav  class="navbar">
-		<a href="#" class="navbar-logo"><span>Al</span>-Amin.</a>
+		<a href="#" class="navbar-logo" ><img src="img/Vector 161.png" style="height: 50px; position: relative; right: 20px; top: 8px;"><span style="color: #444E96;">Al</span>-Amin</a>
+		
 
 		<div class="navbar-nav">
 			<a href="#home">Home</a>
@@ -41,18 +43,46 @@
 <!-- Navbar End -->
 
 <!-- Hero section start -->
-<section class="hero" id="home">
-	<main class="content">
-		<h1>Mari Belajar di Bimbel <span>Al-Amin</span></h1>
-		<p>ini adalah sebuah bimbingan belajar</p>
-		<a href="daftar.html" class="cta">Daftar Sekarang</a>
-	</main>
+<section class="hero" id="home" style="background-image: url('img/Desktop\ -\ 3.png');">
+    <main class="content">
+        <div class="hero-content">
+            <h1 class="home1">Mari Belajar di Bimbel <span style="color: #444E96;">Al-Amin</span></h1>
+            <a href="daftar.php" class="cta" style="position: relative; bottom: 40px; right:20px ; height: 100px; width: 430px; font-size: 10mm;">Daftar Sekarang</a>
+        </div>
+    </main>
 </section>
 <!-- Hero section end -->
+<style>
+	.changing-text {
+		font-size: 20px;
+	}
+</style>
 
+<div class="changing-text" id="text-container">
+    <span id="text1" style="font-size: 15mm; position: relative; top: 65px; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: #068FFF;"><b>SELAMAT DATANG DI BIMBLE AL-AMIN</b></span>
+    <span id="text2" style="display: none; position: relative; top: 65px; font-size: 15mm; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color: #068FFF;">BIMBEL TERBAIK DAN TERPECAYA</span>
+</div>
+<script>
+    // JavaScript to switch between sentences
+    document.addEventListener('DOMContentLoaded', function () {
+        var textContainer = document.getElementById('text-container');
+        var text1 = document.getElementById('text1');
+        var text2 = document.getElementById('text2');
+
+        setInterval(function () {
+            if (text1.style.display === '' || text1.style.display === 'block') {
+                text1.style.display = 'none';
+                text2.style.display = 'block';
+            } else {
+                text1.style.display = 'block';
+                text2.style.display = 'none';
+            }
+        }, 5000); // Change sentences every 5 seconds (adjust as needed)
+    });
+</script>
 <!-- About section start -->
 <section id="about" class="about">
-	<h2>Tentang <span>Kami</span></h2>
+	<h2 style="color: black;">Tentang <span style="color: black;">Kami</span></h2>
 
 	<div class="row">
 		<div class="about-img">
@@ -69,38 +99,38 @@
 
 <!-- Menu geser start -->
 <section id="slide" class="slide">
-<h2><span>Pogram</span> Kami</h2>
-<div class= "card-row">
-		<div class="card">
-			<img src="img/1.jpg">
+<h2 style="color: black;"><span style="color: black;">Pogram</span> Kami</h2>
+<div class= "card-row1">
+		<div class="card1">
+			<img src="img/1.jpg" style="height: 250px;">
 			<h3>Program Kelas 1 SMA</h3>
 			<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
 				Obcaecati rem possimus corrupti,
 				 necessitatibus et eligendi ullam esse totam natus rerum.</p>
 		</div>
-		<div class="card">
-			<img src="img/1.jpg">
+		<div class="card1">
+			<img src="img/1.jpg" style="height: 250px;">
 			<h3>Program Kelas 1 SMA</h3>
 			<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
 				Obcaecati rem possimus corrupti,
 				 necessitatibus et eligendi ullam esse totam natus rerum.</p>
 		</div>
-		<div class="card">
-			<img src="img/1.jpg">
+		<div class="card1">
+			<img src="img/1.jpg" style="height: 250px">
 			<h3>Program Kelas 1 SMA</h3>
 			<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
 				Obcaecati rem possimus corrupti,
 				 necessitatibus et eligendi ullam esse totam natus rerum.</p>
 		</div>
-		<div class="card">
-			<img src="img/1.jpg">
+		<div class="card1">
+			<img src="img/1.jpg" style="height:250px;">
 			<h3>Program Kelas 1 SMA</h3>
 			<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
 				Obcaecati rem possimus corrupti,
 				 necessitatibus et eligendi ullam esse totam natus rerum.</p>
 		</div>
-		<div class="card">
-			<img src="img/1.jpg">
+		<div class="card1">
+			<img src="img/1.jpg" style="height: 250px;">
 			<h3>Program Kelas 1 SMA</h3>
 			<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. 
 				Obcaecati rem possimus corrupti,
@@ -113,7 +143,7 @@
 
 <!-- Kata guru -->
 <section id="swiper" class="swiper mySwiper">
-<h2><span>Kata</span> Mereka</h2>
+<h2 style="color: black;"><span style="color: black;">Kata</span> Mereka</h2>
 	<div class="swiper-wrapper">
 		<div class="card swiper-slide">
 			<div class="card_image">
@@ -186,7 +216,7 @@
 
 <!-- Contact Section start -->
 <section id="contact" class="contact">
-	<h2>Kontak <span>Kami</span></h2>
+	<h2 style="color: black;">Kontak <span style="color: black;">Kami</span></h2>
 	<p>Program bimbel menyediakan guru terampil, materi berkualitas, latihan intensif, dan dukungan</p>
 
 	<div class="row">
@@ -265,6 +295,30 @@
 <script src="js/script.js"></script>
 </body>
 </html>
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
-<!-- https://youtu.be/oE3Zhjt-k98?si=iWw3CUOaWuSKHMrZ -->
-<!-- https://youtu.be/6qrsWYLlTbg?si=pSOTwlKTuSPfcvL4 -->
+<!-- Initialize Swiper -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var swiper = new Swiper(".mySwiper", {
+      effect: "coverflow",
+      grabCursor: true,
+      centeredSlides: true,
+      slidesPerView: "auto",
+      coverflowEffect: {
+        rotate: 0,
+        stretch: 0,
+        depth: 300,
+        modifier: 1,
+        slideShadows: false,
+      },
+      autoplay: {
+        delay: 5000, // Ganti dengan durasi yang diinginkan (dalam milidetik)
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: ".swiper-pagination",
+      },
+    });
+  });
+</script>
