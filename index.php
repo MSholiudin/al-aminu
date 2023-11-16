@@ -128,40 +128,43 @@ if (!isset($_SESSION['username'])) {
         <br/><br/>
 
         <div class="col-div-8" style="position: relative; bottom: 40px;">
-            <div class="box-8">
-                <div class="content-box">
-                    <p>Pemesanan <span>Lihat Semua</span></p>
-                    <br/>
-                    <table>
-                        <tr>
-                            <th>Nama</th>
-                            <th>Username</th>
-                            <th>Password</th>
-                            <th>Aksi</th>
-                        </tr>
-                        <?php
-                        // Mengambil data dari database
-                        $sql = "SELECT * FROM data_pengguna";
-                        $result = $conn->query($sql);
+    <div class="box-8">
+        <div class="content-box">
+            <p>Pemesanan <span>Lihat Semua</span></p>
+            <br/>
+            <table>
+                <tr>
+                    <th>Nama</th>
+                    <th>NO Wa</th>
+                    <th>Cicilan</th>
+                    <th>Status</th>
+                </tr>
+                <?php
+                // Mengambil data dari database
+                $sql = "SELECT data_pengguna.nama, data_pengguna.no_wa, pembayaran.status
+                        FROM data_pengguna
+                        JOIN pembayaran ON data_pengguna.id_pembayaran = pembayaran.id_pembayaran";
+                $result = $conn->query($sql);
 
-                        // Menampilkan data dari database
-                        if ($result->num_rows > 0) {
-                            while ($row = $result->fetch_assoc()) {
-                                echo "<tr>";
-                                echo "<td>" . $row["nama"] . "</td>";
-                                echo "<td>" . $row["username"] . "</td>";
-                                echo "<td>" . $row["password"] . "</td>";
-                                echo "<td><button style='background-color: #00A9FF;' class='view-button' onclick='viewRow(this)'>Lihat</button></td>";
-                                echo "</tr>";
-                            }
-                        } else {
-                            echo "<tr><td colspan='7'>Tidak ada data ditemukan</td></tr>";
-                        }
-                        ?>
-                    </table>
-                </div>
-            </div>
+                // Menampilkan data dari database
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>" . $row["nama"] . "</td>";
+                        echo "<td>" . $row["no_wa"] . "</td>";
+                        echo "<td>" . $row["status"] . "</td>";
+                        echo "<td>" . $row["status"] . "</td>";
+                        echo "</tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='4'>Tidak ada data ditemukan</td></tr>";
+                }
+                ?>
+            </table>
         </div>
+    </div>
+</div>
+
 
         <?php
         // Menutup koneksi

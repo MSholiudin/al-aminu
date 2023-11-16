@@ -94,58 +94,64 @@
 		</div>
 
 		<?php
-		// Mengimpor file koneksi.php
-		require_once('php/koneksi.php');
+    // Mengimpor file koneksi.php
+    require_once('php/koneksi.php');
 
-		// Query untuk mengambil data dari database
-		$query = "SELECT dp.id_pengguna, dp.nama, dp.email, dp.username, dp.password, dp.no_wa, dp.jenis_kelamin, pp.nama_program, dp.status FROM data_pengguna dp INNER JOIN paket_program pp ON dp.id_pengguna = pp.id_pengguna";
+    // Query untuk mengambil data dari database
+    $query = "SELECT 
+                data_pengguna.id_pengguna,
+                data_pengguna.nama,
+                data_pengguna.email,
+                data_pengguna.username,
+                data_pengguna.password,
+                data_pengguna.no_wa,
+                paket_program.nama_program
+            FROM 
+                data_pengguna
+            JOIN 
+                paket_program ON data_pengguna.id_program = paket_program.id_program";
 
-		// Menjalankan query
-		$result = $conn->query($query);
-		?>
+    // Menjalankan query
+    $result = $conn->query($query);
+?>
 
-		<div class="clearfix"></div>
-		<div class="col-div-81" style="position: relative; bottom: 20px; left: 20px;">
-			<div class="box-9" style="height: 630px;">
-				<div class="content-box">
-					<p>Murid <span>Cari</span></p>
-					<br/>
-					<table>
-						<tr>
-							<th>Id_Pengguna</th>
-							<th>Nama</th>
-							<th>Email</th>
-							<th>Username</th>
-							<th>Password</th>
-							<th>No.Wa</th>
-							<th>Jenis Kelamin</th>
-							<th>Kelas</th>
-							<th>Cicilan</th>
-							<th>Status</th>
-						</tr>
-						<?php
-                		// Menampilkan data dari hasil query
-						while ($row = $result->fetch_assoc()) {
-							echo "<tr>";
-							echo "<td>" . $row["id_pengguna"] . "</td>";
-							echo "<td>" . $row["nama"] . "</td>";
-							echo "<td>" . $row["email"] . "</td>";
-							echo "<td>" . $row["username"] . "</td>";
-							echo "<td>" . $row["password"] . "</td>";
-							echo "<td>" . $row["no_wa"] . "</td>";
-							echo "<td>" . $row["jenis_kelamin"] . "</td>";
-							echo "<td>" . $row["nama_program"] . "</td>";
-							echo "<td>" . $row["status"] . "</td>";
-							echo "<td>" . $row["status"] . "</td>";
-							echo "<td><button class='edit-button' onclick='editRow(this)'>Edit</button></td>";
-							echo "<td><button class='delete-button' onclick='deleteRow(this)'>Hapus</button></td>";
-							echo "</tr>";
-						}
-						?>
-					</table>
-				</div>
-			</div>
-		</div>
+<div class="clearfix"></div>
+<div class="col-div-81" style="position: relative; bottom: 20px; left: 20px;">
+    <div class="box-9" style="height: 630px;">
+        <div class="content-box">
+            <p>Murid <span>Cari</span></p>
+            <br/>
+            <table>
+                <tr>
+                    <th>Id_Pengguna</th>
+                    <th>Nama</th>
+                    <th>Email</th>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th>No.Wa</th>
+                    <th>Nama Program</th>
+                    <th>Aksi </th>
+                </tr>
+                <?php
+                    // Menampilkan data dari hasil query
+                    while ($row = $result->fetch_assoc()) {
+                        echo "<tr>";
+                        echo "<td>" . $row["id_pengguna"] . "</td>";
+                        echo "<td>" . $row["nama"] . "</td>";
+                        echo "<td>" . $row["email"] . "</td>";
+                        echo "<td>" . $row["username"] . "</td>";
+                        echo "<td>" . $row["password"] . "</td>";
+                        echo "<td>" . $row["no_wa"] . "</td>";
+                        echo "<td>" . $row["nama_program"] . "</td>";
+                        echo "<td><button class='edit-button' onclick='editRow(this)'>Edit</button> <button class='delete-button' onclick='deleteRow(this)'>Hapus</button></td>";
+                        echo "</tr>";
+                    }
+                ?>
+            </table>
+        </div>
+    </div>
+</div>
+
 
 		<?php
 		// Menutup koneksi

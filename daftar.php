@@ -11,8 +11,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST["password"];
     $gender = isset($_POST["gender"]) ? $_POST["gender"] : null;
     $status = "siswa";
+    $programPackage = isset($_POST["programPackage"]) ? $_POST["programPackage"] : "";
+    $id_pembayaran = "P002";
 
-    $sql = "INSERT INTO data_pengguna (nama, email, username, password, no_wa, jenis_kelamin, status) VALUES ('$name', '$email', '$username', '$password', '$phone', '$gender', '$status')";
+    // Idealnya, gunakan parameterisasi atau fungsi bantu pembuatan query yang aman
+    $sql = "INSERT INTO data_pengguna (nama, email, username, password, no_wa, jenis_kelamin, status, id_program, id_pembayaran) VALUES 
+            ('$name', '$email', '$username', '$password', '$phone', '$gender', '$status', '$programPackage', '$id_pembayaran')";
 
     if ($conn->query($sql) === TRUE) {
         $message = "Pendaftaran berhasil!";
@@ -21,6 +25,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
+// Query untuk mengambil data dari tabel paket_program
+$queryPrograms = "SELECT id_program, nama_program FROM paket_program";
+$resultPrograms = $conn->query($queryPrograms);
 $conn->close();
 ?>
 
@@ -59,8 +66,15 @@ $conn->close();
                     <input type="password" placeholder="Masukkan Password baru" name="password" required>
                 </div>
                 <div class="input-box">
-                    <label for="confirm-password">Konfirmasi Password</label>
-                    <input type="password" placeholder="Konfirmasi password" name="confirmPassword" required>
+                <label for="programPackage">Pilih Program:</label>
+                <select name="programPackage">
+                    <?php
+                    // Tampilkan pilihan program dari database
+                    while ($row = $resultPrograms->fetch_assoc()) {
+                        echo "<option value=\"" . $row["id_program"] . "\">" . $row["nama_program"] . "</option>";
+                    }
+                    ?>
+                </select>
                 </div>
                 <span class="gender-title">Gender</span>
                 <div class="gender-category">
