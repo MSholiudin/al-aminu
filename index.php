@@ -46,15 +46,37 @@ if (!isset($_SESSION['username'])) {
                 <span style="font-size:30px;cursor:pointer; color: black; position: relative; bottom: 7px;" class="nav">Dashboard</span>
                 <span style="font-size:30px;cursor:pointer; color: black; position: relative; bottom: 7px;" class="nav2">☰ Dashboard</span>
             </div>
+            <?php
+            // Mengimpor file koneksi.php
+            require_once('php/koneksi.php');
+            // Cek apakah pengguna sudah login
+            if (isset($_SESSION['username'])) {
+            // Jika sudah login, ambil informasi pengguna dari database berdasarkan username
+                $username = $_SESSION['username'];
+                $query = "SELECT * FROM data_pengguna WHERE username = '$username'";
+                $result = $conn->query($query);
+
+                if ($result->num_rows > 0) {
+                    $user = $result->fetch_assoc();
+                    $nama_pengguna = $user['nama'];
+                }
+            }
+            ?>
 
             <div class="col-div-6">
                 <div class="profile" style="position: relative; bottom: 7px;">
                     <img src="images/user.png" class="pro-img" />
-                    <p style="color: #748DA6;">M fajar dwi p <span>Admin</span></p>
+                    <?php
+                    // Tampilkan nama pengguna jika sudah login
+                    if (isset($nama_pengguna)) {
+                        echo "<p style='color: #748DA6;'>$nama_pengguna <span>Admin</span></p>";
+                    }
+                    ?>
                     <i class="fa fa-regular fa-bell" style="position: relative; right: 30%; bottom: 43px;"></i>
                     <button id="logoutButton" class="icon-a"><i class="fa fa-users icons"></i> Logout</button>
                 </div>
             </div>
+
         </div>
         <div class="clearfix"></div>
         <br/>
@@ -104,46 +126,47 @@ if (!isset($_SESSION['username'])) {
             </div>
         </div>
         <br/><br/>
+
         <div class="col-div-8" style="position: relative; bottom: 40px;">
             <div class="box-8">
                 <div class="content-box">
-                    <p>Pemesanan <span>See All</span></p>
+                    <p>Pemesanan <span>Lihat Semua</span></p>
                     <br/>
                     <table>
                         <tr>
                             <th>Nama</th>
-                            <th>No.hp</th>
-                            <th>Jumlah</th>
-                            <th>Status</th>
+                            <th>Username</th>
+                            <th>Password</th>
+                            <th>Aksi</th>
                         </tr>
-                        <tr>
-                            <td>Alfreds Futterkiste</td>
-                            <td>Maria Anders</td>
-                            <td>Germany</td>
-                            <td>
-                                <button style="background-color: #00A9FF;" class="view-button" onclick="viewRow(this)">View</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Centro comercial Moctezuma</td>
-                            <td>Francisco Chang</td>
-                            <td>Mexico</td>
-                            <td>
-                                <button  style="background-color: #00A9FF;" class="view-button" onclick="viewRow(this)">View</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Ernst Handel</td>
-                            <td>Roland Mendel</td>
-                            <td>Austria</td>
-                            <td>
-                                <button style="background-color: #00A9FF;" class="view-button" onclick="viewRow(this)">View</button>
-                            </td>
-                        </tr>
+                        <?php
+                        // Mengambil data dari database
+                        $sql = "SELECT * FROM data_pengguna";
+                        $result = $conn->query($sql);
+
+                        // Menampilkan data dari database
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo "<tr>";
+                                echo "<td>" . $row["nama"] . "</td>";
+                                echo "<td>" . $row["username"] . "</td>";
+                                echo "<td>" . $row["password"] . "</td>";
+                                echo "<td><button style='background-color: #00A9FF;' class='view-button' onclick='viewRow(this)'>Lihat</button></td>";
+                                echo "</tr>";
+                            }
+                        } else {
+                            echo "<tr><td colspan='7'>Tidak ada data ditemukan</td></tr>";
+                        }
+                        ?>
                     </table>
                 </div>
             </div>
         </div>
+
+        <?php
+        // Menutup koneksi
+        $conn->close();
+        ?>
 
         <div class="col-div-4">
             <div class="box-4" style="position: relative; bottom: 40px; height: 120px;">
@@ -216,5 +239,5 @@ if (!isset($_SESSION['username'])) {
                 }
             });
         </script>
-</body>
-</html>
+    </body>
+    </html>
