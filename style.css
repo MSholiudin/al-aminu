@@ -94,55 +94,55 @@ body{
 
 /*Hero section*/
 .hero {
-    min-height: 100vh;
+	min-height: 100vh;
 	display: flex;
 	align-items: flex-end;
-    background-image: url("img/Desktop\ -\ 2.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    position: relative;
+	background-image: url("img/Desktop\ -\ 2.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	position: relative;
 	bottom: 20%;
 }
 
 .hero-content {
-    padding: 1.5rem 7%;
-    max-width: 60rem;
-    position: relative;
+	padding: 1.5rem 7%;
+	max-width: 60rem;
+	position: relative;
 }
 
 .hero-content h1 {
-    font-size: 5em;
-    color: #068FFF;
-    text-shadow: 1px 1px 3px rgba(1, 1, 3, 0.5);
-    line-height: 1.2;
+	font-size: 5em;
+	color: #068FFF;
+	text-shadow: 1px 1px 3px rgba(1, 1, 3, 0.5);
+	line-height: 1.2;
 	position: relative;
 	bottom: 30%;
 }
 
 .hero-content h1 span {
-    color: var(--primary);
+	color: var(--primary);
 }
 
 .hero-content p {
-    font-size: 1.6rem;
-    color: #fff;
-    margin-top: 1rem;
-    line-height: 1.4;
-    font-weight: 300;
-    text-shadow: 1px 1px 3px rgba(1, 1, 3, 0.5);
+	font-size: 1.6rem;
+	color: #fff;
+	margin-top: 1rem;
+	line-height: 1.4;
+	font-weight: 300;
+	text-shadow: 1px 1px 3px rgba(1, 1, 3, 0.5);
 }
 
 .hero-content .cta {
-    margin-top: 1rem;
-    display: inline-block;
-    padding: 1rem 3rem;
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: #fff;
-    background-color: var(--primary);
-    border-radius: 0.5rem;
-    box-shadow: 1px 1px 3px rgba(1, 1, 3, 0.5);
+	margin-top: 1rem;
+	display: inline-block;
+	padding: 1rem 3rem;
+	font-size: 1.4rem;
+	font-weight: 700;
+	color: #fff;
+	background-color: var(--primary);
+	border-radius: 0.5rem;
+	box-shadow: 1px 1px 3px rgba(1, 1, 3, 0.5);
 }
 /* about section*/
 .about, .contact, .slide, .swiper {
@@ -215,25 +215,27 @@ body{
 }
 
 .card-row {
-    display: flex;
-    justify-content: space-around; /* Adjust as needed */
-    align-items: flex-start; /* Adjust as needed */
-    flex-wrap: wrap;
+	display: flex;
+	justify-content: space-around; /* Sesuaikan kebutuhan Anda */
+	align-items: flex-start; /* Sesuaikan kebutuhan Anda */
+	flex-wrap: wrap;
+	cursor: pointer;
 }
 
 .card {
-    width: 200px; /* Adjust as needed */
-    margin: 10px; /* Adjust as needed */
-    text-align: center;
-    border: 1px solid #ccc; /* Optional: Add a border for separation */
+	width: 180px; /* Sesuaikan kebutuhan Anda */
+	margin: 10px; /* Sesuaikan kebutuhan Anda */
+	text-align: center;
+	border: 1px solid #ccc; /* Optional: Add a border for separation */
+	transition: background-color 0.3s, box-shadow 0.3s; /* Efek transisi ketika hover */
 }
 
 .card:hover {
-	background-color: var(--nav);
+	background-color: var(--primary);
 	box-shadow: 0 16px 32px 0 rgba(0, 0, 0, 0.8);
 }
 
-.card h3{
+.card h3 {
 	margin-bottom: 0.7rem;
 	margin-top: 0.3rem;
 }
@@ -341,16 +343,16 @@ body{
 	color: #fff;
 }
 .card-row1 {
-    display: flex;
-    justify-content: space-around; /* Adjust as needed */
-    align-items: flex-start; /* Adjust as needed */
+	display: flex;
+	justify-content: space-around; /* Adjust as needed */
+	align-items: flex-start; /* Adjust as needed */
 }
 
 .card1 {
-    width: 300px; /* Adjust as needed */
-    margin: 10px; /* Adjust as needed */
-    text-align: center;
-    border: 1px solid #ccc; /* Optional: Add a border for separation */
+	width: 300px; /* Adjust as needed */
+	margin: 10px; /* Adjust as needed */
+	text-align: center;
+	border: 1px solid #ccc; /* Optional: Add a border for separation */
 }
 
 
@@ -397,21 +399,21 @@ footer .credit a {
 
 /*Login admin*/
 .basic {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%; /* Gunakan lebar penuh */
-    max-width: 400px; /* Lebar maksimum */
-    padding: 28px;
-    margin: 0;
-    border-radius: 10px;
-    overflow: hidden;
-    background: var(--primary);
-    box-shadow: 0 15px 20px rgba(0, 0, 0, 0.6);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 100%; /* Gunakan lebar penuh */
+	max-width: 400px; /* Lebar maksimum */
+	padding: 28px;
+	margin: 0;
+	border-radius: 10px;
+	overflow: hidden;
+	background: var(--primary);
+	box-shadow: 0 15px 20px rgba(0, 0, 0, 0.6);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 h2 {
@@ -419,30 +421,30 @@ h2 {
 }
 
 .value {
-    width: 100%;
-    margin-top: 20px;
+	width: 100%;
+	margin-top: 20px;
 }
 
 .inputan {
-    margin-bottom: 20px;
-    width: 100%; /* Lebar penuh */
+	margin-bottom: 20px;
+	width: 100%; /* Lebar penuh */
 }
 
 .inputan label {
-    font-weight: 600;
-    font-size: 16px;
-    /*color: #fff;*/
+	font-weight: 600;
+	font-size: 16px;
+	/*color: #fff;*/
 }
 
 .inputan input {
 	margin-top: 7.5px;
-    width: 100%; /* Lebar penuh */
-    padding: 10px; /* Tambahkan padding jika diperlukan */
+	width: 100%; /* Lebar penuh */
+	padding: 10px; /* Tambahkan padding jika diperlukan */
 }
 
 .button {
-    text-align: center;
-    margin: 15px 0;
+	text-align: center;
+	margin: 15px 0;
 }
 
 .button button {
@@ -465,10 +467,10 @@ h2 {
 /*Form Daftar*/
 .container {
 	position: absolute;
-  	top: 50%;
-  	left: 50%;
-  	transform: translate(-50%, -50%);
-  	width: 75%;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 75%;
 	padding: 28px;
 	margin: 0;
 	border-radius: 10px;
@@ -509,16 +511,16 @@ h2 {
 	font-size: 16px;
 }
 .input-box select {
-    height: 40px;
-    width: 95%;
-    padding: 0 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    outline: none;
+	height: 40px;
+	width: 95%;
+	padding: 0 10px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	outline: none;
 }
 
 .input-box select:is(:focus,:valid) {
-    box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+	box-shadow: 0 3px 6px rgba(0,0,0,0.2);
 }
 
 .input-box input {
@@ -598,7 +600,7 @@ h2 {
 	}
 
 	#hamburger-menu {
-	display: inline-block;
+		display: inline-block;
 	}
 
 	.navbar .navbar-nav {
@@ -655,7 +657,7 @@ h2 {
 	}
 
 	.menu p {
-	font-size: 1.1rem;
+		font-size: 1.1rem;
 	}
 
 	.card-column {
