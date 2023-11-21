@@ -1,7 +1,7 @@
 <!Doctype HTML>
 <html>
 <head>
-	<title></title>
+	<title>Murid</title>
 	<link rel="stylesheet" href="css/style.css" type="text/css"/>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -16,48 +16,70 @@
 		<a href="pemesanan.php"class="icon-a"><i class="fa fa-list icons"></i>   Pemesanan</a>
 		<a href="riwayat.php"class="icon-a"><i class="fa fa-list-alt icons"></i>  Riwayat</a>
 		
-		<script>
-			// Fungsi untuk menampilkan data pada baris tabel
-			function viewRow(button) {
-				document.getElementById("popup").style.display = "block";
-			}
+	<script>
+    function editRow(button) {
+        // Dapatkan data baris yang sesuai dengan tombol Edit yang diklik
+        var row = button.parentNode.parentNode;
 
-			// Fungsi untuk mengedit baris tabel
-			function editRow(button) {
-			  // Dapatkan data baris yang akan diubah
-			  var row = button.parentNode.parentNode;
+        // Dapatkan data dari setiap sel pada baris tersebut
+        var idPengguna = row.cells[0].innerHTML;
+        var nama = row.cells[1].innerHTML;
+        var email = row.cells[2].innerHTML;
+        var username = row.cells[3].innerHTML;
+        var password = row.cells[4].innerHTML;
+        var noWa = row.cells[5].innerHTML;
+        var namaProgram = row.cells[6].innerHTML;
 
-			  // Misalnya, Anda dapat mengambil nilai dari kolom-kolom tabel
-			  var nama = row.cells[0].innerHTML;
-			  var nohp = row.cells[1].innerHTML;
-			  var kelas = row.cells[2].innerHTML;
-			  var cicilan = row.cells[3].innerHTML;
-			  var status = row.cells[4].innerHTML;
+        // Tampilkan formulir edit dalam popup dengan data yang sesuai
+        var popupContent = document.getElementById('popup-content');
+        popupContent.innerHTML = `
+            <span class="close" onclick="closePopup()">&times;</span>
+            <form action="update_data.php" method="post">
+                <input type="hidden" name="id_pengguna" value="${idPengguna}">
+                <label for="nama">Nama:</label>
+                <input type="text" name="nama" value="${nama}">
+                <label for="email">Email:</label>
+                <input type="text" name="email" value="${email}">
+                <label for="username">Username:</label>
+                <input type="text" name="username" value="${username}">
+                <label for="password">Password:</label>
+                <input type="text" name="password" value="${password}">
+                <label for="no_wa">No. Wa:</label>
+                <input type="text" name="no_wa" value="${noWa}">
+                <label for="nama_program">Nama Program:</label>
+                <input type="text" name="nama_program" value="${namaProgram}">
+                <input type="submit" value="Simpan">
+            </form>
+        `;
 
-			  // Lakukan operasi edit sesuai dengan kebutuhan Anda
-			  // Contoh: Tampilkan data yang akan diubah di popup
-			  document.getElementById("popup").style.display = "block";
-			  // Misalnya, isi nilai-nilai input di popup dengan data yang telah diambil
-			  // document.getElementById("namaInput").value = nama;
-			  // document.getElementById("nohpInput").value = nohp;
-			  // document.getElementById("kelasInput").value = kelas;
-			  // document.getElementById("cicilanInput").value = cicilan;
-			  // document.getElementById("statusInput").value = status;
-			}
+        // Tampilkan popup
+        var popup = document.getElementById('popup');
+        popup.style.display = 'block';
+    }
 
-			// Fungsi untuk menghapus baris tabel
-			function deleteRow(button) {
-			  // Dapatkan baris yang akan dihapus
-			  rowToDelete = button.parentNode.parentNode;
-   				 // Tampilkan popup konfirmasi
-   				 document.getElementById("popup").style.display = "block";
-   				}
+	function deleteRow(button) {
+        // Dapatkan data baris yang sesuai dengan tombol Hapus yang diklik
+        var row = button.parentNode.parentNode;
 
-			// Fungsi untuk menutup popup
-			function closePopup() {
-				document.getElementById("popup").style.display = "none";
-			}
-		</script>
+        // Dapatkan data dari kolom pertama (Id_Pengguna)
+        var idPengguna = row.cells[0].innerHTML;
+
+        // Konfirmasi sebelum menghapus
+        var confirmDelete = confirm("Apakah Anda yakin ingin menghapus data ini?");
+        
+        if (confirmDelete) {
+            // Redirect atau lakukan penghapusan data
+            window.location.href = 'delete_data.php?id_pengguna=' + idPengguna;
+        }
+    }
+
+    function closePopup() {
+        // Sembunyikan popup saat tombol close ditekan
+        var popup = document.getElementById('popup');
+        popup.style.display = 'none';
+    }
+</script>
+
 		<script>
 			window.onload = function() {
 				var today = new Date();
@@ -86,12 +108,13 @@
 				</div>
 			</div>
 		</div>
-		<div id="popup" class="popup">
-			<div class="popup-content">
-				<span class="close" onclick="closePopup()">&times;</span>
-				<p>Tekan ini</p>
-			</div>
+			<div id="popup" class="popup">
+    			<div id="popup-content" class="popup-content">
+        		<span class="close" onclick="closePopup()">&times;</span>
+        		<p>Tekan ini</p>
+    		</div>
 		</div>
+
 
 		<?php
     // Mengimpor file koneksi.php

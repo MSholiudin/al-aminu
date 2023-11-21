@@ -47,7 +47,7 @@
 		<main class="content">
 			<div class="hero-content">
 				<h1 class="home1">Mari Belajar di Bimbel <span style="color: #444E96;">Al-Amin</span></h1>
-				<a href="daftar.php" class="cta" style="position: relative; bottom: 40px; right:20px ; height: 100px; width: 430px; font-size: 10mm;">Daftar Sekarang</a>
+				<a href="#slide" class="cta" style="position: relative; bottom: 40px; right:20px ; height: 100px; width: 430px; font-size: 10mm;">Daftar Sekarang</a>
 			</div>
 		</main>
 	</section>
@@ -119,7 +119,7 @@
 
 		// Tampilkan data dalam format HTML
 				echo "<div class='card' href='bayar.php'>";
-				echo "<a href='pembayaran.php?id_program=$id_program'>";
+				echo "<a href='daftar.php'>";
 				echo "<img src='img/1.jpg' style='height: 250px;'>";
 				echo "<h3>$nama_program</h3>";
 				echo "<h4>Rp $harga</h4>";
