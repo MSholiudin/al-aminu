@@ -1,5 +1,6 @@
 <!Doctype HTML>
 <html>
+
 <head>
     <title>Murid</title>
     <link rel="stylesheet" href="css/style.css" type="text/css" />
@@ -146,7 +147,6 @@
             };
         </script>
 
-
     </div>
     <div id="main">
 
@@ -158,7 +158,6 @@
 
             <div class="col-div-6">
                 <div class="profile">
-
                     <img src="images/user.png" class="pro-img" />
                     <p style="color: #748DA6;">M fajar dwi p <span>Admin</span></p>
                     <i class="fa fa-regular fa-bell" style="position: relative; right: 30%; bottom: 43px;"></p></i>
@@ -171,7 +170,6 @@
                 <p>Tekan ini</p>
             </div>
         </div>
-
 
         <?php
         // Mengimpor file koneksi.php
@@ -266,4 +264,5 @@
         </script>
 
 </body>
+
 </html>
