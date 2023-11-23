@@ -11,6 +11,7 @@ if (!isset($_SESSION['username'])) {
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Dashboard</title>
     <link rel="stylesheet" href="css/style.css" type="text/css" />
@@ -51,7 +52,7 @@ if (!isset($_SESSION['username'])) {
             require_once('php/koneksi.php');
             // Cek apakah pengguna sudah login
             if (isset($_SESSION['username'])) {
-            // Jika sudah login, ambil informasi pengguna dari database berdasarkan username
+                // Jika sudah login, ambil informasi pengguna dari database berdasarkan username
                 $username = $_SESSION['username'];
                 $query = "SELECT * FROM data_pengguna WHERE username = '$username'";
                 $result = $conn->query($query);
@@ -79,10 +80,10 @@ if (!isset($_SESSION['username'])) {
 
         </div>
         <div class="clearfix"></div>
-        <br/>
+        <br />
         <div class="gambar">
-            <div class="box3" style="height: 250px; position: relative; right: 160px; width: 290px; bottom: 20px;">
-                <img src="images/2466249.jpg" style="height: 250px; position: relative; left: 20px;"/>
+            <div class="box3" style="position: relative; ">
+                <img src="images/2466249.jpg" style="height: 150px; position: relative; right: 180px; width: 150px;" />
             </div>
         </div>
         <div class="gambar1" style="outline: #DAF5FF; position: relative; bottom: 35px;">
@@ -93,27 +94,27 @@ if (!isset($_SESSION['username'])) {
             </div>
         </div>
 
-        <div class="col-div-3 "style="left: 7%; position: relative; bottom: 25px">
+        <div class="col-div-3 " style="left: 7%; position: relative; bottom: 25px">
             <div class="box">
-                <p style="color: aqua;">67<br/><span>Murid</span></p>
+                <p style="color: aqua;">67<br /><span>Murid</span></p>
                 <i class="fa fa-users box-icon"></i>
             </div>
         </div>
         <div class="col-div-3" style="position: relative; bottom: 24px">
             <div class="box">
-                <p style="color: aqua;">88<br/><span>Riwayat</span></p>
+                <p style="color: aqua;">88<br /><span>Riwayat</span></p>
                 <i class="fa fa-list box-icon"></i>
             </div>
         </div>
-        <div class="col-div-3"style="left: 7%; position: relative; bottom: 25px">
+        <div class="col-div-3" style="left: 7%; position: relative; bottom: 25px">
             <div class="box">
-                <p style="color: aqua;">99<br/><span>Pesan</span></p>
+                <p style="color: aqua;">99<br /><span>Pesan</span></p>
                 <i class="fa fa-shopping-bag box-icon"></i>
             </div>
         </div>
         <div class="col-div-3">
             <div class="box" style="position: relative; bottom: 25px">
-                <p style="color: aqua;">78<br/><span>Tasks</span></p>
+                <p style="color: aqua;">78<br /><span>Tasks</span></p>
                 <i class="fa fa-tasks box-icon"></i>
             </div>
         </div>
@@ -125,45 +126,45 @@ if (!isset($_SESSION['username'])) {
                 </div>
             </div>
         </div>
-        <br/><br/>
+        <br /><br />
 
         <div class="col-div-8" style="position: relative; bottom: 40px;">
-    <div class="box-8">
-        <div class="content-box">
-            <p>Pemesanan <span>Lihat Semua</span></p>
-            <br/>
-            <table>
-                <tr>
-                    <th>Nama</th>
-                    <th>NO Wa</th>
-                    <th>Cicilan</th>
-                    <th>Status</th>
-                </tr>
-                <?php
-                // Mengambil data dari database
-                $sql = "SELECT data_pengguna.nama, data_pengguna.no_wa, pembayaran.status
+            <div class="box-8">
+                <div class="content-box">
+                    <p>Pemesanan <span>Lihat Semua</span></p>
+                    <br />
+                    <table>
+                        <tr>
+                            <th>Nama</th>
+                            <th>NO Wa</th>
+                            <th>Cicilan</th>
+                            <th>Status</th>
+                        </tr>
+                        <?php
+                        // Mengambil data dari database
+                        $sql = "SELECT data_pengguna.nama, data_pengguna.no_wa, pembayaran.status
                         FROM data_pengguna
                         JOIN pembayaran ON data_pengguna.id_pembayaran = pembayaran.id_pembayaran";
-                $result = $conn->query($sql);
+                        $result = $conn->query($sql);
 
-                // Menampilkan data dari database
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        echo "<tr>";
-                        echo "<td>" . $row["nama"] . "</td>";
-                        echo "<td>" . $row["no_wa"] . "</td>";
-                        echo "<td>" . $row["status"] . "</td>";
-                        echo "<td>" . $row["status"] . "</td>";
-                        echo "</tr>";
-                    }
-                } else {
-                    echo "<tr><td colspan='4'>Tidak ada data ditemukan</td></tr>";
-                }
-                ?>
-            </table>
+                        // Menampilkan data dari database
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo "<tr>";
+                                echo "<td>" . $row["nama"] . "</td>";
+                                echo "<td>" . $row["no_wa"] . "</td>";
+                                echo "<td>" . $row["status"] . "</td>";
+                                echo "<td>" . $row["status"] . "</td>";
+                                echo "</tr>";
+                            }
+                        } else {
+                            echo "<tr><td colspan='4'>Tidak ada data ditemukan</td></tr>";
+                        }
+                        ?>
+                    </table>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 
 
         <?php
@@ -174,73 +175,157 @@ if (!isset($_SESSION['username'])) {
         <div class="col-div-4">
             <div class="box-4" style="position: relative; bottom: 40px; height: 120px;">
                 <div class="content-box">
-                    <p>Hari ini</p>
                     <div style="text-align: left;" id="tanggal">Tanggal: </div>
                     <div id="jam">Jam: </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-div-4">
-            <div class="box-4" style="position: relative; bottom: 20px; width: 30px; height: px;">
-                <div class="content-box " style="background-color:;">
-                    <img src="images/images.jpeg " style="height: 150px; position:relative; bottom: 20px; width: 280px; left: 40px;">
-                    <div class="clearfix"></div>
+                <style>
+                    /* Gaya CSS untuk memberikan jarak pada tabel */
+                    .table-container {
+                        max-height: 300px;
+                        /* Sesuaikan tinggi maksimal sesuai kebutuhan */
+                        overflow-y: auto;
+                        width: 100%;
+                    }
+
+                    .custom-table {
+                        width: 100%;
+                        border-collapse: collapse;
+                    }
+
+                    .custom-table th,
+                    .custom-table td {
+                        border: 1px solid #dddddd;
+                        text-align: left;
+                        padding: 12px;
+                        /* Sesuaikan padding sesuai kebutuhan untuk memberikan jarak */
+                    }
+
+                    /* Gaya CSS untuk tombol "Cari" */
+                    .search-button {
+                        float: right;
+                        margin-bottom: 10px;
+                        /* Jarak dari tabel */
+                        margin-right: 10px;
+                        /* Jarak dari pojok kanan */
+                    }
+
+                    /* Gaya CSS untuk header tabel */
+                    .table-header {
+                        position: sticky;
+                        top: 0;
+                        background-color: #f2f2f2;
+                        z-index: 1;
+                    }
+
+                    .table-content {
+                        max-height: 150px;
+                        /* Sesuaikan tinggi maksimal sesuai kebutuhan */
+                        overflow-y: auto;
+                    }
+                </style>
+                <button class="search-button">Cari</button>
+                <div class="table-container">
+                    <div class="table-content">
+                        <table class="custom-table">
+                            <thead class="table-header">
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Kelas</th>
+                                    <th>Email</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <!-- Isi tabel -->
+                                    <td>JohnDoe</td>
+                                    <td>12A</td>
+                                    <td>johndoe@example.com</td>
+                                </tr>
+                                <tr>
+                                    <!-- Isi tabel -->
+                                    <td>JohnDoe</td>
+                                    <td>12A</td>
+                                    <td>johndoe@example.com</td>
+                                </tr>
+                                <tr>
+                                    <!-- Isi tabel -->
+                                    <td>JohnDoe</td>
+                                    <td>12A</td>
+                                    <td>johndoe@example.com</td>
+                                </tr>
+                                <!-- Tambahkan baris lain jika diperlukan -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script>
-            $(".nav").click(function(){
-                $("#mySidenav").css('width','70px');
-                $("#main").css('margin-left','70px');
-                $(".logo").css('visibility', 'hidden');
-                $(".logo span").css('visibility', 'visible');
-                $(".logo span").css('margin-left', '-10px');
-                $(".icon-a").css('visibility', 'hidden');
-                $(".icons").css('visibility', 'visible');
-                $(".icons").css('margin-left', '-8px');
-                $(".nav").css('display','none');
-                $(".nav2").css('display','block');
-            });
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                <script>
+                    $(".nav").click(function() {
+                        $("#mySidenav").css('width', '70px');
+                        $("#main").css('margin-left', '70px');
+                        $(".logo").css('visibility', 'hidden');
+                        $(".logo span").css('visibility', 'visible');
+                        $(".logo span").css('margin-left', '-10px');
+                        $(".icon-a").css('visibility', 'hidden');
+                        $(".icons").css('visibility', 'visible');
+                        $(".icons").css('margin-left', '-8px');
+                        $(".nav").css('display', 'none');
+                        $(".nav2").css('display', 'block');
+                    });
 
-            $(".nav2").click(function(){
-                $("#mySidenav").css('width','300px');
-                $("#main").css('margin-left','300px');
-                $(".logo").css('visibility', 'visible');
-                $(".icon-a").css('visibility', 'visible');
-                $(".icons").css('visibility', 'visible');
-                $(".nav").css('display','block');
-                $(".nav2").css('display','none');
-            });
-        </script>
+                    $(".nav2").click(function() {
+                        $("#mySidenav").css('width', '300px');
+                        $("#main").css('margin-left', '300px');
+                        $(".logo").css('visibility', 'visible');
+                        $(".icon-a").css('visibility', 'visible');
+                        $(".icons").css('visibility', 'visible');
+                        $(".nav").css('display', 'block');
+                        $(".nav2").css('display', 'none');
+                    });
+                </script>
 
-        <!-- Kode untuk menampilkan tanggal dan jam -->
-        <script>
-            function updateDateTime() {
-                var today = new Date();
-                var options = { year: 'numeric', month: 'long', day: 'numeric' };
-                var formattedDate = today.toLocaleDateString(undefined, options);
-                document.getElementById('tanggal').textContent = "Tanggal: " + formattedDate;
+                <!-- Kode untuk menampilkan tanggal dan jam -->
+                <script>
+                    // Fungsi untuk mendapatkan dan memformat tanggal
+                    function updateTanggal() {
+                        var today = new Date();
+                        var options = {
+                            weekday: 'long',
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                        };
+                        var formattedDate = today.toLocaleDateString(undefined, options);
+                        document.getElementById('tanggal').textContent = 'Tanggal: ' + formattedDate;
+                    }
 
-                var time = today.toLocaleTimeString();
-                document.getElementById('jam').textContent = "Jam: " + time;
-            }
+                    // Fungsi untuk mendapatkan dan memformat jam
+                    function updateJam() {
+                        var today = new Date();
+                        var formattedTime = today.getHours() + ':' + (today.getMinutes() < 10 ? '0' : '') + today.getMinutes() + ':' + (today.getSeconds() < 10 ? '0' : '') + today.getSeconds();
+                        document.getElementById('jam').textContent = 'Jam: ' + formattedTime;
+                    }
 
-            // Memanggil updateDateTime() setiap detik (1000 milidetik)
-            setInterval(updateDateTime, 1000);
+                    // Panggil fungsi updateTanggal dan updateJam saat halaman dimuat
+                    window.onload = function() {
+                        updateTanggal();
+                        updateJam();
 
-            // Memanggil updateDateTime() saat halaman dimuat
-            window.onload = updateDateTime;
-        </script>
+                        // Perbarui waktu setiap detik
+                        setInterval(function() {
+                            updateJam();
+                        }, 1000);
+                    };
+                </script>
+                <!-- Kode untuk logout -->
+                <script>
+                    document.getElementById("logoutButton").addEventListener("click", function() {
+                        if (confirm("Apakah Anda yakin ingin keluar?")) {
+                            // Redirect ke halaman logout.php setelah konfirmasi OK
+                            window.location.href = "logout.php";
+                        }
+                    });
+                </script>
+</body>
 
-        <!-- Kode untuk logout -->
-        <script>
-            document.getElementById("logoutButton").addEventListener("click", function() {
-                if (confirm("Apakah Anda yakin ingin keluar?")) {
-                    // Redirect ke halaman logout.php setelah konfirmasi OK
-                    window.location.href = "logout.php";
-                }
-            });
-        </script>
-    </body>
-    </html>
+</html>

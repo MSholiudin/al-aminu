@@ -18,19 +18,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($row["status"] == "admin") {
                 $_SESSION["username"] = $username;
                 $message = "Login berhasil!";
-                ?>
+?>
                 <script>
                     alert("<?php echo $message; ?>");
                     window.location.href = "index.php";
                 </script>
-                <?php
+            <?php
             } else {
                 $message = "Anda bukan admin. Hanya admin yang diizinkan login.";
-                ?>
+            ?>
                 <script>
                     alert("<?php echo $message; ?>");
                 </script>
-                <?php
+            <?php
             }
         } else {
             $message = "Password salah";
@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <script>
                 alert("<?php echo $message; ?>");
             </script>
-            <?php
+        <?php
         }
     } else {
         $message = "Username tidak ditemukan";
@@ -46,12 +46,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <script>
             alert("<?php echo $message; ?>");
         </script>
-        <?php
+<?php
     }
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -60,8 +61,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"></script>
 </head>
+
 <body>
-<style>
+    <style>
         body {
             display: flex;
             align-items: center;
@@ -123,52 +125,59 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             height: 100%;
             object-fit: cover;
         }
-        body, html {
-    height: 100%;
-    margin: 0;
-    overflow: hidden;
-}
 
-.sky {
-    background-color: #87CEEB; /* Sky Blue */
-    height: 100%;
-    animation: skyAnimation 20s linear 1;
-}
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+        }
 
-.bird-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
+        .sky {
+            background-color: #87CEEB;
+            /* Sky Blue */
+            height: 100%;
+            animation: skyAnimation 20s linear 1;
+        }
 
-.bird {
-    width: 50px;
-    height: 30px;
-    background-color: #FFD700; /* Gold */
-    clip-path: polygon(0 0, 100% 50%, 0 100%);
-    animation: birdAnimation 30s linear infinite;
-}
+        .bird-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
 
-@keyframes skyAnimation {
-    0% {
-        background-position: 0 0;
-    }
-    100% {
-        background-position: 100% 0;
-    }
-}
+        .bird {
+            width: 50px;
+            height: 30px;
+            background-color: #FFD700;
+            /* Gold */
+            clip-path: polygon(0 0, 100% 50%, 0 100%);
+            animation: birdAnimation 30s linear infinite;
+        }
 
-@keyframes birdAnimation {
-    0% {
-        transform: translateX(-1800%);
-    }
-    100% {
-        transform: translateX(50vw);
-        display: none;
-    }
-}
-.password-input {
+        @keyframes skyAnimation {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 100% 0;
+            }
+        }
+
+        @keyframes birdAnimation {
+            0% {
+                transform: translateX(-1800%);
+            }
+
+            100% {
+                transform: translateX(50vw);
+                display: none;
+            }
+        }
+
+        .password-input {
             position: relative;
         }
 
@@ -185,84 +194,86 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             transform: translateY(-50%);
         }
     </style>
-</head>
-<body>
+    </head>
 
-<div class="login-container">
-    <div class="login-form">
-    <div class="sky">
-        <div class="bird-container">
-            <div class="bird"></div>
-        </div>
-    </div>
-        <form action="" method="post">
-            <h2 style="color: #444E96;">LOGIN</h2>
-            <div class="value">
-                <div class="inputan">
-                    <label style="text-align: left;" for="username">Username</label>
-                    <input type="text" placeholder="Masukkan Username" name="uname" required>
+    <body>
+
+        <div class="login-container">
+            <div class="login-form">
+                <div class="sky">
+                    <div class="bird-container">
+                        <div class="bird"></div>
+                    </div>
                 </div>
-                <div class="inputan">
-    <label style="text-align: left;" for="password">Password</label>
-    <div class="password-input">
-        <input type="password" id="passwordInput" placeholder="Masukkan Password" name="password" required>
-        <i data-feather="eye" id="togglePassword"></i>
-    </div>
-</div>
+                <form action="" method="post">
+                    <h2 style="color: #444E96;">LOGIN</h2>
+                    <div class="value">
+                        <div class="inputan">
+                            <label style="text-align: left;" for="username">Username</label>
+                            <input type="text" placeholder="Masukkan Username" name="uname" required>
+                        </div>
+                        <div class="inputan">
+                            <label style="text-align: left;" for="password">Password</label>
+                            <div class="password-input">
+                                <input type="password" id="passwordInput" placeholder="Masukkan Password" name="password" required>
+                                <i data-feather="eye" id="togglePassword"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button">
+                        <button type="submit">Login</button>
+                    </div>
+                    <div class="button">
+                        <button>Kembali</button>
+                    </div>
+                </form>
             </div>
-            <div class="button">
-                <button type="submit">Login</button>
-            </div>
-            <div class="button">
-                <button>Kembali</button>
-            </div>
-        </form>
-    </div>
 
-    <div class="login-image">
-        <!-- Tempatkan gambar Anda di sini -->
-        <img src="img/OIG (2).jpeg" alt="Gambar">
-    </div>
-</div>
-    
+            <div class="login-image">
+                <!-- Tempatkan gambar Anda di sini -->
+                <img src="img/OIG (2).jpeg" alt="Gambar">
+            </div>
+        </div>
+
         </form>
-    </div>
-</body>
+        </div>
+    </body>
+
 </html>
 <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const passwordInput = document.getElementById('passwordInput');
+    document.addEventListener('DOMContentLoaded', function() {
+        const passwordInput = document.getElementById('passwordInput');
 
-            feather.replace(); // Activating Feather Icons
+        feather.replace(); // Activating Feather Icons
 
-            passwordInput.addEventListener('input', function () {
-                feather.replace(); // Replacing icons when the input changes
-            });
+        passwordInput.addEventListener('input', function() {
+            feather.replace(); // Replacing icons when the input changes
         });
-    </script>
-  <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const passwordInput = document.getElementById('passwordInput');
-            const togglePassword = document.getElementById('togglePassword');
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const passwordInput = document.getElementById('passwordInput');
+        const togglePassword = document.getElementById('togglePassword');
 
-            togglePassword.addEventListener('click', function () {
-                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                passwordInput.setAttribute('type', type);
-                togglePassword.classList.toggle('closed');
+        togglePassword.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            togglePassword.classList.toggle('closed');
 
-                // Remove existing icon
-                while (togglePassword.firstChild) {
-                    togglePassword.removeChild(togglePassword.firstChild);
-                }
+            // Remove existing icon
+            while (togglePassword.firstChild) {
+                togglePassword.removeChild(togglePassword.firstChild);
+            }
 
-                // Create a new icon
-                const newIcon = document.createElement('span');
-                newIcon.setAttribute('data-feather', togglePassword.classList.contains('closed') ? 'eye-off' : 'eye');
-                togglePassword.appendChild(newIcon);
+            // Create a new icon
+            const newIcon = document.createElement('span');
+            newIcon.setAttribute('data-feather', togglePassword.classList.contains('closed') ? 'eye-off' : 'eye');
+            togglePassword.appendChild(newIcon);
 
-                feather.replace(); // Replacing icons when the input changes
-            });
-
-            feather.replace(); // Activating Feather Icons after initial load
+            feather.replace(); // Replacing icons when the input changes
         });
-    </script>
+
+        feather.replace(); // Activating Feather Icons after initial load
+    });
+</script>
