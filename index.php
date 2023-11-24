@@ -45,12 +45,14 @@ if (!isset($_SESSION['username'])) {
     <div id="main">
         <div class="head" style="background-color: white; height: 30px; bottom: 35px; position: relative;">
             <div class="col-div-6">
-                <span style="font-size:30px;cursor:pointer; color: black; position: relative; bottom: 7px;" class="nav">Dashboard</span>
-                <span style="font-size:30px;cursor:pointer; color: black; position: relative; bottom: 7px;" class="nav2">☰ Dashboard</span>
+                <span style="font-size:30px;cursor:pointer; color: black; position: relative; bottom: 7px;"
+                    class="nav">Dashboard</span>
+                <span style="font-size:30px;cursor:pointer; color: black; position: relative; bottom: 7px;"
+                    class="nav2">☰ Dashboard</span>
             </div>
             <?php
-            // Mengimpor file koneksi.php
             require_once('php/koneksi.php');
+
             // Cek apakah pengguna sudah login
             if (isset($_SESSION['username'])) {
                 // Jika sudah login, ambil informasi pengguna dari database berdasarkan username
@@ -62,6 +64,9 @@ if (!isset($_SESSION['username'])) {
                     $user = $result->fetch_assoc();
                     $nama_pengguna = $user['nama'];
                 }
+            } else {
+                // Jika pengguna belum login, beri nilai default untuk $nama_pengguna
+                $nama_pengguna = "Username";
             }
             ?>
 
@@ -167,14 +172,13 @@ if (!isset($_SESSION['username'])) {
                         <tr>
                             <th>Nama</th>
                             <th>NO Wa</th>
-                            <th>Cicilan</th>
                             <th>Status</th>
                         </tr>
                         <?php
                         // Mengambil data dari database
-                        $sql = "SELECT data_pengguna.nama, data_pengguna.no_wa, pembayaran.status
-                        FROM data_pengguna
-                        JOIN pembayaran ON data_pengguna.id_pembayaran = pembayaran.id_pembayaran";
+                        $sql = "SELECT dp.nama, dp.no_wa, p.status
+                        FROM data_pengguna dp
+                        JOIN pembayaran p ON dp.id_pengguna = p.id_pengguna";
                         $result = $conn->query($sql);
 
                         // Menampilkan data dari database
@@ -183,7 +187,6 @@ if (!isset($_SESSION['username'])) {
                                 echo "<tr>";
                                 echo "<td>" . $row["nama"] . "</td>";
                                 echo "<td>" . $row["no_wa"] . "</td>";
-                                echo "<td>" . $row["status"] . "</td>";
                                 echo "<td>" . $row["status"] . "</td>";
                                 echo "</tr>";
                             }
@@ -251,12 +254,11 @@ if (!isset($_SESSION['username'])) {
                                 <!-- Tambahkan baris lain jika diperlukan -->
                             </tbody>
                         </table>
-                   
                     </div>
                 </div>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
                 <script>
-                    $(".nav").click(function() {
+                    $(".nav").click(function () {
                         $("#mySidenav").css('width', '70px');
                         $("#main").css('margin-left', '70px');
                         $(".logo").css('visibility', 'hidden');
@@ -269,7 +271,7 @@ if (!isset($_SESSION['username'])) {
                         $(".nav2").css('display', 'block');
                     });
 
-                    $(".nav2").click(function() {
+                    $(".nav2").click(function () {
                         $("#mySidenav").css('width', '300px');
                         $("#main").css('margin-left', '300px');
                         $(".logo").css('visibility', 'visible');
@@ -303,19 +305,19 @@ if (!isset($_SESSION['username'])) {
                     }
 
                     // Panggil fungsi updateTanggal dan updateJam saat halaman dimuat
-                    window.onload = function() {
+                    window.onload = function () {
                         updateTanggal();
                         updateJam();
 
                         // Perbarui waktu setiap detik
-                        setInterval(function() {
+                        setInterval(function () {
                             updateJam();
                         }, 1000);
                     };
                 </script>
                 <!-- Kode untuk logout -->
                 <script>
-                    document.getElementById("logoutButton").addEventListener("click", function() {
+                    document.getElementById("logoutButton").addEventListener("click", function () {
                         if (confirm("Apakah Anda yakin ingin keluar?")) {
                             // Redirect ke halaman logout.php setelah konfirmasi OK
                             window.location.href = "logout.php";

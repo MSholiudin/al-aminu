@@ -249,6 +249,7 @@
 
                     <!-- Ganti untuk bulan-bulan lainnya -->
                 </form>
+
                 <div class="gambar" style="width: 300px; background-color: #f4f4f4; height: 330px; position: relative; left: 410px; bottom: 580px; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
     <h2 style="color: black; text-align: center; margin-bottom: 20px;">Pembayaran</h2>
 

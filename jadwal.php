@@ -195,7 +195,6 @@
 		<div class="clearfix"></div>
 		<!-- buat sebuah button dengan id="btn-kalender" -->
 		<!-- buat sebuah input dengan type="date" dan id="input-kalender" -->
-
 		<div class="popup" id="popupJadwal">
 			<!-- Konten Popup -->
 			<h2>Isi Jadwal</h2>
@@ -213,7 +212,6 @@
 
 		</div>
 		<div class="overlay" id="overlay" onclick="tutupPopup()"></div>
-
 		<div class="col-div-8" style="position: relative; bottom: 0px;">
 			<div class="box-8">
 				<style>
@@ -279,7 +277,6 @@
 					<input type="text" id="namaMentor" name="namaMentor" required>
 					<label for="mapelMentor">Mata Pelajaran:</label>
 					<input type="text" id="mapelMentor" name="mapelMentor" required>
-
 					<div class="button-container">
 						<button onclick="simpanMentor()">Simpan</button>
 						<button style="position: relative; top: 10px; background-color: red;" class="cancel" onclick="tutupPopupMentor()">Tutup</button>
@@ -296,24 +293,33 @@
 							<th>Mapel</th>
 							<th>Materi</th>
 						</tr>
-						<?php
-						// Mengecek apakah query menghasilkan hasil
-						if ($resultJadwal->num_rows > 0) {
-							// Menampilkan data dalam tabel
-							while ($row = $resultJadwal->fetch_assoc()) {
-								echo "<tr>";
-								echo "<td>" . $row["hari"] . "</td>";
-								echo "<td>" . $row["jam"] . "</td>";
-								echo "<td>" . $row["nama_mentor"] . "</td>";
-								echo "<td>" . $row["nama_mapel"] . "</td>";
-								echo "<td>" . $row["materi"] . "</td>";
-								echo "</tr>";
+							<?php
+							// Mengecek apakah query menghasilkan hasil
+							if ($resultJadwal->num_rows > 0) {
+								// Menampilkan data dalam tabel
+								while ($row = $resultJadwal->fetch_assoc()) {
+									echo "<tr>";
+									echo "<td>" . $row["hari"] . "</td>";
+									echo "<td>" . $row["jam"] . "</td>";
+									echo "<td>" . $row["nama_mentor"] . "</td>";
+									echo "<td>" . $row["nama_mapel"] . "</td>";
+									echo "<td>" . $row["materi"] . "</td>";
+									echo "</tr>";
+								}
+							} else {
+								// Jika tidak ada hasil
+								echo "<tr><td colspan='5'>Tidak ada data jadwal.</td></tr>";
 							}
-						} else {
-							// Jika tidak ada hasil
-							echo "<tr><td colspan='5'>Tidak ada data jadwal.</td></tr>";
-						}
-						?>
+							?>
+					</table>
+					<div class="content-box" style="position: relative; background-color: #f2f2f2; bottom: 165px; left: 950px; width: 30%;">
+					<p>Mentor <span>Tambah Mentor</span></p>
+					<br />
+					<table>
+						<tr>
+							<th>Mentor</th>
+							<th>Mapel</th>
+						</tr>
 					</table>
 					<div class="content-box" style="position: relative; background-color: #f2f2f2; bottom: 165px; left: 950px; width: 30%;">
 						<p>Mentor <button style="position: relative; height: 30px; left: 80px;" onclick="tampilkanPopupMentor()">Tambah Mentor</button></p>
