@@ -38,6 +38,7 @@ if (!isset($_SESSION['username'])) {
         <a href="jadwal.php" class="icon-a"><i class="fa fa-user icons"></i> Jadwal</a>
         <a href="murid.php" class="icon-a"><i class="fa fa-users icons"></i> Murid</a>
         <a href="pemesanan.php" class="icon-a"><i class="fa fa-list icons"></i> Pemesanan</a>
+        <a href="cicilan.php"class="icon-a"><i class="fa fa-list icons"></i>   Cicilan</a>
         <a href="riwayat.php" class="icon-a"><i class="fa fa-list-alt icons"></i> Riwayat</a>
     </div>
 
@@ -77,20 +78,49 @@ if (!isset($_SESSION['username'])) {
                     <button id="logoutButton" class="icon-a"><i class="fa fa-users icons"></i> Logout</button>
                 </div>
             </div>
-
         </div>
+        <style>
+        .changing-text {
+            left: 20px;
+            font-size: 10mm;
+            position: relative;
+            top: 25px;
+        }
+    </style>
         <div class="clearfix"></div>
         <br />
         <div class="gambar">
             <div class="box3" style="position: relative; ">
-                <img src="images/2466249.jpg" style="height: 150px; position: relative; right: 180px; width: 150px;" />
+                <img src="images/2466249.jpg" style="height: 250px; position: relative; right: 180px; width: 250px; bottom: 40px;" />
             </div>
         </div>
         <div class="gambar1" style="outline: #DAF5FF; position: relative; bottom: 35px;">
             <div class="box3" style="height: 250px; width: 450px; outline: DAF5FF;">
-                <b style="left: 20px; font-size: 10mm; position: relative; top: 25px;">Hi, Username</b>
+            <b class="changing-text">Hello, Username!</b>
+
+<script>
+    // Array of sentences to be displayed
+    const sentences = [
+        "Selamat datang!",
+        "Bagaimana kabarmu?",
+        "Hello, Username!"
+    ];
+    const changingTextElements = document.querySelectorAll('.changing-text');
+
+    // Function to change the text for each element
+    function changeText(element) {
+        const randomIndex = Math.floor(Math.random() * sentences.length);
+        element.textContent = sentences[randomIndex];
+    }
+
+    // Change the text for each element every 3 seconds (3000 milliseconds)
+    changingTextElements.forEach(element => {
+        setInterval(() => changeText(element), 3000);
+    });
+    </script>
+    
                 <p style="position: relative; top: 20px; left: 20px;">Selamat datang di manajemen aplikasi bimbel Al - Amin, selamat memakai fitur yang telah kami sediakan</p>
-                <button class="rounded-button" style="width: 200px; height: 45px; position: relative; left: 125px; top: 25%; outline: white; background-color: 00A9FF;">Lihat Pesanan</button>
+                <a class="search-button button-style" href="jadwal.php" style="width: 200px; height: 45px; position: relative; left: 125px; top: 25%; outline: white; background-color: #00A9FF; border-radius: 25px; text-align: center; line-height: 45px; display: inline-block; font-size: 5mm;">Lihat Jadwal</a>
             </div>
         </div>
 
@@ -173,66 +203,31 @@ if (!isset($_SESSION['username'])) {
         ?>
 
         <div class="col-div-4">
-            <div class="box-4" style="position: relative; bottom: 40px; height: 120px;">
+            <div class="box-4" style="position: relative; bottom: 50px; height: 110px;">
                 <div class="content-box">
                     <div style="text-align: left;" id="tanggal">Tanggal: </div>
                     <div id="jam">Jam: </div>
                 </div>
                 <style>
-                    /* Gaya CSS untuk memberikan jarak pada tabel */
-                    .table-container {
-                        max-height: 300px;
-                        /* Sesuaikan tinggi maksimal sesuai kebutuhan */
-                        overflow-y: auto;
-                        width: 100%;
-                    }
-
-                    .custom-table {
-                        width: 100%;
-                        border-collapse: collapse;
-                    }
-
-                    .custom-table th,
-                    .custom-table td {
-                        border: 1px solid #dddddd;
-                        text-align: left;
-                        padding: 12px;
-                        /* Sesuaikan padding sesuai kebutuhan untuk memberikan jarak */
-                    }
-
-                    /* Gaya CSS untuk tombol "Cari" */
-                    .search-button {
-                        float: right;
-                        margin-bottom: 10px;
-                        /* Jarak dari tabel */
-                        margin-right: 10px;
-                        /* Jarak dari pojok kanan */
-                    }
-
-                    /* Gaya CSS untuk header tabel */
-                    .table-header {
-                        position: sticky;
-                        top: 0;
-                        background-color: #f2f2f2;
-                        z-index: 1;
-                    }
-
-                    .table-content {
-                        max-height: 150px;
-                        /* Sesuaikan tinggi maksimal sesuai kebutuhan */
-                        overflow-y: auto;
+                    .button-style {
+                        /* Gaya tombol Anda di sini */
+                        padding: 10px 15px;
+                        background-color: #3498db;
+                        color: #fff;
+                        text-decoration: none;
+                        border-radius: 5px;
+                        display: inline-block;
                     }
                 </style>
-                <button class="search-button">Cari</button>
-                <div class="table-container">
+
+                <div class="table-container" style="position: relative; top: 25px;">
                     <div class="table-content">
                         <table class="custom-table">
-                            <thead class="table-header">
-                                <tr>
-                                    <th>Username</th>
-                                    <th>Kelas</th>
-                                    <th>Email</th>
-                                </tr>
+                            <tr>
+                                <th>Username</th>
+                                <th>Kelas</th>
+                                <th>Email <a href="murid.php" class="search-button button-style" style="position: relative; left: 10px; background-color: #00A9FF;">Lihat Murid</a></th>
+                            </tr>
                             </thead>
                             <tbody>
                                 <tr>
@@ -256,6 +251,7 @@ if (!isset($_SESSION['username'])) {
                                 <!-- Tambahkan baris lain jika diperlukan -->
                             </tbody>
                         </table>
+                   
                     </div>
                 </div>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
