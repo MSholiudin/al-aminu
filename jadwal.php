@@ -15,6 +15,7 @@
 		<a href="jadwal.php" class="icon-a"><i class="fa fa-user icons"></i> Jadwal</a>
 		<a href="murid.php" class="icon-a"><i class="fa fa-users icons"></i> Murid</a>
 		<a href="pemesanan.php" class="icon-a"><i class="fa fa-list icons"></i> Pemesanan</a>
+		<a href="cicilan.php" class="icon-a"><i class="fa fa-list icons"></i> Cicilan</a>
 		<a href="riwayat.php" class="icon-a"><i class="fa fa-list-alt icons"></i> Riwayat</a>
 		<script>
 			// Fungsi untuk menampilkan data pada baris tabel
@@ -114,8 +115,41 @@
 		<!-- buat sebuah button dengan id="btn-kalender" -->
 		<!-- buat sebuah input dengan type="date" dan id="input-kalender" -->
 		<button style="position: relative; left: 1050px;" class="tombol">Tambah Jadwal</button>
-		<div class="col-div-8" style="position: relative; bottom: 40px;">
+		<div class="col-div-8" style="position: relative; bottom: 0px;">
 			<div class="box-8">
+				<style>
+					.col-div-9 {
+						flex-basis: 800px;
+						height: 50px;
+						width: 10px;
+					}
+
+					.box-9 {
+						background-color: #f4f4f4;
+						padding: 20px;
+						border-radius: 8px;
+						width: 300px;
+						position: relative;
+						left: 950px;
+					}
+
+					.table1 {
+						width: 50%;
+						border-collapse: collapse;
+						margin-top: 20px;
+					}
+
+					.th1,
+					.td1 {
+						border: 1px solid #ddd;
+						padding: 8px;
+						text-align: left;
+					}
+
+					.th1 {
+						background-color: #f2f2f2;
+					}
+				</style>
 				<?php
 				// Misalkan koneksi.php sudah ada
 				include 'php/koneksi.php';
@@ -134,13 +168,13 @@
                 JOIN
                     mapel ON jadwal.id_mapel = mapel.id_mapel
                 JOIN
-                    module ON jadwal.id_module = rps.id_module";
+                    module ON jadwal.id_module = module.id_module";
 
 				$resultJadwal = $conn->query($queryJadwal);
 
 				?>
 
-				<div class="content-box">
+				<div class="content-box" style="position: relative; bottom: 0%;">
 					<p>Jadwal Harian <span>Tambah jadwal</span></p>
 					<br />
 					<table>
@@ -151,24 +185,33 @@
 							<th>Mapel</th>
 							<th>Materi</th>
 						</tr>
-						<?php
-						// Mengecek apakah query menghasilkan hasil
-						if ($resultJadwal->num_rows > 0) {
-							// Menampilkan data dalam tabel
-							while ($row = $resultJadwal->fetch_assoc()) {
-								echo "<tr>";
-								echo "<td>" . $row["hari"] . "</td>";
-								echo "<td>" . $row["jam"] . "</td>";
-								echo "<td>" . $row["nama_mentor"] . "</td>";
-								echo "<td>" . $row["nama_mapel"] . "</td>";
-								echo "<td>" . $row["materi"] . "</td>";
-								echo "</tr>";
+							<?php
+							// Mengecek apakah query menghasilkan hasil
+							if ($resultJadwal->num_rows > 0) {
+								// Menampilkan data dalam tabel
+								while ($row = $resultJadwal->fetch_assoc()) {
+									echo "<tr>";
+									echo "<td>" . $row["hari"] . "</td>";
+									echo "<td>" . $row["jam"] . "</td>";
+									echo "<td>" . $row["nama_mentor"] . "</td>";
+									echo "<td>" . $row["nama_mapel"] . "</td>";
+									echo "<td>" . $row["materi"] . "</td>";
+									echo "</tr>";
+								}
+							} else {
+								// Jika tidak ada hasil
+								echo "<tr><td colspan='5'>Tidak ada data jadwal.</td></tr>";
 							}
-						} else {
-							// Jika tidak ada hasil
-							echo "<tr><td colspan='5'>Tidak ada data jadwal.</td></tr>";
-						}
-						?>
+							?>
+					</table>
+					<div class="content-box" style="position: relative; background-color: #f2f2f2; bottom: 165px; left: 950px; width: 30%;">
+					<p>Mentor <span>Tambah Mentor</span></p>
+					<br />
+					<table>
+						<tr>
+							<th>Mentor</th>
+							<th>Mapel</th>
+						</tr>
 					</table>
 				</div>
 

@@ -14,6 +14,7 @@
 			<a href="jadwal.php"class="icon-a"><i class="fa fa-user icons"></i>   Jadwal</a>
 			<a href="murid.php"class="icon-a"><i class="fa fa-users icons"></i>   Murid</a>
 			<a href="pemesanan.php"class="icon-a"><i class="fa fa-list icons"></i>   Pemesanan</a>
+			<a href="cicilan.php" class="icon-a"><i class="fa fa-list icons"></i> Cicilan</a>
 			<a href="riwayat.php"class="icon-a"><i class="fa fa-list-alt icons"></i>  Riwayat</a>
 			
 		  <script>
