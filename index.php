@@ -38,19 +38,21 @@ if (!isset($_SESSION['username'])) {
         <a href="jadwal.php" class="icon-a"><i class="fa fa-user icons"></i> Jadwal</a>
         <a href="murid.php" class="icon-a"><i class="fa fa-users icons"></i> Murid</a>
         <a href="pemesanan.php" class="icon-a"><i class="fa fa-list icons"></i> Pemesanan</a>
-        <a href="cicilan.php"class="icon-a"><i class="fa fa-list icons"></i>   Cicilan</a>
+        <a href="cicilan.php" class="icon-a"><i class="fa fa-list icons"></i> Cicilan</a>
         <a href="riwayat.php" class="icon-a"><i class="fa fa-list-alt icons"></i> Riwayat</a>
     </div>
 
     <div id="main">
         <div class="head" style="background-color: white; height: 30px; bottom: 35px; position: relative;">
             <div class="col-div-6">
-                <span style="font-size:30px;cursor:pointer; color: black; position: relative; bottom: 7px;" class="nav">Dashboard</span>
-                <span style="font-size:30px;cursor:pointer; color: black; position: relative; bottom: 7px;" class="nav2">☰ Dashboard</span>
+                <span style="font-size:30px;cursor:pointer; color: black; position: relative; bottom: 7px;"
+                    class="nav">Dashboard</span>
+                <span style="font-size:30px;cursor:pointer; color: black; position: relative; bottom: 7px;"
+                    class="nav2">☰ Dashboard</span>
             </div>
             <?php
-            // Mengimpor file koneksi.php
             require_once('php/koneksi.php');
+
             // Cek apakah pengguna sudah login
             if (isset($_SESSION['username'])) {
                 // Jika sudah login, ambil informasi pengguna dari database berdasarkan username
@@ -62,6 +64,9 @@ if (!isset($_SESSION['username'])) {
                     $user = $result->fetch_assoc();
                     $nama_pengguna = $user['nama'];
                 }
+            } else {
+                // Jika pengguna belum login, beri nilai default untuk $nama_pengguna
+                $nama_pengguna = "Username";
             }
             ?>
 
@@ -80,47 +85,52 @@ if (!isset($_SESSION['username'])) {
             </div>
         </div>
         <style>
-        .changing-text {
-            left: 20px;
-            font-size: 10mm;
-            position: relative;
-            top: 25px;
-        }
-    </style>
+            .changing-text {
+                left: 20px;
+                font-size: 10mm;
+                position: relative;
+                top: 25px;
+            }
+        </style>
         <div class="clearfix"></div>
         <br />
         <div class="gambar">
             <div class="box3" style="position: relative; ">
-                <img src="images/2466249.jpg" style="height: 250px; position: relative; right: 180px; width: 250px; bottom: 40px;" />
+                <img src="images/2466249.jpg"
+                    style="height: 250px; position: relative; right: 180px; width: 250px; bottom: 40px;" />
             </div>
         </div>
         <div class="gambar1" style="outline: #DAF5FF; position: relative; bottom: 35px;">
             <div class="box3" style="height: 250px; width: 450px; outline: DAF5FF;">
-            <b class="changing-text">Hello, Username!</b>
+                <b class="changing-text">Hello,
+                    <?php echo $nama_pengguna; ?>!
+                </b>
 
-<script>
-    // Array of sentences to be displayed
-    const sentences = [
-        "Selamat datang!",
-        "Bagaimana kabarmu?",
-        "Hello, Username!"
-    ];
-    const changingTextElements = document.querySelectorAll('.changing-text');
+                <script>
+                    const changingTextElements = document.querySelectorAll('.changing-text');
+                    const namaPengguna = "<?php echo $nama_pengguna; ?>";
 
-    // Function to change the text for each element
-    function changeText(element) {
-        const randomIndex = Math.floor(Math.random() * sentences.length);
-        element.textContent = sentences[randomIndex];
-    }
+                    function changeText(element) {
+                        const sentences = [
+                            "Selamat datang!",
+                            "Bagaimana kabarmu?",
+                            "Hello, " + namaPengguna + "!"
+                        ];
 
-    // Change the text for each element every 3 seconds (3000 milliseconds)
-    changingTextElements.forEach(element => {
-        setInterval(() => changeText(element), 3000);
-    });
-    </script>
-    
-                <p style="position: relative; top: 20px; left: 20px;">Selamat datang di manajemen aplikasi bimbel Al - Amin, selamat memakai fitur yang telah kami sediakan</p>
-                <a class="search-button button-style" href="jadwal.php" style="width: 200px; height: 45px; position: relative; left: 125px; top: 25%; outline: white; background-color: #00A9FF; border-radius: 25px; text-align: center; line-height: 45px; display: inline-block; font-size: 5mm;">Lihat Jadwal</a>
+                        const randomIndex = Math.floor(Math.random() * sentences.length);
+                        element.textContent = sentences[randomIndex];
+                    }
+
+                    changingTextElements.forEach(element => {
+                        setInterval(() => changeText(element), 3000);
+                    });
+                </script>
+
+                <p style="position: relative; top: 20px; left: 20px;">Selamat datang di manajemen aplikasi bimbel Al -
+                    Amin, selamat memakai fitur yang telah kami sediakan</p>
+                <a class="search-button button-style" href="jadwal.php"
+                    style="width: 200px; height: 45px; position: relative; left: 125px; top: 25%; outline: white; background-color: #00A9FF; border-radius: 25px; text-align: center; line-height: 45px; display: inline-block; font-size: 5mm;">Lihat
+                    Jadwal</a>
             </div>
         </div>
 
@@ -167,14 +177,13 @@ if (!isset($_SESSION['username'])) {
                         <tr>
                             <th>Nama</th>
                             <th>NO Wa</th>
-                            <th>Cicilan</th>
                             <th>Status</th>
                         </tr>
                         <?php
                         // Mengambil data dari database
-                        $sql = "SELECT data_pengguna.nama, data_pengguna.no_wa, pembayaran.status
-                        FROM data_pengguna
-                        JOIN pembayaran ON data_pengguna.id_pembayaran = pembayaran.id_pembayaran";
+                        $sql = "SELECT dp.nama, dp.no_wa, p.status
+                        FROM data_pengguna dp
+                        JOIN pembayaran p ON dp.id_pengguna = p.id_pengguna";
                         $result = $conn->query($sql);
 
                         // Menampilkan data dari database
@@ -183,7 +192,6 @@ if (!isset($_SESSION['username'])) {
                                 echo "<tr>";
                                 echo "<td>" . $row["nama"] . "</td>";
                                 echo "<td>" . $row["no_wa"] . "</td>";
-                                echo "<td>" . $row["status"] . "</td>";
                                 echo "<td>" . $row["status"] . "</td>";
                                 echo "</tr>";
                             }
@@ -226,7 +234,9 @@ if (!isset($_SESSION['username'])) {
                             <tr>
                                 <th>Username</th>
                                 <th>Kelas</th>
-                                <th>Email <a href="murid.php" class="search-button button-style" style="position: relative; left: 10px; background-color: #00A9FF;">Lihat Murid</a></th>
+                                <th>Email <a href="murid.php" class="search-button button-style"
+                                        style="position: relative; left: 10px; background-color: #00A9FF;">Lihat
+                                        Murid</a></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -251,12 +261,12 @@ if (!isset($_SESSION['username'])) {
                                 <!-- Tambahkan baris lain jika diperlukan -->
                             </tbody>
                         </table>
-                   
+
                     </div>
                 </div>
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
                 <script>
-                    $(".nav").click(function() {
+                    $(".nav").click(function () {
                         $("#mySidenav").css('width', '70px');
                         $("#main").css('margin-left', '70px');
                         $(".logo").css('visibility', 'hidden');
@@ -269,7 +279,7 @@ if (!isset($_SESSION['username'])) {
                         $(".nav2").css('display', 'block');
                     });
 
-                    $(".nav2").click(function() {
+                    $(".nav2").click(function () {
                         $("#mySidenav").css('width', '300px');
                         $("#main").css('margin-left', '300px');
                         $(".logo").css('visibility', 'visible');
@@ -303,19 +313,19 @@ if (!isset($_SESSION['username'])) {
                     }
 
                     // Panggil fungsi updateTanggal dan updateJam saat halaman dimuat
-                    window.onload = function() {
+                    window.onload = function () {
                         updateTanggal();
                         updateJam();
 
                         // Perbarui waktu setiap detik
-                        setInterval(function() {
+                        setInterval(function () {
                             updateJam();
                         }, 1000);
                     };
                 </script>
                 <!-- Kode untuk logout -->
                 <script>
-                    document.getElementById("logoutButton").addEventListener("click", function() {
+                    document.getElementById("logoutButton").addEventListener("click", function () {
                         if (confirm("Apakah Anda yakin ingin keluar?")) {
                             // Redirect ke halaman logout.php setelah konfirmasi OK
                             window.location.href = "logout.php";
