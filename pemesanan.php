@@ -1,6 +1,5 @@
 <!Doctype HTML>
 <html>
-
 <head>
 	<title>Pemesanan</title>
 	<link rel="stylesheet" href="css/style.css" type="text/css" />
@@ -82,7 +81,6 @@
 				<span style="font-size:30px;cursor:pointer; color: black;" class="nav">Pemesanan</span>
 				<span style="font-size:30px;cursor:pointer; color: black;" class="nav2">☰ Pemesanan</span>
 			</div>
-
 			<div class="col-div-6">
 				<div class="profile">
 				</div>

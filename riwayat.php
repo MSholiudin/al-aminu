@@ -82,7 +82,6 @@
 				<span style="font-size:30px;cursor:pointer; color: black;" class="nav">Riwayat</span>
 				<span style="font-size:30px;cursor:pointer; color: black;" class="nav2">☰ Riwayat</span>
 			</div>
-
 			<div class="col-div-6">
 				<div class="profile">
 				</div>
