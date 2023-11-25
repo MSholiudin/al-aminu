@@ -20,19 +20,19 @@
 	<link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body style="background-color: #F8F9FB;">
 
 	<!-- Navbar start -->
-	<nav class="navbar">
+	<nav style="background-color: #6BE1FA ;" class="navbar">
 		<a href="#" class="navbar-logo"><img src="img/Vector 161.png" style="height: 50px; position: relative; right: 20px; top: 8px;"><span style="color: #444E96;">Al</span>-Amin</a>
 
 
 		<div class="navbar-nav">
-			<a href="#home">Home</a>
-			<a href="#about">Tentang Kami</a>
-			<a href="#slide">Program</a>
-			<a href="#swiper">Kata Mereka</a>
-			<a href="#contact">Kontak</a>
+			<a style="color: #444E96;" href="#home">Home</a>
+			<a style="color: #444E96;" href="#about">Tentang Kami</a>
+			<a style="color: #444E96;" href="#slide">Program</a>
+			<a style="color: #444E96;" href="#swiper">Kata Mereka</a>
+			<a style="color: #444E96;" href="#contact">Kontak</a>
 		</div>
 
 		<div class="navbar-extra">
@@ -44,11 +44,18 @@
 	<!-- Navbar End -->
 
 	<!-- Hero section start -->
-	<section class="hero" id="home" style="background-image: url('img/Desktop\ -\ 3.png');">
+	<section class="hero" id="home" style="background-image: url('img/Desktop\ -\ 9.png.');">
 		<main class="content">
 			<div class="hero-content">
+				<script>
+					document.addEventListener('DOMContentLoaded', function() {
+						var h1Element = document.querySelector('.home1');
+						h1Element.style.bottom = '100px';
+						h1Element.style.left = '120px'; // Adjust the value as needed
+					});
+				</script>
 				<h1 class="home1">Mari Belajar di Bimbel <span style="color: #444E96;">Al-Amin</span></h1>
-				<a href="#slide" class="cta" style="position: relative; bottom: 40px; right:20px ; height: 100px; width: 430px; font-size: 10mm;">Daftar Sekarang</a>
+				<a href="#slide" class="cta" style="position: relative; bottom: 40px; left:110px ; height: 100px; width: 430px; font-size: 10mm;">Daftar Sekarang</a>
 			</div>
 		</main>
 	</section>

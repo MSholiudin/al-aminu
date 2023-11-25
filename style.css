@@ -1,7 +1,7 @@
 :root {
 	--primary: #068FFF;
 	--bg: hsl(0, 0%, 100%);
-	--nav: #DEEBFB;
+	--nav: red;
 }
 
 *{

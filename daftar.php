@@ -54,7 +54,7 @@ $conn->close();
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #DEEBFB;
+            background-image: url(img/Frame\ 3.png);
             margin: 0;
             display: flex;
             justify-content: center;
@@ -63,14 +63,13 @@ $conn->close();
         }
 
         .container {
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            width: 400px;
-            text-align: center;
-        }
-
+    background-color: rgba(255, 255, 255, 0.8); /* Gunakan nilai alpha (kejernihan) sesuai kebutuhan */
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 400px;
+    text-align: center;
+}
         form {
             display: flex;
             flex-direction: column;
@@ -202,8 +201,8 @@ $conn->close();
                 <p style="color: black;">Dengan mengeklik Daftar, Anda menyetujui <a href="#">Ketentuan,</a> <a href="#">Kebijakan Privasi</a> dan <a href="#">Kebijakan cookie</a> kami. Anda mungkin menerima pemberitahuan SMS dari kami dan dapat memilih untuk tidak ikut serta kapan saja.</p>
             </div>
             <div class="button-container">
+                <button style="position: relative; right: 50px;" type="button" class="back-button" onclick="goBack()">Kembali</button>
                 <button type="submit">Daftar</button>
-                <button type="button" class="back-button" onclick="goBack()">Kembali</button>
             </div>
 
             <!-- Notifikasi Pop-up -->

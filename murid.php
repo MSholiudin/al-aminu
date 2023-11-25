@@ -65,9 +65,10 @@
     <div id="mySidenav" class="sidenav">
         <p class="logo" style="position: relative; right: 5px;"><span>AL</span>-AMIN</p>
         <a href="index.php" class="icon-a"><i class="fa fa-dashboard icons"></i> Dashboard</a>
-        <a href="jadwal.php" class="icon-a"><i class="fa fa-user icons"></i> Jadwal</a>
+        <a href="jadwal.php" class="icon-a"><i class="fa fa-calendar icons"></i> Jadwal</a>
         <a href="murid.php" class="icon-a"><i class="fa fa-users icons"></i> Murid</a>
-        <a href="pemesanan.php" class="icon-a"><i class="fa fa-list icons"></i> Pemesanan</a>
+        <a href="pemesanan.php" class="icon-a"><i class="fa fa-shopping-cart"></i> Pemesanan</a>
+        <a href="cicilan.php" class="icon-a"><i class="fa fa-credit-card"></i> Cicilan</a>
         <a href="riwayat.php" class="icon-a"><i class="fa fa-list-alt icons"></i> Riwayat</a>
 
         <script>
@@ -158,9 +159,6 @@
 
             <div class="col-div-6">
                 <div class="profile">
-                    <img src="images/user.png" class="pro-img" />
-                    <p style="color: #748DA6;">M fajar dwi p <span>Admin</span></p>
-                    <i class="fa fa-regular fa-bell" style="position: relative; right: 30%; bottom: 43px;"></p></i>
                 </div>
             </div>
         </div>
@@ -194,10 +192,15 @@
         ?>
 
         <div class="clearfix"></div>
-        <div class="col-div-81" style="position: relative; bottom: 20px; left: 20px;">
+        <div class="col-div-81" style="position: relative; top: 30px; left: 20px;">
             <div class="box-9" style="height: 630px;">
                 <div class="content-box">
-                    <p>Murid <span>Cari</span></p>
+                <div class="bulan-container">
+                    <p>Data pengguna</p>
+                        <input style="position: relative; top: 10px;" type="text" id="pembayaran_jan" name="pembayaran_jan" class="pembayaran-input" placeholder="Nama murid" required>
+                    </div>
+                    <p><span style="position: relative; right: 82%; bottom: 13px;" id="searchSpan">Cari</span>
+
                     <br />
                     <table>
                         <tr>
@@ -262,6 +265,29 @@
                 $(".nav2").css('display', 'none');
             });
         </script>
+         <script>
+        function toggleSearch() {
+            var searchInput = document.getElementById('searchInput');
+            searchInput.style.display = (searchInput.style.display === 'none' || searchInput.style.display === '') ? 'block' : 'none';
+            searchInput.value = ''; // Clear input when toggling
+        }
+
+        function searchText() {
+            var searchInput = document.getElementById('searchInput');
+            var searchText = searchInput.value.toLowerCase();
+
+            var searchSpan = document.getElementById('searchSpan');
+            var spanText = searchSpan.innerText.toLowerCase();
+
+            if (searchText && spanText.includes(searchText)) {
+                searchSpan.innerHTML = spanText.replace(new RegExp(searchText, 'ig'), function (match) {
+                    return '<span style="background-color: yellow;">' + match + '</span>';
+                });
+            } else {
+                searchSpan.innerHTML = 'Cari';
+            }
+        }
+    </script>
 
 </body>
 
