@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2023 at 04:20 AM
+-- Generation Time: Nov 26, 2023 at 10:54 AM
 -- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- PHP Version: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -45,7 +45,8 @@ CREATE TABLE `data_pengguna` (
 
 INSERT INTO `data_pengguna` (`id_pengguna`, `nama`, `email`, `username`, `password`, `no_wa`, `jenis_kelamin`, `status`, `id_program`) VALUES
 (1, 'M fajar Dwi Putra', 'mfajardwip044@gmail.com', 'fajar', '123456', '089131242555', 'laki-laki', 'siswa', 'PR05'),
-(2, 'Sholiudin', 'choll@gmail.com', 'choll', '123456', '083853964821', 'laki-laki', 'admin', 'PR01');
+(2, 'Sholiudin', 'choll@gmail.com', 'choll', '123456', '083853964821', 'laki-laki', 'admin', 'PR01'),
+(3, 'M fajar Dwi Putra', 'fajardwiputra1212@gmail.com', 'choll', '123', '089131242555', 'laki-laki', 'siswa', 'PR01');
 
 -- --------------------------------------------------------
 
@@ -54,9 +55,8 @@ INSERT INTO `data_pengguna` (`id_pengguna`, `nama`, `email`, `username`, `passwo
 --
 
 CREATE TABLE `detail_pembayaran` (
-  `id_detail_pem` int(20) NOT NULL,
-  `bulan` int(20) NOT NULL,
-  `id_pembayaran` int(11) NOT NULL
+  `id_pembayaran` int(10) NOT NULL,
+  `bulan` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -80,18 +80,9 @@ CREATE TABLE `jadwal` (
   `id_jadwal` char(10) NOT NULL,
   `hari` varchar(10) NOT NULL,
   `jam` time NOT NULL,
-  `id_mapel` char(10) NOT NULL,
-  `id_mentor` char(10) NOT NULL,
   `id_module` char(10) NOT NULL,
   `status` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `jadwal`
---
-
-INSERT INTO `jadwal` (`id_jadwal`, `hari`, `jam`, `id_mapel`, `id_mentor`, `id_module`, `status`) VALUES
-('JD001', 'senin', '09:05:54', '0001', '0001', 'RPS01', '0');
 
 -- --------------------------------------------------------
 
@@ -123,19 +114,20 @@ CREATE TABLE `mentor` (
   `nama` varchar(20) NOT NULL,
   `jenis_kelamin` varchar(20) NOT NULL,
   `no_wa` char(13) NOT NULL,
-  `image` text NOT NULL
+  `image` text NOT NULL,
+  `id_mapel` char(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `mentor`
 --
 
-INSERT INTO `mentor` (`id_mentor`, `nama`, `jenis_kelamin`, `no_wa`, `image`) VALUES
-('0001', 'Mis Maya', 'wanita', '080111222333', ''),
-('0002', 'Mr Fajar', 'pria', '081234567890', ''),
-('0003', 'Mr Sholi', 'pria', '081234567890', ''),
-('0004', 'Mr Bagus', 'pria', '087654000433', ''),
-('0005', 'Mr Firman', 'pria', '088765777981', '');
+INSERT INTO `mentor` (`id_mentor`, `nama`, `jenis_kelamin`, `no_wa`, `image`, `id_mapel`) VALUES
+('0001', 'Mis Maya', 'wanita', '080111222333', '', ''),
+('0002', 'Mr Fajar', 'pria', '081234567890', '', ''),
+('0003', 'Mr Sholi', 'pria', '081234567890', '', ''),
+('0004', 'Mr Bagus', 'pria', '087654000433', '', ''),
+('0005', 'Mr Firman', 'pria', '088765777981', '', '');
 
 -- --------------------------------------------------------
 
@@ -146,7 +138,7 @@ INSERT INTO `mentor` (`id_mentor`, `nama`, `jenis_kelamin`, `no_wa`, `image`) VA
 CREATE TABLE `module` (
   `id_module` char(10) NOT NULL,
   `nama_module` varchar(20) NOT NULL,
-  `materi` blob NOT NULL,
+  `materi` varchar(50) NOT NULL,
   `id_mapel` char(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -195,7 +187,9 @@ CREATE TABLE `pembayaran` (
 --
 
 INSERT INTO `pembayaran` (`id_pembayaran`, `bayar`, `status`, `id_program`, `tgl_pembayaran`, `id_pengguna`) VALUES
-(1, 800000, 'lunas', 'PR01', '2023-11-24 09:35:32', 1);
+(1, 800000, 'lunas', 'PR01', '2023-11-24 09:35:32', 1),
+(2, 600000, 'lunas', 'PR03', '2023-11-26 16:29:01', 2),
+(3, 500000, 'lunas', 'PR01', '2023-11-26 16:31:09', 3);
 
 --
 -- Indexes for dumped tables
@@ -226,8 +220,6 @@ ALTER TABLE `detail_program`
 --
 ALTER TABLE `jadwal`
   ADD PRIMARY KEY (`id_jadwal`),
-  ADD KEY `id_mapel` (`id_mapel`),
-  ADD KEY `jadwal_ibfk_2` (`id_mentor`),
   ADD KEY `jadwal_ibfk_3` (`id_module`);
 
 --
@@ -240,7 +232,8 @@ ALTER TABLE `mapel`
 -- Indexes for table `mentor`
 --
 ALTER TABLE `mentor`
-  ADD PRIMARY KEY (`id_mentor`);
+  ADD PRIMARY KEY (`id_mentor`),
+  ADD KEY `id_mapel` (`id_mapel`);
 
 --
 -- Indexes for table `module`
@@ -272,13 +265,13 @@ ALTER TABLE `pembayaran`
 -- AUTO_INCREMENT for table `data_pengguna`
 --
 ALTER TABLE `data_pengguna`
-  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -294,7 +287,7 @@ ALTER TABLE `data_pengguna`
 -- Constraints for table `detail_pembayaran`
 --
 ALTER TABLE `detail_pembayaran`
-  ADD CONSTRAINT `id_pembayaran` FOREIGN KEY (`id_pembayaran`) REFERENCES `pembayaran` (`id_pembayaran`);
+  ADD CONSTRAINT `detail_pembayaran_ibfk_1` FOREIGN KEY (`id_pembayaran`) REFERENCES `pembayaran` (`id_pembayaran`);
 
 --
 -- Constraints for table `detail_program`
@@ -307,28 +300,26 @@ ALTER TABLE `detail_program`
 -- Constraints for table `jadwal`
 --
 ALTER TABLE `jadwal`
-  ADD CONSTRAINT `jadwal_ibfk_1` FOREIGN KEY (`id_mapel`) REFERENCES `mapel` (`id_mapel`),
-  ADD CONSTRAINT `jadwal_ibfk_2` FOREIGN KEY (`id_mentor`) REFERENCES `mentor` (`id_mentor`),
-  ADD CONSTRAINT `jadwal_ibfk_3` FOREIGN KEY (`id_module`) REFERENCES `module` (`id_module`);
+  ADD CONSTRAINT `jadwal_ibfk_1` FOREIGN KEY (`id_module`) REFERENCES `module` (`id_module`);
+
+--
+-- Constraints for table `mentor`
+--
+ALTER TABLE `mentor`
+  ADD CONSTRAINT `mentor_ibfk_1` FOREIGN KEY (`id_mapel`) REFERENCES `mapel` (`id_mapel`);
 
 --
 -- Constraints for table `module`
 --
 ALTER TABLE `module`
-  ADD CONSTRAINT `fk_id_mapel` FOREIGN KEY (`id_mapel`) REFERENCES `mapel` (`id_mapel`);
-
---
--- Constraints for table `paket_program`
---
-ALTER TABLE `paket_program`
-  ADD CONSTRAINT `paket_program_ibfk_2` FOREIGN KEY (`id_mapel`) REFERENCES `mapel` (`id_mapel`);
+  ADD CONSTRAINT `module_ibfk_1` FOREIGN KEY (`id_mapel`) REFERENCES `mapel` (`id_mapel`);
 
 --
 -- Constraints for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  ADD CONSTRAINT `pembayaran_ibfk_1` FOREIGN KEY (`id_program`) REFERENCES `paket_program` (`id_program`),
-  ADD CONSTRAINT `pembayaran_ibfk_2` FOREIGN KEY (`id_pengguna`) REFERENCES `data_pengguna` (`id_pengguna`);
+  ADD CONSTRAINT `pembayaran_ibfk_1` FOREIGN KEY (`id_pengguna`) REFERENCES `data_pengguna` (`id_pengguna`),
+  ADD CONSTRAINT `pembayaran_ibfk_2` FOREIGN KEY (`id_program`) REFERENCES `paket_program` (`id_program`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
