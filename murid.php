@@ -9,59 +9,107 @@
 
 <body>
     <style>
-        /* Popup container */
-        .popup {
+        .popup-content {
+            color: #333;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 24px;
+            color: #777;
+        }
+
+        .popup-container form {
+            display: grid;
+            /* Change to grid layout */
+            grid-template-columns: 1fr 1fr;
+            /* Two equal columns */
+            grid-gap: 20px;
+            /* Adjust the gap between columns */
+        }
+
+        .popup-container label {
+            display: block;
+            margin-top: 20px;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .popup-container input,
+        .popup-container select {
+            width: 100%;
+            padding: 12px;
+            box-sizing: border-box;
+            margin-top: 8px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .popup-container .button-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .popup-container button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .popup-container .save-button {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .popup-container .cancel-button {
+            background-color: #ccc;
+            color: #333;
+        }
+
+        .overlay {
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
+            background: rgba(0, 0, 0, 0.5);
             z-index: 1;
         }
 
-        /* Popup content */
-        .popup-content {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
+        .popup-container {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 12px;
+            z-index: 2;
+            padding: 30px;
+            max-width: 1300px;
+            /* Ganti nilai sesuai kebutuhan Anda */
             width: 100%;
-            text-align: center;
-            position: relative;
+            /* Pastikan lebar maksimum diterapkan sepanjang waktu */
+            animation: fadeIn 0.5s ease-out;
         }
 
-        /* Close button */
-        .popup-content .close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-            font-size: 20px;
-            color: #333;
-        }
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
 
-        /* Form inside the popup */
-        .popup-content form {
-            display: grid;
-            gap: 15px;
-        }
-
-        /* Submit button */
-        .popup-content input[type="submit"] {
-            background-color: #4caf50;
-            color: #fff;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+            100% {
+                opacity: 1;
+            }
         }
     </style>
-
     <div id="mySidenav" class="sidenav">
         <p class="logo" style="position: relative; right: 5px;"><span>AL</span>-AMIN</p>
         <a href="index.php" class="icon-a"><i class="fa fa-dashboard icons"></i> Dashboard</a>
@@ -73,6 +121,10 @@
 
         <script>
             function editRow(button) {
+                var popupOverlay = document.getElementById('overlay');
+
+                // Tampilkan overlay dan pop-up
+                popupOverlay.style.display = 'block';
                 // Dapatkan data baris yang sesuai dengan tombol Edit yang diklik
                 var row = button.parentNode.parentNode;
 
@@ -86,30 +138,47 @@
                 var namaProgram = row.cells[6].innerHTML;
 
                 // Tampilkan formulir edit dalam popup dengan data yang sesuai
-                var popupContent = document.getElementById('popup-content');
+                var popupContent = document.getElementById('popup-container');
                 popupContent.innerHTML = `
-            <span class="close" onclick="closePopup()">&times;</span>
-            <form action="update_data.php" method="post">
-                <input type="hidden" name="id_pengguna" value="${idPengguna}">
-                <label for="nama">Nama:</label>
-                <input type="text" name="nama" value="${nama}">
-                <label for="email">Email:</label>
-                <input type="text" name="email" value="${email}">
-                <label for="username">Username:</label>
-                <input type="text" name="username" value="${username}">
-                <label for="password">Password:</label>
-                <input type="text" name="password" value="${password}">
-                <label for="no_wa">No. Wa:</label>
-                <input type="text" name="no_wa" value="${noWa}">
-                <label for="nama_program">Nama Program:</label>
-                <input type="text" name="nama_program" value="${namaProgram}">
-                <input type="submit" value="Simpan">
-            </form>
-        `;
+                <div class="popup-content">
+                    <span class="popup-close" onclick="closePopup()">&times;</span>
+                    <h2>Edit Data</h2>
+                    <form action="update_data.php" method="post">
+                        <input type="hidden" name="id_pengguna" value="${idPengguna}">
+                        <div class="input-box">
+                            <label for="nama">Nama:</label>
+                            <input type="text" name="nama" value="${nama}">
+                        </div>
+                        <div class="input-box">
+                            <label for="email">Email:</label>
+                            <input type="text" name="email" value="${email}">
+                        </div>
+                        <div class="input-box">
+                            <label for="username">Username:</label>
+                            <input type="text" name="username" value="${username}">
+                        </div>
+                        <div class="input-box">
+                            <label for="password">Password:</label>
+                            <input type="text" name="password" value="${password}">
+                        </div>
+                        <div class="input-box">
+                            <label for="no_wa">No. Wa:</label>
+                            <input type="text" name="no_wa" value="${noWa}">
+                        </div>
+                        <div class="input-box">
+                            <label for="nama_program">Nama Program:</label>
+                            <input type="text" name="nama_program" value="${namaProgram}">
+                        </div>
+                        <div class="button-container">
+                            <button class="save-button" type="submit">Simpan</button>
+                            <button class="cancel-button" type="button" onclick="closePopup()">Batal</button>
+                        </div>
+                    </form>
+                </div>
+            `;
 
                 // Tampilkan popup
-                var popup = document.getElementById('popup');
-                popup.style.display = 'block';
+                popupContent.style.display = 'block';
             }
 
             function deleteRow(button) {
@@ -130,8 +199,11 @@
 
             function closePopup() {
                 // Sembunyikan popup saat tombol close ditekan
-                var popup = document.getElementById('popup');
+                var popup = document.getElementById('popup-container');
                 popup.style.display = 'none';
+
+                var overlay = document.getElementById('overlay');
+                overlay.style.display = 'none';
             }
         </script>
 
@@ -150,6 +222,48 @@
 
     </div>
     <div id="main">
+        <div id="main">
+            <!-- ... (Kode main lainnya) ... -->
+
+            <div id="overlay" class="overlay"></div>
+            <div id="popup-container" class="popup-container">
+                <div class="popup-content">
+                    <span class="popup-close" onclick="closePopup()">&times;</span>
+                    <h2>Edit Data</h2>
+                    <form action="update_data.php" method="post">
+                        <input type="hidden" name="id_pengguna" value="">
+                        <div class="input-box">
+                            <label for="nama">Nama:</label>
+                            <input type="text" name="nama" value="">
+                        </div>
+                        <div class="input-box">
+                            <label for="email">Email:</label>
+                            <input type="text" name="email" value="">
+                        </div>
+                        <div class="input-box">
+                            <label for="username">Username:</label>
+                            <input type="text" name="username" value="">
+                        </div>
+                        <div class="input-box">
+                            <label for="password">Password:</label>
+                            <input type="text" name="password" value="">
+                        </div>
+                        <div class="input-box">
+                            <label for="no_wa">No. Wa:</label>
+                            <input type="text" name="no_wa" value="">
+                        </div>
+                        <div class="input-box">
+                            <label for="nama_program">Nama Program:</label>
+                            <input type="text" name="nama_program" value="">
+                        </div>
+                        <div class="button-container">
+                            <button class="save-button" type="submit">Simpan</button>
+                            <button class="cancel-button" type="button" onclick="closePopup()">Batal</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
         <div class="head">
             <div class="col-div-6">
@@ -195,13 +309,13 @@
         <div class="col-div-81" style="position: relative; top: 30px; left: 20px;">
             <div class="box-9" style="height: 630px;">
                 <div class="content-box">
-                <div class="bulan-container">
-                    <p>Data pengguna</p>
+                    <div class="bulan-container">
+                        <p>Data pengguna</p>
                         <input style="position: relative; top: 10px;" type="text" id="pembayaran_jan" name="pembayaran_jan" class="pembayaran-input" placeholder="Nama murid" required>
                     </div>
                     <p><span style="position: relative; right: 82%; bottom: 13px;" id="searchSpan">Cari</span>
 
-                    <br />
+                        <br />
                     <table>
                         <tr>
                             <th>Id_Pengguna</th>
@@ -265,29 +379,30 @@
                 $(".nav2").css('display', 'none');
             });
         </script>
-         <script>
-        function toggleSearch() {
-            var searchInput = document.getElementById('searchInput');
-            searchInput.style.display = (searchInput.style.display === 'none' || searchInput.style.display === '') ? 'block' : 'none';
-            searchInput.value = ''; // Clear input when toggling
-        }
-
-        function searchText() {
-            var searchInput = document.getElementById('searchInput');
-            var searchText = searchInput.value.toLowerCase();
-
-            var searchSpan = document.getElementById('searchSpan');
-            var spanText = searchSpan.innerText.toLowerCase();
-
-            if (searchText && spanText.includes(searchText)) {
-                searchSpan.innerHTML = spanText.replace(new RegExp(searchText, 'ig'), function (match) {
-                    return '<span style="background-color: yellow;">' + match + '</span>';
-                });
-            } else {
-                searchSpan.innerHTML = 'Cari';
+        <script>
+            function toggleSearch() {
+                var searchInput = document.getElementById('searchInput');
+                searchInput.style.display = (searchInput.style.display === 'none' || searchInput.style.display === '') ? 'block' : 'none';
+                searchInput.value = ''; // Clear input when toggling
             }
-        }
-    </script>
+
+            function searchText() {
+                var searchInput = document.getElementById('searchInput');
+                var searchText = searchInput.value.toLowerCase();
+
+                var searchSpan = document.getElementById('searchSpan');
+                var spanText = searchSpan.innerText.toLowerCase();
+
+                if (searchText && spanText.includes(searchText)) {
+                    searchSpan.innerHTML = spanText.replace(new RegExp(searchText, 'ig'), function(match) {
+                        return '<span style="background-color: yellow;">' + match + '</span>';
+                    });
+                } else {
+                    searchSpan.innerHTML = 'Cari';
+                }
+            }
+        </script>
+
 
 </body>
 
