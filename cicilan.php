@@ -12,6 +12,70 @@
 </head>
 
 <body>
+<style>
+    /* Styles for the modal */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+        padding-top: 60px;
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 20%;
+    }
+
+    /* Close button styles */
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    /* Button styles */
+    .modal-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 30px;
+    }
+
+    .modal-buttons button {
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .modal-buttons button.confirm {
+        background-color: #4caf50;
+        color: #fff;
+    }
+
+    .modal-buttons button.cancel {
+        background-color: #f44336;
+        color: #fff;
+    }
+</style>
 
     <div id="mySidenav" class="sidenav">
         <p class="logo" style="position: relative; right: 5px;"><span>AL</span>-AMIN</p>
@@ -258,6 +322,19 @@
     <input type="text" style="width: 100%; padding: 10px; box-sizing: border-box; border: none; border-radius: 5px;" id="durasi_cicilan" name="durasi_cicilan" required>
 </div>
     <button type="submit" class="button-bayar" style="width: 100%; padding: 10px; box-sizing: border-box; border: none; border-radius: 5px; background-color: #4caf50; color: #fff; cursor: pointer;">Bayar</button>
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <p>Apakah Anda yakin ingin melanjutkan pembayaran?</p>
+            <div class="modal-buttons">
+            <button class="cancel" onclick="closeModal()">Kembali</button>
+                <button class="confirm" onclick="confirmPayment()">Bayar</button>
+            </div>
+        </div>
+    </div>
+
+</div>
 </div>
             </div>
        
@@ -308,6 +385,45 @@
                 });
             });
         </script>
+      <script>
+    // Get the modal
+    var modal = document.getElementById('myModal');
+
+    // Get the button that opens the modal
+    var btn = document.querySelector('.button-bayar');
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName('close')[0];
+
+    // When the user clicks the button, open the modal
+    btn.onclick = function() {
+        modal.style.display = 'block';
+    };
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        closeModal();
+    };
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            closeModal();
+        }
+    };
+
+    // Function to close the modal
+    function closeModal() {
+        modal.style.display = 'none';
+    }
+
+    // Function to confirm payment
+    function confirmPayment() {
+        // Add your logic for handling the payment confirmation here
+        alert('Pembayaran berhasil!');
+        closeModal();
+    }
+</script>
 
 </body>
 

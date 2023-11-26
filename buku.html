@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtual Landscape</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+  </style>
+</head>
+
+<body>
+  <script src="https://threejs.org/build/three.js"></script>
+  <script>
+    var scene, camera, renderer;
+    var mountain, sky;
+
+    init();
+    animate();
+
+    function init() {
+      // Inisialisasi Three.js
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      renderer = new THREE.WebGLRenderer();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+
+      // Gunung
+      var mountainGeometry = new THREE.ConeGeometry(10, 40, 60);
+      var mountainMaterial = new THREE.MeshPhongMaterial({ color: 0x8B4513 });
+      mountain = new THREE.Mesh(mountainGeometry, mountainMaterial);
+      mountain.position.y = -10;
+      scene.add(mountain);
+
+      // Langit
+      var skyGeometry = new THREE.SphereGeometry(500, 32, 32);
+      var skyMaterial = new THREE.MeshBasicMaterial({ color: 0x87CEEB, side: THREE.BackSide });
+      sky = new THREE.Mesh(skyGeometry, skyMaterial);
+      scene.add(sky);
+
+      // Cahaya matahari
+      var sunLight = new THREE.DirectionalLight(0xffffff, 1);
+      sunLight.position.set(5, 5, 5);
+      scene.add(sunLight);
+
+      // Kamera
+      camera.position.z = 20;
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+
+      // Animasi gunung berputar
+      if (mountain) {
+        mountain.rotation.y += 0.005;
+      }
+
+      // Animasi perubahan warna langit
+      var time = Date.now() * 0.0005;
+      if (sky) {
+        sky.material.color.setHSL(Math.sin(time * 0.1), 0.6, 0.6);
+      }
+
+      renderer.render(scene, camera);
+    }
+  </script>
+</body>
+
+</html>

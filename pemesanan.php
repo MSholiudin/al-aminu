@@ -1,5 +1,6 @@
 <!Doctype HTML>
 <html>
+
 <head>
 	<title>Pemesanan</title>
 	<link rel="stylesheet" href="css/style.css" type="text/css" />
@@ -7,6 +8,104 @@
 </head>
 
 <body>
+
+	<style>
+		.popup-content {
+			color: #333;
+		}
+
+		.popup-close {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+			cursor: pointer;
+			font-size: 24px;
+			color: #777;
+		}
+
+		.popup-container form {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			grid-gap: 20px;
+		}
+
+		.popup-container label {
+			display: block;
+			margin-top: 20px;
+			color: #333;
+			font-size: 16px;
+		}
+
+		.popup-container input,
+		.popup-container select {
+			width: 100%;
+			padding: 12px;
+			box-sizing: border-box;
+			margin-top: 8px;
+			border: 1px solid #ccc;
+			border-radius: 6px;
+			font-size: 16px;
+		}
+
+		.popup-container .button-container {
+			margin-top: 20px;
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.popup-container button {
+			padding: 12px 24px;
+			border: none;
+			border-radius: 6px;
+			cursor: pointer;
+			font-size: 16px;
+		}
+
+		.popup-container .save-button {
+			background-color: #4caf50;
+			color: white;
+		}
+
+		.popup-container .cancel-button {
+			background-color: #ccc;
+			color: #333;
+		}
+
+		.overlay {
+			display: none;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.5);
+			z-index: 1;
+		}
+
+		.popup-container {
+			display: none;
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			z-index: 2;
+			padding: 30px;
+			max-width: 1300px;
+			width: 100%;
+			animation: fadeIn 0.5s ease-out;
+		}
+
+		@keyframes fadeIn {
+			0% {
+				opacity: 0;
+			}
+
+			100% {
+				opacity: 1;
+			}
+		}
+	</style>
+	</style>
 
 	<div id="mySidenav" class="sidenav">
 		<p class="logo" style="position: relative; right: 5px;"><span>AL</span>-AMIN</p>
@@ -87,11 +186,14 @@
 			</div>
 		</div>
 		<div id="popup" class="popup">
-			<div class="popup-content">
-				<span class="close" onclick="closePopup()">&times;</span>
-				<p>Tekan ini</p>
-			</div>
-		</div>
+        <div class="popup-content">
+            <span class="popup-close" onclick="closePopup()">&times;</span>
+            <p>Apakah Anda yakin?</p>
+            <button class="view-button" onclick="confirmAction()">Ya</button>
+            <button class="delete-button" onclick="cancelAction()">Tidak</button>
+        </div>
+    </div>
+
 
 		<div class="clearfix"></div>
 		<div class="col-div-81" style="position: relative; top: 30px; left: 20px;">
@@ -112,7 +214,8 @@
 							<td>Germany</td>
 							<td>Germany</td>
 							<td>
-								<button class="view-button" onclick="viewRow(this)">Confirm</button>
+								<button class="view-button" onclick="viewRow(this)">Konfirmasi</button>
+								<button class="delete-button" onclick="deleteRow(this)">Hapus</button>
 							</td>
 						</tr>
 						<tr>
@@ -121,7 +224,8 @@
 							<td>Mexico</td>
 							<td>Germany</td>
 							<td>
-								<button class="view-button" onclick="viewRow(this)">Confirm</button>
+								<button class="view-button" onclick="viewRow(this)">Konfirmasi</button>
+								<button class="delete-button" onclick="deleteRow(this)">Hapus</button>
 							</td>
 						</tr>
 						<tr>
@@ -130,7 +234,8 @@
 							<td>Austria</td>
 							<td>Germany</td>
 							<td>
-								<button class="view-button" onclick="viewRow(this)">Confirm</button>
+								<button class="view-button" onclick="viewRow(this)">Konfirmasi</button>
+								<button class="delete-button" onclick="deleteRow(this)">Hapus</button>
 							</td>
 						</tr>
 						<tr>
@@ -139,7 +244,8 @@
 							<td>UK</td>
 							<td>Germany</td>
 							<td>
-								<button class="view-button" onclick="viewRow(this)">Confrim</button>
+								<button class="view-button" onclick="viewRow(this)">Konfriamsi</button>
+								<button class="delete-button" onclick="deleteRow(this)">Hapus</button>
 							</td>
 						</tr>
 						<tr>
@@ -148,7 +254,8 @@
 							<td>UK</td>
 							<td>Germany</td>
 							<td>
-								<button class="view-button" onclick="viewRow(this)">Confirm</button>
+								<button class="view-button" onclick="viewRow(this)">Konfirmasi</button>
+								<button class="delete-button" onclick="deleteRow(this)">Hapus</button>
 							</td>
 						</tr>
 						<tr>
@@ -157,7 +264,8 @@
 							<td>UK</td>
 							<td>Germany</td>
 							<td>
-								<button class="view-button" onclick="viewRow(this)">Confirm</button>
+								<button class="view-button" onclick="viewRow(this)">Konfirmasi</button>
+								<button class="delete-button" onclick="deleteRow(this)">Hapus</button>
 							</td>
 						</tr>
 						<tr>
@@ -166,7 +274,8 @@
 							<td>UK</td>
 							<td>Germany</td>
 							<td>
-								<button class="view-button" onclick="viewRow(this)">Confirm</button>
+								<button class="view-button" onclick="viewRow(this)">Konfirmasi</button>
+								<button class="delete-button" onclick="deleteRow(this)">Hapus</button>
 						</tr>
 						<tr>
 							<td>Island Trading</td>
@@ -174,8 +283,8 @@
 							<td>UK</td>
 							<td>Germany</td>
 							<td>
-								<button class="view-button" onclick="viewRow(this)">Confirm</button>
-
+								<button class="view-button" onclick="viewRow(this)">Konfirmasi</button>
+								<button class="delete-button" onclick="deleteRow(this)">Hapus</button>
 							</td>
 						</tr>
 
@@ -183,7 +292,26 @@
 				</div>
 			</div>
 		</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script>
+        // Fungsi-fungsi Anda
 
+        function confirmAction() {
+            if (currentAction) {
+                currentAction();
+            }
+            closePopup();
+        }
+
+        function cancelAction() {
+            closePopup();
+            // Logika tambahan untuk aksi cancel bisa ditambahkan di sini jika diperlukan
+        }
+
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+        }
+    </script>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script>
