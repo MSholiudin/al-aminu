@@ -11,9 +11,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Menghitung status pembayaran
     $status = ($bayar >= $harga) ? 'lunas' : 'belum lunas';
 
+    // Mendapatkan id_pengguna terakhir
+    $queryLastPayment = "SELECT id_pengguna FROM data_pengguna ORDER BY id_pengguna DESC LIMIT 1";
+    $resultLastPayment = $conn->query($queryLastPayment);
+
+    if ($resultLastPayment->num_rows > 0) {
+        $lastId = $resultLastPayment->fetch_assoc();
+        $id_pengguna = $lastId['id_pengguna'];
+    } else {
+        $id_pengguna = "1"; // Isi dengan nilai default untuk id_pengguna jika tidak ada sebelumnya
+    }
+
     // Menyimpan data pembayaran ke database
-    $queryInsert = "INSERT INTO `pembayaran` (`id_pembayaran`, `bayar`, `status`, `id_program`) 
-                    VALUES (NULL, '$bayar', '$status', '$idProgram')";
+    $queryInsert = "INSERT INTO pembayaran (id_pembayaran, bayar, status, id_program, tgl_pembayaran, id_pengguna) VALUES (NULL, '$bayar', '$status', '$idProgram', current_timestamp(), '$id_pengguna')";
 
     if ($conn->query($queryInsert) === TRUE) {
         // Pembayaran berhasil ditambahkan
@@ -37,6 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -46,10 +57,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         alert("Pembayaran berhasil ditambahkan.");
 
         // Mengarahkan pengguna ke daftar.php setelah notifikasi ditutup
-        window.location.href = "daftar.php";
+        window.location.href = "beranda.php";
     </script>
 </head>
+
 <body>
     <!-- Tidak perlu konten HTML di dalam halaman ini karena pengguna akan diarahkan secara otomatis -->
 </body>
+
 </html>

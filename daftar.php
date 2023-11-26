@@ -11,23 +11,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST["password"];
     $gender = isset($_POST["gender"]) ? $_POST["gender"] : null;
     $status = "siswa";
+    $id_program = isset($_POST["programPackage"]) ? $_POST["programPackage"] : "";
 
-    // Mendapatkan id_pembayaran dan id_program terakhir
-    $queryLastPayment = "SELECT id_pembayaran, id_program FROM pembayaran ORDER BY id_pembayaran DESC LIMIT 1";
-    $resultLastPayment = $conn->query($queryLastPayment);
-
-    if ($resultLastPayment->num_rows > 0) {
-        $lastPayment = $resultLastPayment->fetch_assoc();
-        $id_pembayaran = $lastPayment['id_pembayaran'];
-        $id_program = $lastPayment['id_program'];
-    } else {
-        // Jika tidak ada pembayaran sebelumnya, Anda mungkin ingin menangani ini sesuai kebutuhan aplikasi Anda
-        $id_pembayaran = "P001";
-        $id_program = "PR001"; // Isi dengan nilai default untuk id_program jika tidak ada sebelumnya
-    }
-
-    $sql = "INSERT INTO data_pengguna (nama, email, username, password, no_wa, jenis_kelamin, status, id_program, id_pembayaran) VALUES 
-            ('$name', '$email', '$username', '$password', '$phone', '$gender', '$status', '$id_program', '$id_pembayaran')";
+    $sql = "INSERT INTO data_pengguna (nama, email, username, password, no_wa, jenis_kelamin, status, id_program) VALUES 
+    ('$name', '$email', '$username', '$password', '$phone', '$gender', '$status', '$id_program' )";
 
     if ($conn->query($sql) === TRUE) {
         $message = "Pendaftaran berhasil!";
@@ -36,6 +23,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
+$queryPrograms = "SELECT id_program, nama_program FROM paket_program";
+$resultPrograms = $conn->query($queryPrograms);
 $conn->close();
 ?>
 
@@ -189,6 +178,17 @@ $conn->close();
                     <label for="password">Password</label>
                     <input type="password" placeholder="Masukkan Password baru" name="password" required>
                 </div>
+                <div class="input-box">
+                    <label for="programPackage">Pilih Program:</label>
+                    <select name="programPackage">
+                        <?php
+                    // Tampilkan pilihan program dari database
+                        while ($row = $resultPrograms->fetch_assoc()) {
+                            echo "<option value=\"" . $row["id_program"] . "\">" . $row["nama_program"] . "</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
                 <span class="gender-title">Gender</span>
                 <div class="gender-category">
                     <input type="radio" name="gender" id="male" value="laki-laki">
@@ -211,7 +211,7 @@ $conn->close();
                     // Tampilkan pop-up window setelah pendaftaran berhasil
                     window.onload = function() {
                         alert("<?php echo $message; ?>");
-                        window.location.href = "beranda.php"; // Ganti dengan halaman beranda yang sesuai
+                        window.location.href = "pembayaran.php"; // Ganti dengan halaman beranda yang sesuai
                     };
                 </script>
             <?php endif; ?>

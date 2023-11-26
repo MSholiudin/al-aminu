@@ -128,7 +128,7 @@
 
 					// Tampilkan data dalam format HTML
 					echo "<div class='card' href='bayar.php'>";
-					echo "<a href='pembayaran.php'>";
+					echo "<a href='daftar.php'>";
 					echo "<img src='img/1.jpg' style='height: 250px;'>";
 					echo "<h3>$nama_program</h3>";
 					echo "<h4>Rp $harga</h4>";
