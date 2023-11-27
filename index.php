@@ -49,9 +49,9 @@ if (!isset($_SESSION['username'])) {
         <div class="head" style="background-color: white; height: 30px; bottom: 35px; position: relative;">
             <div class="col-div-6">
                 <span style="font-size:30px;cursor:pointer; color: black; position: relative; bottom: 7px;"
-                    class="nav">Dashboard</span>
+                class="nav">Dashboard</span>
                 <span style="font-size:30px;cursor:pointer; color: black; position: relative; bottom: 7px;"
-                    class="nav2">☰ Dashboard</span>
+                class="nav2">☰ Dashboard</span>
             </div>
             <?php
             require_once('php/koneksi.php');
@@ -104,14 +104,14 @@ if (!isset($_SESSION['username'])) {
         </div>
         <div class="gambar1" style="outline: #DAF5FF; position: relative; bottom: 35px;">
             <div class="box3" style="height: 250px; width: 450px; outline: DAF5FF;">
-                <b class="changing-text">Hello, Username!</b>
+                <b class="changing-text">Hello, <?php echo $nama_pengguna; ?>!</b>
 
                 <script>
                     // Array of sentences to be displayed
                     const sentences = [
-                        "Selamat datang!",
-                        "Bagaimana kabarmu?",
-                        "Hello, Username!"
+                    "Selamat datang!",
+                    "Bagaimana kabarmu?",
+                    "Hello, <?php echo $nama_pengguna; ?>!"
                     ];
                     const changingTextElements = document.querySelectorAll('.changing-text');
 
@@ -233,60 +233,60 @@ if (!isset($_SESSION['username'])) {
                                 <th>Kelas</th>
                                 <th>Email <a href="murid.php" class="search-button button-style" style="position: relative; left: 10px; background-color: #00A9FF;">Lihat Murid</a></th>
                             </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <!-- Isi tabel -->
-                                    <td>JohnDoe</td>
-                                    <td>12A</td>
-                                    <td>johndoe@example.com</td>
-                                </tr>
-                                <tr>
-                                    <!-- Isi tabel -->
-                                    <td>JohnDoe</td>
-                                    <td>12A</td>
-                                    <td>johndoe@example.com</td>
-                                </tr>
-                                <tr>
-                                    <!-- Isi tabel -->
-                                    <td>JohnDoe</td>
-                                    <td>12A</td>
-                                    <td>johndoe@example.com</td>
-                                </tr>
-                                <!-- Tambahkan baris lain jika diperlukan -->
-                            </tbody>
-                        </table>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <!-- Isi tabel -->
+                                <td>JohnDoe</td>
+                                <td>12A</td>
+                                <td>johndoe@example.com</td>
+                            </tr>
+                            <tr>
+                                <!-- Isi tabel -->
+                                <td>JohnDoe</td>
+                                <td>12A</td>
+                                <td>johndoe@example.com</td>
+                            </tr>
+                            <tr>
+                                <!-- Isi tabel -->
+                                <td>JohnDoe</td>
+                                <td>12A</td>
+                                <td>johndoe@example.com</td>
+                            </tr>
+                            <!-- Tambahkan baris lain jika diperlukan -->
+                        </tbody>
+                    </table>
 
-                    </div>
                 </div>
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-                <script>
-                    $(".nav").click(function () {
-                        $("#mySidenav").css('width', '70px');
-                        $("#main").css('margin-left', '70px');
-                        $(".logo").css('visibility', 'hidden');
-                        $(".logo span").css('visibility', 'visible');
-                        $(".logo span").css('margin-left', '-10px');
-                        $(".icon-a").css('visibility', 'hidden');
-                        $(".icons").css('visibility', 'visible');
-                        $(".icons").css('margin-left', '-8px');
-                        $(".nav").css('display', 'none');
-                        $(".nav2").css('display', 'block');
-                    });
+            </div>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            <script>
+                $(".nav").click(function () {
+                    $("#mySidenav").css('width', '70px');
+                    $("#main").css('margin-left', '70px');
+                    $(".logo").css('visibility', 'hidden');
+                    $(".logo span").css('visibility', 'visible');
+                    $(".logo span").css('margin-left', '-10px');
+                    $(".icon-a").css('visibility', 'hidden');
+                    $(".icons").css('visibility', 'visible');
+                    $(".icons").css('margin-left', '-8px');
+                    $(".nav").css('display', 'none');
+                    $(".nav2").css('display', 'block');
+                });
 
-                    $(".nav2").click(function () {
-                        $("#mySidenav").css('width', '300px');
-                        $("#main").css('margin-left', '300px');
-                        $(".logo").css('visibility', 'visible');
-                        $(".icon-a").css('visibility', 'visible');
-                        $(".icons").css('visibility', 'visible');
-                        $(".nav").css('display', 'block');
-                        $(".nav2").css('display', 'none');
-                    });
-                </script>
+                $(".nav2").click(function () {
+                    $("#mySidenav").css('width', '300px');
+                    $("#main").css('margin-left', '300px');
+                    $(".logo").css('visibility', 'visible');
+                    $(".icon-a").css('visibility', 'visible');
+                    $(".icons").css('visibility', 'visible');
+                    $(".nav").css('display', 'block');
+                    $(".nav2").css('display', 'none');
+                });
+            </script>
 
-                <!-- Kode untuk menampilkan tanggal dan jam -->
-                <script>
+            <!-- Kode untuk menampilkan tanggal dan jam -->
+            <script>
                     // Fungsi untuk mendapatkan dan memformat tanggal
                     function updateTanggal() {
                         var today = new Date();
@@ -327,6 +327,6 @@ if (!isset($_SESSION['username'])) {
                         }
                     });
                 </script>
-</body>
+            </body>
 
-</html>
+            </html>

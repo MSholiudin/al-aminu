@@ -55,7 +55,7 @@
 					});
 				</script>
 				<h1 class="home1">Mari Belajar di Bimbel <span style="color: #444E96;">Al-Amin</span></h1>
-				<a href="#slide" class="cta" style="position: relative; bottom: 40px; left:110px ; height: 100px; width: 430px; font-size: 10mm;">Daftar Sekarang</a>
+				<a href="daftar.php" class="cta" style="position: relative; bottom: 40px; left:110px ; height: 100px; width: 430px; font-size: 10mm;">Daftar Sekarang</a>
 			</div>
 		</main>
 	</section>

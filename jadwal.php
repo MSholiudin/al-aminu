@@ -1,3 +1,35 @@
+<?php
+// Sertakan file koneksi database di sini
+include 'php/koneksi.php';
+
+// Periksa apakah formulir disubmit
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Ambil nilai dari formulir
+	$idModule = $_POST['idModule'];
+	$namaModule = $_POST['namaModule'];
+	$materi = $_POST['materi'];
+	$idMapel = $_POST['mapelMentor'];
+
+    // Lakukan query untuk menyimpan data ke database
+	$query = "INSERT INTO `module` (`id_module`, `nama_module`, `materi`, `id_mapel`) VALUES ('$idModule', '$namaModule', '$materi', '$idMapel')";
+
+    // Jalankan query
+	$result = mysqli_query($koneksi_database_anda, $query);
+
+    // Periksa apakah query berhasil
+	if ($result) {
+		echo "Data berhasil disimpan ke database.";
+	} else {
+		echo "Error: " . mysqli_error($koneksi_database_anda);
+	}
+
+    // Tutup koneksi database (sebaiknya menggunakan fungsi terpisah)
+	mysqli_close($koneksi_database_anda);
+}
+
+$queryMapel = "SELECT id_mapel, nama FROM mapel";
+$resultMapel = $conn->query($queryMapel);
+?>
 <!Doctype HTML>
 <html>
 
@@ -231,11 +263,8 @@
 				document.getElementById('tanggal').textContent += formattedDate;
 			};
 		</script>
-
-
 	</div>
 	<div id="main">
-
 		<div class="head">
 			<div class="col-div-6">
 				<span style="font-size:30px;cursor:pointer; color: black;" class="nav">Jadwal</span>
@@ -262,8 +291,6 @@
 				<button onclick="saveChanges()">Simpan</button>
 				<button onclick="closePopup()">Batal</button>
 			</div>
-
-
 			<div style="font-size: 5mm; text-align: left; position: relative; top: 26px;" id="tanggal">Tanggal: </div>
 			<div id="jam" style="font-size: 5mm; position: relative; top: 26px;">Jam: </div>
 		</div>
@@ -322,51 +349,29 @@
 						background-color: #f2f2f2;
 					}
 				</style>
-				<?php
-				// Misalkan koneksi.php sudah ada
-				include 'php/koneksi.php';
-
-				// Query untuk mendapatkan data jadwal
-				$queryJadwal = "SELECT 
-                    jadwal.hari,
-                    jadwal.jam,
-                    mentor.nama AS nama_mentor,
-                    mapel.nama AS nama_mapel,
-                    module.materi
-                FROM	
-                    jadwal
-                JOIN
-                    mentor ON jadwal.id_mentor = mentor.id_mentor
-                JOIN
-                    mapel ON jadwal.id_mapel = mapel.id_mapel
-                JOIN
-                    module ON jadwal.id_module = module.id_module";
-
-				$resultJadwal = $conn->query($queryJadwal);
-
-				?>
 				<div class="popup-container" id="popupModule">
 					<div style="border-radius: 10px;" class="popup-content">
 						<span class="popup-close" onclick="tutupPopupModule()">&times;</span>
-						<h2>Isi Module</h2>
-						<form>
-							<label for="namaMateri">id:</label>
-							<input type="text" id="namaMateri" name="namaMateri" required>
-							<label for="namaMateri">Nama :</label>
-							<input type="text" id="namaMateri" name="namaMateri" required>
-							<label for="namaMateri">Materi:</label>
-							<input type="text" id="namaMateri" name="namaMateri" required>
-							<label style="font-size: medium;" for="mapelMentor">Pilih Mapel:</label>
+						<h2>Isi Modul</h2>
+						<form method="post" action="">
+							<label for="idModule">ID:</label>
+							<input type="text" id="idModule" name="idModule" required>
+							<label for="namaModule">Nama:</label>
+							<input type="text" id="namaModule" name="namaModule" required>
+							<label for="materi">Materi:</label>
+							<input type="text" id="materi" name="materi" required>
+							<label style="font-size: medium;" for="mapelMentor">Pilih Mata Pelajaran:</label>
 							<select style="font-size: large;" id="mapelMentor" name="mapelMentor">
-									<option style="font-size: large;" value="Matematika">Matematika</option>
-									<option style="font-size: large;" value="Bahasa Indonesia">Bahasa Indonesia</option>
-									<option style="font-size: large;" value="Bahasa Indonesia">IPA</option>
-									<option style="font-size: large;" value="Bahasa Indonesia">Bahasa Inggris</option>
-									<!-- Add more options as needed -->
-								</select>
-							<!-- Tambahkan elemen-elemen lain sesuai kebutuhan -->
+								<?php
+                    // Tampilkan pilihan program dari database
+								while ($row = $resultMapel->fetch_assoc()) {
+									echo "<option value=\"" . $row["id_mapel"] . "\">" . $row["nama"] . "</option>";
+								}
+								?>
+							</select>
+							<!-- Tambahkan elemen lain sesuai kebutuhan -->
 							<div class="button-container">
-								<button class="save-button" onclick="simpanModule()">Simpan</button>
+								<button class="save-button" type="submit">Simpan</button>
 								<button class="cancel-button" onclick="tutupPopupModule()">Batal</button>
 							</div>
 						</form>
@@ -403,88 +408,112 @@
 							</form>
 						</div>
 					</div>
+					<?php
+// Misalkan koneksi.php sudah ada
+					include 'php/koneksi.php';
+
+// Query untuk mendapatkan data jadwal
+					$queryJadwal = "SELECT 
+					jadwal.hari,
+					jadwal.jam,
+					mapel.nama AS nama_mapel,
+					module.materi,
+					mentor.nama AS nama_mentor
+					FROM	
+					jadwal
+					JOIN
+					module ON jadwal.id_module = module.id_module
+					JOIN
+					mapel ON module.id_mapel = mapel.id_mapel
+					JOIN
+					mentor ON mapel.id_mapel = mentor.id_mapel";
+
+					$resultJadwal = $conn->query($queryJadwal);
+					?>
 					<div class="content-box" style="position: relative; bottom: 20px;">
 						<button style="position: relative; top: 30px; left: 600px; height: 30px; " onclick="tampilkanPopupModule()">Tambah Module</button>
 						<p>Jadwal Harian <button style="position: relative; bottom: 1px; left: 600px; height: 30px; " onclick="tampilkanPopup()">Tambah Jadwal</button></p>
 						<br />
 						<table>
 							<tr>
+								<th>Hari</th>
+								<th>Jam</th>
 								<th>Mapel</th>
-								<th>Module</th>
+								<th>Materi</th>
 								<th>Mentor</th>
-								<th>Jadwal</th>
-
 							</tr>
 							<?php
-							// Mengecek apakah query menghasilkan hasil
+        // Mengecek apakah query menghasilkan hasil
 							if ($resultJadwal->num_rows > 0) {
-								// Menampilkan data dalam tabel
+            // Menampilkan data dalam tabel
 								while ($row = $resultJadwal->fetch_assoc()) {
 									echo "<tr>";
 									echo "<td>" . $row["hari"] . "</td>";
 									echo "<td>" . $row["jam"] . "</td>";
-									echo "<td>" . $row["nama_mentor"] . "</td>";
 									echo "<td>" . $row["nama_mapel"] . "</td>";
 									echo "<td>" . $row["materi"] . "</td>";
+									echo "<td>" . $row["nama_mentor"] . "</td>";
 									echo "</tr>";
 								}
 							} else {
-								// Jika tidak ada hasil
+            // Jika tidak ada hasil
 								echo "<tr><td colspan='5'>Tidak ada data jadwal.</td></tr>";
 							}
 							?>
 						</table>
-						<div class="content-box" style="position: relative; background-color: #f2f2f2; bottom: 165px; left: 950px; width: 30%;">
-							<p>Mentor <button style="position: relative; height: 30px; left: 80px;" onclick="tampilkanPopupMentor()">Tambah Mentor</button></p>
-							<br />
-							<table>
-								<tr>
-									<th>Mentor</th>
-									<th>Mapel</th>
-								</tr>
-							</table>
-						</div>
+					</div>
+
+					<div class="content-box" style="position: relative; background-color: #f2f2f2; bottom: 165px; left: 950px; width: 30%;">
+						<p>Mentor <button style="position: relative; height: 30px; left: 80px;" onclick="tampilkanPopupMentor()">Tambah Mentor</button></p>
+						<br />
+						<table>
+							<tr>
+								<th>Mentor</th>
+								<th>Mapel</th>
+							</tr>
+						</table>
+					</div>
 
 
-						<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-						<script>
-							$(".nav").click(function() {
-								$("#mySidenav").css('width', '70px');
-								$("#main").css('margin-left', '70px');
-								$(".logo").css('visibility', 'hidden');
-								$(".logo span").css('visibility', 'visible');
-								$(".logo span").css('margin-left', '-10px');
-								$(".icon-a").css('visibility', 'hidden');
-								$(".icons").css('visibility', 'visible');
-								$(".icons").css('margin-left', '-8px');
-								$(".nav").css('display', 'none');
-								$(".nav2").css('display', 'block');
-							});
+					<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+					<script>
+						$(".nav").click(function() {
+							$("#mySidenav").css('width', '70px');
+							$("#main").css('margin-left', '70px');
+							$(".logo").css('visibility', 'hidden');
+							$(".logo span").css('visibility', 'visible');
+							$(".logo span").css('margin-left', '-10px');
+							$(".icon-a").css('visibility', 'hidden');
+							$(".icons").css('visibility', 'visible');
+							$(".icons").css('margin-left', '-8px');
+							$(".nav").css('display', 'none');
+							$(".nav2").css('display', 'block');
+						});
 
-							$(".nav2").click(function() {
-								$("#mySidenav").css('width', '300px');
-								$("#main").css('margin-left', '300px');
-								$(".logo").css('visibility', 'visible');
-								$(".icon-a").css('visibility', 'visible');
-								$(".icons").css('visibility', 'visible');
-								$(".nav").css('display', 'block');
-								$(".nav2").css('display', 'none');
-							});
-						</script>
-						<script>
-							function updateDateTime() {
-								var today = new Date();
-								var options = {
-									year: 'numeric',
-									month: 'long',
-									day: 'numeric'
-								};
-								var formattedDate = today.toLocaleDateString(undefined, options);
-								document.getElementById('tanggal').textContent = "Tanggal: " + formattedDate;
+						$(".nav2").click(function() {
+							$("#mySidenav").css('width', '300px');
+							$("#main").css('margin-left', '300px');
+							$(".logo").css('visibility', 'visible');
+							$(".icon-a").css('visibility', 'visible');
+							$(".icons").css('visibility', 'visible');
+							$(".nav").css('display', 'block');
+							$(".nav2").css('display', 'none');
+						});
+					</script>
+					<script>
+						function updateDateTime() {
+							var today = new Date();
+							var options = {
+								year: 'numeric',
+								month: 'long',
+								day: 'numeric'
+							};
+							var formattedDate = today.toLocaleDateString(undefined, options);
+							document.getElementById('tanggal').textContent = "Tanggal: " + formattedDate;
 
-								var time = today.toLocaleTimeString();
-								document.getElementById('jam').textContent = "Jam: " + time;
-							}
+							var time = today.toLocaleTimeString();
+							document.getElementById('jam').textContent = "Jam: " + time;
+						}
 
 							// Memanggil updateDateTime() setiap detik (1000 milidetik)
 							setInterval(updateDateTime, 1000);
@@ -538,7 +567,7 @@
 							// ...
 						</script>
 
-</body>
+					</body>
 
 
-</html>
+					</html>
