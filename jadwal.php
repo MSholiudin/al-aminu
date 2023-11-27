@@ -1,9 +1,9 @@
 <?php
-// Sertakan file koneksi database di sini
+
 include 'php/koneksi.php';
 
-// Periksa apakah formulir disubmit
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+// submit module
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_module'])) {
     // Ambil nilai dari formulir
 	$idModule = $_POST['idModule'];
 	$namaModule = $_POST['namaModule'];
@@ -14,21 +14,64 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	$query = "INSERT INTO `module` (`id_module`, `nama_module`, `materi`, `id_mapel`) VALUES ('$idModule', '$namaModule', '$materi', '$idMapel')";
 
     // Jalankan query
-	$result = mysqli_query($koneksi_database_anda, $query);
+	$result = mysqli_query($conn, $query);
 
     // Periksa apakah query berhasil
 	if ($result) {
 		echo "Data berhasil disimpan ke database.";
 	} else {
-		echo "Error: " . mysqli_error($koneksi_database_anda);
+		echo "Error: " . mysqli_error($conn);
 	}
+}
 
-    // Tutup koneksi database (sebaiknya menggunakan fungsi terpisah)
-	mysqli_close($koneksi_database_anda);
+// submit jadwal
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_jadwal'])) {
+    // Ambil nilai dari formulir
+	$idJadwal = $_POST['idJadwal'];
+	$hari = $_POST['hari'];
+	$jam = $_POST['jam'];
+	$idModule = $_POST['mapelMentor'];
+
+    // Lakukan query untuk menyimpan data ke database
+	$query = "INSERT INTO `jadwal` (`id_jadwal`, `hari`, `jam`, `id_module`) VALUES ('$idJadwal', '$hari', '$jam', '$idModule')";
+
+    // Jalankan query
+	$result = mysqli_query($conn, $query);
+
+    // Periksa apakah query berhasil
+	if ($result) {
+		echo "Data berhasil disimpan ke database.";
+	} else {
+		echo "Error: " . mysqli_error($conn);
+	}
+}
+
+if (isset($_POST['submit_mentor'])) {
+    // Ambil data dari formulir
+	$idMentor = $_POST['id_mentor'];
+	$namaMentor = $_POST['nama_mentor'];
+	$jkMentor = $_POST['jk_mentor'];
+	$waMentor = $_POST['wa_mentor'];
+	$mapelMentor = $_POST['mapelMentor'];
+
+    // Lakukan operasi INSERT ke database
+	$query = "INSERT INTO `mentor` (`id_mentor`, `nama`, `jenis_kelamin`, `no_wa`, `id_mapel`) VALUES ('$idMentor', '$namaMentor', '$jkMentor', '$waMentor', '$mapelMentor')";
+
+	if ($conn->query($query) === TRUE) {
+		echo "Data berhasil disimpan!";
+	} else {
+		echo "Error: " . $query . "<br>" . $conn->error;
+	}
 }
 
 $queryMapel = "SELECT id_mapel, nama FROM mapel";
 $resultMapel = $conn->query($queryMapel);
+
+$queryModule = "SELECT id_module, nama_module FROM module";
+$resultModule = $conn->query($queryModule);
+
+$queryMapell = "SELECT id_mapel, nama FROM mapel";
+$resultMapell = $conn->query($queryMapell);
 ?>
 <!Doctype HTML>
 <html>
@@ -270,50 +313,11 @@ $resultMapel = $conn->query($queryMapel);
 				<span style="font-size:30px;cursor:pointer; color: black;" class="nav">Jadwal</span>
 				<span style="font-size:30px;cursor:pointer; color: black;" class="nav2">☰ Jadwal</span>
 			</div>
-
-
-			<div class="col-div-6">
-				<div class="profile">
-				</div>
-			</div>
 		</div>
 		<div class="content-box">
-			<div id="popup" class="popup">
-				<!-- Konten pop-up di sini -->
-			</div>
-			<div id="popup" class="popup">
-				<!-- Konten pop-up pengeditan di sini -->
-				<input type="text" id="namaInput" placeholder="Nama">
-				<input type="text" id="nohpInput" placeholder="No HP">
-				<input type="text" id="kelasInput" placeholder="Kelas">
-				<input type="text" id="cicilanInput" placeholder="Cicilan">
-				<input type="text" id="statusInput" placeholder="Status">
-				<button onclick="saveChanges()">Simpan</button>
-				<button onclick="closePopup()">Batal</button>
-			</div>
 			<div style="font-size: 5mm; text-align: left; position: relative; top: 26px;" id="tanggal">Tanggal: </div>
 			<div id="jam" style="font-size: 5mm; position: relative; top: 26px;">Jam: </div>
 		</div>
-		<div class="clearfix"></div>
-		<!-- buat sebuah button dengan id="btn-kalender" -->
-		<!-- buat sebuah input dengan type="date" dan id="input-kalender" -->
-		<div class="popup-container" id="popupJadwal">
-			<div style="border-radius: 10px;" class="popup-content">
-				<span class="popup-close" onclick="tutupPopup()">&times;</span>
-				<h2>Isi Jadwal</h2>
-				<form>
-					<label for="hari">Hari:</label>
-					<input type="text" id="hari" name="hari" required>
-					<label for="jam">Jam:</label>
-					<input type="text" id="jam" name="jam" required>
-					<div class="button-container">
-						<button class="save-button" onclick="simpanJadwal()">Simpan</button>
-						<button class="cancel-button" onclick="tutupPopup()">Batal</button>
-					</div>
-				</form>
-			</div>
-		</div>
-		<div class="overlay" id="overlay" onclick="tutupPopup()"></div>
 		<div class="col-div-8" style="position: relative; top: 30px;">
 			<div class="box-8">
 				<style>
@@ -371,203 +375,227 @@ $resultMapel = $conn->query($queryMapel);
 							</select>
 							<!-- Tambahkan elemen lain sesuai kebutuhan -->
 							<div class="button-container">
-								<button class="save-button" type="submit">Simpan</button>
+								<button class="save-button" type="submit" name="submit_module">Simpan Modul</button>
 								<button class="cancel-button" onclick="tutupPopupModule()">Batal</button>
 							</div>
 						</form>
 					</div>
 				</div>
-				<div class="popup" id="popupJadwal">
-					<div class="popup-mentor popup" id="popupMentor">
-						<div style="border-radius: 10px;" class="popup-content">
-							<span class="popup-close" onclick="tutupPopupMentor()">&times;</span>
-							<h2 style="text-align: center;">Tambah Mentor</h2>
-							<form>
-								<label for="namaMentor">id:</label>
-								<input type="text" id="namaMentor" name="namaMentor" required>
-								<label for="mapelMentor">Nama:</label>
-								<input type="text" id="mapelMentor" name="mapelMentor" required>
-								<label for="mapelMentor">jenis kelamin:</label>
-								<input type="text" id="mapelMentor" name="mapelMentor" required>
-								<label for="mapelMentor">no wa:</label>
-								<input type="text" id="mapelMentor" name="mapelMentor" required>
-								<label for="mapelMentor">Pilih Mapel:</label>
-								<select style="font-size: large;" id="mapelMentor" name="mapelMentor">
-									<option style="font-size: large;" value="Matematika">Matematika</option>
-									<option style="font-size: large;" value="Bahasa Indonesia">Bahasa Indonesia</option>
-									<option style="font-size: large;" value="Bahasa Indonesia">IPA</option>
-									<option style="font-size: large;" value="Bahasa Indonesia">Bahasa Inggris</option>
-									<!-- Add more options as needed -->
-								</select>
-								<label style="position: relative; top: 10px;" for="image">Upload Foto:</label>
-								<input type="file" id="image" name="image" accept="image/*">
-								<div class="button-container">
-									<button class="save-button" onclick="simpanMentor()">Simpan</button>
-									<button class="cancel-button" onclick="tutupPopupMentor()">Batal</button>
-								</div>
-							</form>
-						</div>
-					</div>
-					<?php
-// Misalkan koneksi.php sudah ada
-					include 'php/koneksi.php';
-
-// Query untuk mendapatkan data jadwal
-					$queryJadwal = "SELECT 
-					jadwal.hari,
-					jadwal.jam,
-					mapel.nama AS nama_mapel,
-					module.materi,
-					mentor.nama AS nama_mentor
-					FROM	
-					jadwal
-					JOIN
-					module ON jadwal.id_module = module.id_module
-					JOIN
-					mapel ON module.id_mapel = mapel.id_mapel
-					JOIN
-					mentor ON mapel.id_mapel = mentor.id_mapel";
-
-					$resultJadwal = $conn->query($queryJadwal);
-					?>
-					<div class="content-box" style="position: relative; bottom: 20px;">
-						<button style="position: relative; top: 30px; left: 600px; height: 30px; " onclick="tampilkanPopupModule()">Tambah Module</button>
-						<p>Jadwal Harian <button style="position: relative; bottom: 1px; left: 600px; height: 30px; " onclick="tampilkanPopup()">Tambah Jadwal</button></p>
-						<br />
-						<table>
-							<tr>
-								<th>Hari</th>
-								<th>Jam</th>
-								<th>Mapel</th>
-								<th>Materi</th>
-								<th>Mentor</th>
-							</tr>
-							<?php
-        // Mengecek apakah query menghasilkan hasil
-							if ($resultJadwal->num_rows > 0) {
-            // Menampilkan data dalam tabel
-								while ($row = $resultJadwal->fetch_assoc()) {
-									echo "<tr>";
-									echo "<td>" . $row["hari"] . "</td>";
-									echo "<td>" . $row["jam"] . "</td>";
-									echo "<td>" . $row["nama_mapel"] . "</td>";
-									echo "<td>" . $row["materi"] . "</td>";
-									echo "<td>" . $row["nama_mentor"] . "</td>";
-									echo "</tr>";
+				<div class="popup-container" id="popupJadwal">
+					<div style="border-radius: 10px;" class="popup-content">
+						<span class="popup-close" onclick="tutupPopup()">&times;</span>
+						<h2>Isi Jadwal</h2>
+						<form method="post" action="">
+							<label for="idJadwal">ID:</label>
+							<input type="text" id="idJadwal" name="idJadwal" required>
+							<label for="hari">Hari:</label>
+							<input type="text" id="hari" name="hari" required>
+							<label for="jam">Jam:</label>
+							<input type="text" id="jam" name="jam" required>
+							<label for="mapelMentor">Pilih Materi:</label>
+							<select style="font-size: large;" id="mapelMentor" name="mapelMentor">
+								<?php
+                // Tampilkan pilihan program dari database
+								while ($row = $resultModule->fetch_assoc()) {
+									echo "<option value=\"" . $row["id_module"] . "\">" . $row["nama_module"] . "</option>";
 								}
-							} else {
-            // Jika tidak ada hasil
-								echo "<tr><td colspan='5'>Tidak ada data jadwal.</td></tr>";
+								?>
+							</select>
+							<div class="button-container">
+								<button class="save-button" type="submit" name="submit_jadwal">Simpan Jadwal</button>
+								<button class="cancel-button" onclick="tutupPopup()">Batal</button>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="popup-mentor popup" id="popupMentor">
+					<div style="border-radius: 10px;" class="popup-content">
+						<span class="popup-close" onclick="tutupPopupMentor()">&times;</span>
+						<h2 style="text-align: center;">Tambah Mentor</h2>
+						<form action="" method="post" enctype="multipart/form-data">
+							<label for="id_mentor">ID:</label>
+							<input type="text" id="id_mentor" name="id_mentor" required>
+							<label for="nama_mentor">Nama:</label>
+							<input type="text" id="nama_mentor" name="nama_mentor" required>
+							<label for="jk_mentor">Jenis Kelamin:</label>
+							<input type="text" id="jk_mentor" name="jk_mentor" required>
+							<label for="wa_mentor">Nomor WhatsApp:</label>
+							<input type="tel" id="wa_mentor" name="wa_mentor" required>
+							<label style="font-size: medium;" for="mapelMentor">Pilih Mata Pelajaran:</label>
+							<select style="font-size: large;" id="mapelMentor" name="mapelMentor">
+								<?php
+                        // Tampilkan pilihan program dari database
+								while ($row = $resultMapell->fetch_assoc()) {
+									echo "<option value=\"" . $row["id_mapel"] . "\">" . $row["nama"] . "</option>";
+								}
+								?>
+							</select>
+							<label style="position: relative; top: 10px;" for="image">Upload Foto:</label>
+							<input type="file" id="image" name="image" accept="image/*">
+							<div class="button-container">
+								<button class="save-button" type="submit" name="submit_mentor">Simpan Mentor</button>
+								<button class="cancel-button" onclick="tutupPopupMentor()">Batal</button>
+							</div>
+						</form>
+					</div>
+				</div>
+				<?php
+
+				include 'php/koneksi.php';
+
+				$queryJadwal = "SELECT jadwal.hari, jadwal.jam, mapel.nama AS nama_mapel, module.nama_module, mentor.nama AS nama_mentor
+				FROM jadwal
+				JOIN module ON jadwal.id_module = module.id_module
+				JOIN mapel ON module.id_mapel = mapel.id_mapel
+				JOIN mentor ON mapel.id_mapel = mentor.id_mapel";
+
+				$resultJadwal = $conn->query($queryJadwal);
+				?>
+				<div class="content-box" style="position: relative; bottom: 20px;">
+					<button style="position: relative; top: 30px; left: 600px; height: 30px; " onclick="tampilkanPopupModule()">Tambah Module</button>
+					<p>Jadwal Harian <button style="position: relative; bottom: 1px; left: 600px; height: 30px; " onclick="tampilkanPopup()">Tambah Jadwal</button></p>
+					<br />
+					<table>
+						<tr>
+							<th>Hari</th>
+							<th>Jam</th>
+							<th>Mapel</th>
+							<th>Materi</th>
+							<th>Mentor</th>
+						</tr>
+						<?php
+						if ($resultJadwal->num_rows > 0) {
+							while ($row = $resultJadwal->fetch_assoc()) {
+								echo "<tr>";
+								echo "<td>" . $row["hari"] . "</td>";
+								echo "<td>" . $row["jam"] . "</td>";
+								echo "<td>" . $row["nama_mapel"] . "</td>";
+								echo "<td>" . $row["nama_module"] . "</td>";
+								echo "<td>" . $row["nama_mentor"] . "</td>";
+								echo "</tr>";
 							}
-							?>
-						</table>
-					</div>
-
-					<div class="content-box" style="position: relative; background-color: #f2f2f2; bottom: 165px; left: 950px; width: 30%;">
-						<p>Mentor <button style="position: relative; height: 30px; left: 80px;" onclick="tampilkanPopupMentor()">Tambah Mentor</button></p>
-						<br />
-						<table>
-							<tr>
-								<th>Mentor</th>
-								<th>Mapel</th>
-							</tr>
-						</table>
-					</div>
-
-
-					<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-					<script>
-						$(".nav").click(function() {
-							$("#mySidenav").css('width', '70px');
-							$("#main").css('margin-left', '70px');
-							$(".logo").css('visibility', 'hidden');
-							$(".logo span").css('visibility', 'visible');
-							$(".logo span").css('margin-left', '-10px');
-							$(".icon-a").css('visibility', 'hidden');
-							$(".icons").css('visibility', 'visible');
-							$(".icons").css('margin-left', '-8px');
-							$(".nav").css('display', 'none');
-							$(".nav2").css('display', 'block');
-						});
-
-						$(".nav2").click(function() {
-							$("#mySidenav").css('width', '300px');
-							$("#main").css('margin-left', '300px');
-							$(".logo").css('visibility', 'visible');
-							$(".icon-a").css('visibility', 'visible');
-							$(".icons").css('visibility', 'visible');
-							$(".nav").css('display', 'block');
-							$(".nav2").css('display', 'none');
-						});
-					</script>
-					<script>
-						function updateDateTime() {
-							var today = new Date();
-							var options = {
-								year: 'numeric',
-								month: 'long',
-								day: 'numeric'
-							};
-							var formattedDate = today.toLocaleDateString(undefined, options);
-							document.getElementById('tanggal').textContent = "Tanggal: " + formattedDate;
-
-							var time = today.toLocaleTimeString();
-							document.getElementById('jam').textContent = "Jam: " + time;
+						} else {
+							echo "<tr><td colspan='5'>Tidak ada data jadwal.</td></tr>";
 						}
+						?>
+					</table>
+				</div>
 
-							// Memanggil updateDateTime() setiap detik (1000 milidetik)
-							setInterval(updateDateTime, 1000);
+				<?php
+				$query = "SELECT mentor.nama AS nama_mentor, mapel.nama AS nama_mapel FROM mentor
+				JOIN mapel ON mentor.id_mapel = mapel.id_mapel";
 
-							// Memanggil updateDateTime() saat halaman dimuat
-							window.onload = updateDateTime;
-						</script>
-						<script>
-							function tampilkanPopup() {
-								document.getElementById('popupJadwal').style.display = 'block';
-								document.getElementById('overlay').style.display = 'block';
-							}
+				$result = $conn->query($query);
+				?>
 
-							function tutupPopup() {
-								document.getElementById('popupJadwal').style.display = 'none';
-								document.getElementById('overlay').style.display = 'none';
-							}
-
-							function simpanJadwal() {
-								// Logika untuk menyimpan jadwal ke database atau melakukan tindakan lainnya
-								console.log('Jadwal disimpan!');
-								tutupPopup();
-							}
-						</script>
-
-						<script>
-							function tampilkanPopupMentor() {
-								document.getElementById('popupMentor').style.display = 'block';
-								document.getElementById('overlay').style.display = 'block';
-							}
-
-							function tutupPopupMentor() {
-								document.getElementById('popupMentor').style.display = 'none';
-								document.getElementById('overlay').style.display = 'none';
-							}
-
-							// ...
-						</script>
-
-						<script>
-							function tampilkanPopupModule() {
-								document.getElementById('popupModule').style.display = 'block';
-								document.getElementById('overlay').style.display = 'block';
-							}
-
-							function tutupPopupModule() {
-								document.getElementById('popupModule').style.display = 'none';
-								document.getElementById('overlay').style.display = 'none';
-							}
-
-							// ...
-						</script>
-
-					</body>
+				<div class="content-box" style="position: relative; background-color: #f2f2f2; bottom: 165px; left: 950px; width: 30%;">
+					<p>Mentor <button style="position: relative; height: 30px; left: 80px;" onclick="tampilkanPopupMentor()">Tambah Mentor</button></p>
+					<br />
+					<table>
+						<tr>
+							<th>Mentor</th>
+							<th>Mapel</th>
+						</tr>
+						<?php
+						while ($row = $result->fetch_assoc()) {
+							echo "<tr>";
+							echo "<td>" . $row["nama_mentor"] . "</td>";
+							echo "<td>" . $row["nama_mapel"] . "</td>";
+							echo "</tr>";
+						}
+						?>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
-					</html>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script>
+		$(".nav").click(function() {
+			$("#mySidenav").css('width', '70px');
+			$("#main").css('margin-left', '70px');
+			$(".logo").css('visibility', 'hidden');
+			$(".logo span").css('visibility', 'visible');
+			$(".logo span").css('margin-left', '-10px');
+			$(".icon-a").css('visibility', 'hidden');
+			$(".icons").css('visibility', 'visible');
+			$(".icons").css('margin-left', '-8px');
+			$(".nav").css('display', 'none');
+			$(".nav2").css('display', 'block');
+		});
+
+		$(".nav2").click(function() {
+			$("#mySidenav").css('width', '300px');
+			$("#main").css('margin-left', '300px');
+			$(".logo").css('visibility', 'visible');
+			$(".icon-a").css('visibility', 'visible');
+			$(".icons").css('visibility', 'visible');
+			$(".nav").css('display', 'block');
+			$(".nav2").css('display', 'none');
+		});
+	</script>
+	<script>
+		function updateDateTime() {
+			var today = new Date();
+			var options = {
+				year: 'numeric',
+				month: 'long',
+				day: 'numeric'
+			};
+			var formattedDate = today.toLocaleDateString(undefined, options);
+			document.getElementById('tanggal').textContent = "Tanggal: " + formattedDate;
+
+			var time = today.toLocaleTimeString();
+			document.getElementById('jam').textContent = "Jam: " + time;
+		}
+		// Memanggil updateDateTime() setiap detik (1000 milidetik)
+		setInterval(updateDateTime, 1000);
+		// Memanggil updateDateTime() saat halaman dimuat
+		window.onload = updateDateTime;
+	</script>
+	<script>
+		function tampilkanPopup() {
+			document.getElementById('popupJadwal').style.display = 'block';
+			document.getElementById('overlay').style.display = 'block';
+		}
+
+		function tutupPopup() {
+			document.getElementById('popupJadwal').style.display = 'none';
+			document.getElementById('overlay').style.display = 'none';
+		}
+
+		function simpanJadwal() {
+			// Logika untuk menyimpan jadwal ke database atau melakukan tindakan lainnya
+			console.log('Jadwal disimpan!');
+			tutupPopup();
+		}
+	</script>
+
+	<script>
+		function tampilkanPopupMentor() {
+			document.getElementById('popupMentor').style.display = 'block';
+			document.getElementById('overlay').style.display = 'block';
+		}
+
+		function tutupPopupMentor() {
+			document.getElementById('popupMentor').style.display = 'none';
+			document.getElementById('overlay').style.display = 'none';
+		}
+	</script>
+
+	<script>
+		function tampilkanPopupModule() {
+			document.getElementById('popupModule').style.display = 'block';
+			document.getElementById('overlay').style.display = 'block';
+		}
+
+		function tutupPopupModule() {
+			document.getElementById('popupModule').style.display = 'none';
+			document.getElementById('overlay').style.display = 'none';
+		}
+	</script>
+
+</body>
+</html>
