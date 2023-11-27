@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title></title>
+    <title>Cicilan</title>
     <link rel="stylesheet" href="css/style.css" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -12,70 +12,70 @@
 </head>
 
 <body>
-<style>
-    /* Styles for the modal */
-    .modal {
-        display: none;
-        position: fixed;
-        z-index: 1;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        overflow: auto;
-        background-color: rgb(0, 0, 0);
-        background-color: rgba(0, 0, 0, 0.4);
-        padding-top: 60px;
-    }
+    <style>
+        /* Styles for the modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
 
-    .modal-content {
-        background-color: #fefefe;
-        margin: 15% auto;
-        padding: 20px;
-        border: 1px solid #888;
-        width: 20%;
-    }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 20%;
+        }
 
-    /* Close button styles */
-    .close {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-    }
+        /* Close button styles */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
 
-    .close:hover,
-    .close:focus {
-        color: black;
-        text-decoration: none;
-        cursor: pointer;
-    }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
 
-    /* Button styles */
-    .modal-buttons {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 30px;
-    }
+        /* Button styles */
+        .modal-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
 
-    .modal-buttons button {
-        padding: 10px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 16px;
-    }
+        .modal-buttons button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
 
-    .modal-buttons button.confirm {
-        background-color: #4caf50;
-        color: #fff;
-    }
+        .modal-buttons button.confirm {
+            background-color: #4caf50;
+            color: #fff;
+        }
 
-    .modal-buttons button.cancel {
-        background-color: #f44336;
-        color: #fff;
-    }
-</style>
+        .modal-buttons button.cancel {
+            background-color: #f44336;
+            color: #fff;
+        }
+    </style>
 
     <div id="mySidenav" class="sidenav">
         <p class="logo" style="position: relative; right: 5px;"><span>AL</span>-AMIN</p>
@@ -193,181 +193,181 @@
                 width: 70px;
             }
         </style>
-          <style>
-        #calendar-container {
-            display: none;
-            position: absolute;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            padding: 10px;
-            z-index: 1;
-        }
+        <style>
+            #calendar-container {
+                display: none;
+                position: absolute;
+                background-color: #fff;
+                border: 1px solid #ccc;
+                padding: 10px;
+                z-index: 1;
+            }
 
-        .show-calendar {
-            cursor: pointer;
-            text-decoration: underline;
-            color: blue;
-        }
+            .show-calendar {
+                cursor: pointer;
+                text-decoration: underline;
+                color: blue;
+            }
         </style>
-        </head>
+    </head>
 
-        <body>
+    <body>
 
-            <div class="container">
-                <form action="proses_cicilan.php" method="post">
-                    <div style="display: flex; gap: 16px;">
-                        <div style="flex: 1;">
-                            <b for="nama">Nama :</b>
-                            <input type="text" id="nama" name="nama" required>
-                        </div>
-                        <div style="flex: 1;">
-                            <label style="position: relative; top: 5px;" for="kelas"><b>Kelas:</b></label>
-                            <select style="position: relative; top: 5px;" id="kelas" name="kelas" required>
-                                <option value="" disabled selected>Pilih Kelas</option>
-                                <option value="Kelas 9 SMP">Kelas 9 SMP</option>
-                                <option value="Kelas 10 SMA">Kelas 10 SMA</option>
-                                <option value="Kelas 11 SMA">Kelas 11 SMA</option>
-                                <option value="Kelas 12 SMA">Kelas 12 SMA</option>
-                                <option value="Perguruan Tinggi">Perguruan Tinggi</option>
-                            </select>
-                            <div class="bulan-container">
-                                <div class="checkbox-container">
-                                </div>
+        <div class="container">
+            <form action="proses_cicilan.php" method="post">
+                <div style="display: flex; gap: 16px;">
+                    <div style="flex: 1;">
+                        <b for="nama">Nama :</b>
+                        <input type="text" id="nama" name="nama" required>
+                    </div>
+                    <div style="flex: 1;">
+                        <label style="position: relative; top: 5px;" for="kelas"><b>Kelas:</b></label>
+                        <select style="position: relative; top: 5px;" id="kelas" name="kelas" required>
+                            <option value="" disabled selected>Pilih Kelas</option>
+                            <option value="Kelas 9 SMP">Kelas 9 SMP</option>
+                            <option value="Kelas 10 SMA">Kelas 10 SMA</option>
+                            <option value="Kelas 11 SMA">Kelas 11 SMA</option>
+                            <option value="Kelas 12 SMA">Kelas 12 SMA</option>
+                            <option value="Perguruan Tinggi">Perguruan Tinggi</option>
+                        </select>
+                        <div class="bulan-container">
+                            <div class="checkbox-container">
                             </div>
                         </div>
                     </div>
-                    <label for="datepicker">Choose a date:</label>
-    <input type="text" id="datepicker" name="datepicker" autocomplete="off">
+                </div>
+                <label for="datepicker">Choose a date:</label>
+                <input type="text" id="datepicker" name="datepicker" autocomplete="off">
 
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+                <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            flatpickr("#datepicker", {
-                dateFormat: "Y-m-d",
-                maxDate: "today",
-                defaultDate: "today",
-                onClose: function (selectedDates, dateStr, instance) {
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        flatpickr("#datepicker", {
+                            dateFormat: "Y-m-d",
+                            maxDate: "today",
+                            defaultDate: "today",
+                            onClose: function (selectedDates, dateStr, instance) {
                     // Handle the date selection if needed
                     console.log("Selected Date: ", dateStr);
                 }
             });
-        });
-    </script>
-                    <div class="button-container">
-                        <button type="button" class="button-periksa">Periksa</button>
+                    });
+                </script>
+                <div class="button-container">
+                    <button type="button" class="button-periksa">Periksa</button>
+                </div>
+
+
+
+                <div class="bulan-container">
+                    <div class="checkbox-container">
+                        <input style="position: relative; top: 15px;" type="checkbox" id="include_bunga_jan" name="include_bunga_jan" class="checkbox-input">
+                        <label style="position: relative; top: 10px;" for="include_bunga_jan" class="text-bulan">January</label>
                     </div>
+                    <input style="position: relative; top: 10px;" type="text" id="pembayaran_jan" name="pembayaran_jan" class="pembayaran-input" placeholder="Pembayaran Bulan ini" required>
+                </div>
 
+                <div class="bulan-container">
+                    <div class="checkbox-container">
+                        <input style="position: relative; top: 15px;" type="checkbox" id="include_bunga_jan" name="include_bunga_jan" class="checkbox-input">
+                        <label style="position: relative; top: 10px;" for="include_bunga_jan" class="text-bulan">Febuary</label>
+                    </div>
+                    <input style="position: relative; top: 10px;" type="text" id="pembayaran_jan" name="pembayaran_jan" class="pembayaran-input" placeholder="Pembayaran Bulan ini" required>
+                </div>
 
+                <div class="bulan-container">
+                    <div class="checkbox-container">
+                        <input style="position: relative; top: 15px;" type="checkbox" id="include_bunga_jan" name="include_bunga_jan" class="checkbox-input">
+                        <label style="position: relative; top: 10px;" for="include_bunga_jan" class="text-bulan">Maret</label>
+                    </div>
+                    <input style="position: relative; top: 10px;" type="text" id="pembayaran_jan" name="pembayaran_jan" class="pembayaran-input" placeholder="Pembayaran Bulan ini" required>
+                </div>
 
-                    <div class="bulan-container">
-                        <div class="checkbox-container">
-                            <input style="position: relative; top: 15px;" type="checkbox" id="include_bunga_jan" name="include_bunga_jan" class="checkbox-input">
-                            <label style="position: relative; top: 10px;" for="include_bunga_jan" class="text-bulan">January</label>
+                <div class="bulan-container">
+                    <div class="checkbox-container">
+                        <input style="position: relative; top: 15px;" type="checkbox" id="include_bunga_jan" name="include_bunga_jan" class="checkbox-input">
+                        <label style="position: relative; top: 10px;" for="include_bunga_jan" class="text-bulan">April</label>
+                    </div>
+                    <input style="position: relative; top: 10px;" type="text" id="pembayaran_jan" name="pembayaran_jan" class="pembayaran-input" placeholder="Pembayaran Bulan ini" required>
+                </div>
+
+                <div class="bulan-container">
+                    <div class="checkbox-container">
+                        <input style="position: relative; top: 15px;" type="checkbox" id="include_bunga_jan" name="include_bunga_jan" class="checkbox-input">
+                        <label style="position: relative; top: 10px;" for="include_bunga_jan" class="text-bulan">Mei</label>
+                    </div>
+                    <input style="position: relative; top: 10px;" type="text" id="pembayaran_jan" name="pembayaran_jan" class="pembayaran-input" placeholder="Pembayaran Bulan ini" required>
+                </div>
+
+                <div class="bulan-container">
+                    <div class="checkbox-container">
+                        <input style="position: relative; top: 15px;" type="checkbox" id="include_bunga_jan" name="include_bunga_jan" class="checkbox-input">
+                        <label style="position: relative; top: 10px;" for="include_bunga_jan" class="text-bulan">Juni</label>
+                    </div>
+                    <input style="position: relative; top: 10px;" type="text" id="pembayaran_jan" name="pembayaran_jan" class="pembayaran-input" placeholder="Pembayaran Bulan ini" required>
+                </div>
+
+                <!-- Ganti untuk bulan-bulan lainnya -->
+            </form>
+            <div class="gambar" style="width: 300px; background-color: #f4f4f4; height: 330px; position: relative; left: 410px; bottom: 580px; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                <h2 style="color: black; text-align: center; margin-bottom: 20px;">Pembayaran</h2>
+
+                <div style="margin-bottom: 20px;">
+                    <label for="total_harga" style="color: black; display: block; margin-bottom: 5px;">Total Harga:</label>
+                    <input type="text" style="width: 100%; padding: 10px; box-sizing: border-box; border: none; border-radius: 5px;" id="total_harga" name="total_harga" required>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label for="durasi_cicilan" style="color: black; display: block; margin-bottom: 5px;">Total Bayar:</label>
+                    <input type="text" style="width: 100%; padding: 10px; box-sizing: border-box; border: none; border-radius: 5px;" id="durasi_cicilan" name="durasi_cicilan" required>
+                </div>
+                <button type="submit" class="button-bayar" style="width: 100%; padding: 10px; box-sizing: border-box; border: none; border-radius: 5px; background-color: #4caf50; color: #fff; cursor: pointer;">Bayar</button>
+                <div id="myModal" class="modal">
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                        <span class="close" onclick="closeModal()">&times;</span>
+                        <p>Apakah Anda yakin ingin melanjutkan pembayaran?</p>
+                        <div class="modal-buttons">
+                            <button class="cancel" onclick="closeModal()">Kembali</button>
+                            <button class="confirm" onclick="confirmPayment()">Bayar</button>
                         </div>
-                        <input style="position: relative; top: 10px;" type="text" id="pembayaran_jan" name="pembayaran_jan" class="pembayaran-input" placeholder="Pembayaran Bulan ini" required>
                     </div>
+                </div>
 
-                    <div class="bulan-container">
-                        <div class="checkbox-container">
-                            <input style="position: relative; top: 15px;" type="checkbox" id="include_bunga_jan" name="include_bunga_jan" class="checkbox-input">
-                            <label style="position: relative; top: 10px;" for="include_bunga_jan" class="text-bulan">Febuary</label>
-                        </div>
-                        <input style="position: relative; top: 10px;" type="text" id="pembayaran_jan" name="pembayaran_jan" class="pembayaran-input" placeholder="Pembayaran Bulan ini" required>
-                    </div>
-
-                    <div class="bulan-container">
-                        <div class="checkbox-container">
-                            <input style="position: relative; top: 15px;" type="checkbox" id="include_bunga_jan" name="include_bunga_jan" class="checkbox-input">
-                            <label style="position: relative; top: 10px;" for="include_bunga_jan" class="text-bulan">Maret</label>
-                        </div>
-                        <input style="position: relative; top: 10px;" type="text" id="pembayaran_jan" name="pembayaran_jan" class="pembayaran-input" placeholder="Pembayaran Bulan ini" required>
-                    </div>
-
-                    <div class="bulan-container">
-                        <div class="checkbox-container">
-                            <input style="position: relative; top: 15px;" type="checkbox" id="include_bunga_jan" name="include_bunga_jan" class="checkbox-input">
-                            <label style="position: relative; top: 10px;" for="include_bunga_jan" class="text-bulan">April</label>
-                        </div>
-                        <input style="position: relative; top: 10px;" type="text" id="pembayaran_jan" name="pembayaran_jan" class="pembayaran-input" placeholder="Pembayaran Bulan ini" required>
-                    </div>
-
-                    <div class="bulan-container">
-                        <div class="checkbox-container">
-                            <input style="position: relative; top: 15px;" type="checkbox" id="include_bunga_jan" name="include_bunga_jan" class="checkbox-input">
-                            <label style="position: relative; top: 10px;" for="include_bunga_jan" class="text-bulan">Mei</label>
-                        </div>
-                        <input style="position: relative; top: 10px;" type="text" id="pembayaran_jan" name="pembayaran_jan" class="pembayaran-input" placeholder="Pembayaran Bulan ini" required>
-                    </div>
-
-                    <div class="bulan-container">
-                        <div class="checkbox-container">
-                            <input style="position: relative; top: 15px;" type="checkbox" id="include_bunga_jan" name="include_bunga_jan" class="checkbox-input">
-                            <label style="position: relative; top: 10px;" for="include_bunga_jan" class="text-bulan">Juni</label>
-                        </div>
-                        <input style="position: relative; top: 10px;" type="text" id="pembayaran_jan" name="pembayaran_jan" class="pembayaran-input" placeholder="Pembayaran Bulan ini" required>
-                    </div>
-
-                    <!-- Ganti untuk bulan-bulan lainnya -->
-                </form>
-                <div class="gambar" style="width: 300px; background-color: #f4f4f4; height: 330px; position: relative; left: 410px; bottom: 580px; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-    <h2 style="color: black; text-align: center; margin-bottom: 20px;">Pembayaran</h2>
-
-    <div style="margin-bottom: 20px;">
-        <label for="total_harga" style="color: black; display: block; margin-bottom: 5px;">Total Harga:</label>
-        <input type="text" style="width: 100%; padding: 10px; box-sizing: border-box; border: none; border-radius: 5px;" id="total_harga" name="total_harga" required>
-    </div>
-    <div style="margin-bottom: 20px;">
-    <label for="durasi_cicilan" style="color: black; display: block; margin-bottom: 5px;">Total Bayar:</label>
-    <input type="text" style="width: 100%; padding: 10px; box-sizing: border-box; border: none; border-radius: 5px;" id="durasi_cicilan" name="durasi_cicilan" required>
-</div>
-    <button type="submit" class="button-bayar" style="width: 100%; padding: 10px; box-sizing: border-box; border: none; border-radius: 5px; background-color: #4caf50; color: #fff; cursor: pointer;">Bayar</button>
-    <div id="myModal" class="modal">
-        <!-- Modal content -->
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <p>Apakah Anda yakin ingin melanjutkan pembayaran?</p>
-            <div class="modal-buttons">
-            <button class="cancel" onclick="closeModal()">Kembali</button>
-                <button class="confirm" onclick="confirmPayment()">Bayar</button>
             </div>
         </div>
     </div>
+    
+</body>
 
-</div>
-</div>
-            </div>
-       
-        </body>
-        
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script>
-            $(".nav").click(function() {
-                $("#mySidenav").css('width', '70px');
-                $("#main").css('margin-left', '70px');
-                $(".logo").css('visibility', 'hidden');
-                $(".logo span").css('visibility', 'visible');
-                $(".logo span").css('margin-left', '-10px');
-                $(".icon-a").css('visibility', 'hidden');
-                $(".icons").css('visibility', 'visible');
-                $(".icons").css('margin-left', '-8px');
-                $(".nav").css('display', 'none');
-                $(".nav2").css('display', 'block');
-            });
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(".nav").click(function() {
+        $("#mySidenav").css('width', '70px');
+        $("#main").css('margin-left', '70px');
+        $(".logo").css('visibility', 'hidden');
+        $(".logo span").css('visibility', 'visible');
+        $(".logo span").css('margin-left', '-10px');
+        $(".icon-a").css('visibility', 'hidden');
+        $(".icons").css('visibility', 'visible');
+        $(".icons").css('margin-left', '-8px');
+        $(".nav").css('display', 'none');
+        $(".nav2").css('display', 'block');
+    });
 
-            $(".nav2").click(function() {
-                $("#mySidenav").css('width', '300px');
-                $("#main").css('margin-left', '300px');
-                $(".logo").css('visibility', 'visible');
-                $(".icon-a").css('visibility', 'visible');
-                $(".icons").css('visibility', 'visible');
-                $(".nav").css('display', 'block');
-                $(".nav2").css('display', 'none');
-            });
-        </script>
-        <script>
-            $(document).ready(function() {
+    $(".nav2").click(function() {
+        $("#mySidenav").css('width', '300px');
+        $("#main").css('margin-left', '300px');
+        $(".logo").css('visibility', 'visible');
+        $(".icon-a").css('visibility', 'visible');
+        $(".icons").css('visibility', 'visible');
+        $(".nav").css('display', 'block');
+        $(".nav2").css('display', 'none');
+    });
+</script>
+<script>
+    $(document).ready(function() {
                 // Aktifkan datepicker pada semua field dengan class 'pembayaran-input'
                 $('.pembayaran-input').datepicker({
                     dateFormat: 'dd-mm-yy', // Sesuaikan dengan format yang diinginkan
@@ -385,7 +385,7 @@
                 });
             });
         </script>
-      <script>
+        <script>
     // Get the modal
     var modal = document.getElementById('myModal');
 
