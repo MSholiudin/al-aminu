@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 27 Nov 2023 pada 15.17
+-- Waktu pembuatan: 30 Nov 2023 pada 01.12
 -- Versi server: 10.4.24-MariaDB
 -- Versi PHP: 8.1.6
 
@@ -20,6 +20,35 @@ SET time_zone = "+00:00";
 --
 -- Database: `alaminufix`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `cicilan`
+--
+
+CREATE TABLE `cicilan` (
+  `id_pengguna` int(11) NOT NULL,
+  `id_pembayaran` int(10) NOT NULL,
+  `bulan` varchar(10) NOT NULL,
+  `tanggal_nyicil` datetime NOT NULL DEFAULT current_timestamp(),
+  `nyicil` int(20) NOT NULL,
+  `status` char(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `cicilan`
+--
+
+INSERT INTO `cicilan` (`id_pengguna`, `id_pembayaran`, `bulan`, `tanggal_nyicil`, `nyicil`, `status`) VALUES
+(1, 1, 'januari', '2023-11-29 16:07:20', 100000, 'done'),
+(1, 1, 'februari', '2023-11-29 20:40:26', 100000, 'done'),
+(1, 1, 'januari', '2023-11-29 20:44:55', 100000, 'done'),
+(1, 1, 'maret', '2023-11-29 20:46:07', 100000, 'done'),
+(1, 1, 'januari', '2023-11-30 06:23:11', 0, 'done'),
+(1, 1, 'januari', '2023-11-30 06:24:40', 0, 'done'),
+(1, 1, 'januari', '2023-11-30 06:25:22', 0, 'done'),
+(1, 1, 'januari', '2023-11-30 06:28:54', 100000, 'done');
 
 -- --------------------------------------------------------
 
@@ -46,24 +75,7 @@ CREATE TABLE `data_pengguna` (
 INSERT INTO `data_pengguna` (`id_pengguna`, `nama`, `email`, `username`, `password`, `no_wa`, `jenis_kelamin`, `status`, `id_program`) VALUES
 (1, 'M fajar Dwi Putra', 'mfajardwip044@gmail.com', 'fajar', '123456', '089131242555', 'laki-laki', 'siswa', 'PR05'),
 (2, 'Sholiudin', 'choll@gmail.com', 'choll', '123456', '083853964821', 'laki-laki', 'admin', 'PR01'),
-(3, 'M fajar Dwi Putra', 'fajardwiputra1212@gmail.com', 'choll', '123', '089131242555', 'laki-laki', 'siswa', 'PR01'),
-(7, 'Sholiudin', 'choll@yahoo.com', 'own', '123', '083853964821', 'laki-laki', 'siswa', 'PR01'),
-(8, 'Sintia Dwi', 'sintia@gmail.com', 'cin', '1234', '083853964821', 'perempuan', 'siswa', 'PR02');
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `detail_pembayaran`
---
-
-CREATE TABLE `detail_pembayaran` (
-  `id_pembayaran` int(10) NOT NULL,
-  `id_pengguna` int(11) NOT NULL,
-  `tanggal_bayar` datetime NOT NULL,
-  `total_harga` int(20) NOT NULL,
-  `total_bayar` int(20) NOT NULL,
-  `bulan` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+(3, 'M fajar Dwi Putra', 'fajardwiputra1212@gmail.com', 'choll', '123', '089131242555', 'laki-laki', 'siswa', 'PR01');
 
 -- --------------------------------------------------------
 
@@ -158,7 +170,8 @@ INSERT INTO `module` (`id_module`, `nama_module`, `materi`, `id_mapel`) VALUES
 ('MD01', 'Aljabar Linier', 'kasdnidjoqjdqh', 'MP01'),
 ('MD02', 'Matematika Diskrit', 'mddlsfmlw', 'MP01'),
 ('MD03', 'Matematika Terapan', 'kasdnidjoqjdqh', 'MP01'),
-('MD04', 'Himpunan Fuzi', 'ghkhjldjlkjajoie', 'MP01');
+('MD04', 'Himpunan Fuzi', 'ghkhjldjlkjajoie', 'MP01'),
+('MD05', 'Himpunan Fuzi', 'ghkhjldjlkjajoie', 'MP01');
 
 -- --------------------------------------------------------
 
@@ -193,7 +206,7 @@ INSERT INTO `paket_program` (`id_program`, `nama_program`, `harga`, `deskripsi`)
 CREATE TABLE `pembayaran` (
   `id_pembayaran` int(11) NOT NULL,
   `bayar` int(20) NOT NULL,
-  `status` varchar(10) NOT NULL,
+  `status` int(15) NOT NULL,
   `id_program` char(10) NOT NULL,
   `tgl_pembayaran` datetime DEFAULT current_timestamp(),
   `id_pengguna` int(11) NOT NULL
@@ -204,14 +217,18 @@ CREATE TABLE `pembayaran` (
 --
 
 INSERT INTO `pembayaran` (`id_pembayaran`, `bayar`, `status`, `id_program`, `tgl_pembayaran`, `id_pengguna`) VALUES
-(1, 800000, 'lunas', 'PR01', '2023-11-24 09:35:32', 1),
-(2, 600000, 'lunas', 'PR03', '2023-11-26 16:29:01', 2),
-(3, 500000, 'lunas', 'PR01', '2023-11-26 16:31:09', 3),
-(4, 100000, 'belum luna', 'PR02', '2023-11-27 13:42:59', 8);
+(1, 100000, 400000, 'PR05', '2023-11-29 12:48:47', 1);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indeks untuk tabel `cicilan`
+--
+ALTER TABLE `cicilan`
+  ADD KEY `id_pembayaran` (`id_pembayaran`),
+  ADD KEY `id_pengguna` (`id_pengguna`);
 
 --
 -- Indeks untuk tabel `data_pengguna`
@@ -219,13 +236,6 @@ INSERT INTO `pembayaran` (`id_pembayaran`, `bayar`, `status`, `id_program`, `tgl
 ALTER TABLE `data_pengguna`
   ADD PRIMARY KEY (`id_pengguna`),
   ADD KEY `id_program` (`id_program`);
-
---
--- Indeks untuk tabel `detail_pembayaran`
---
-ALTER TABLE `detail_pembayaran`
-  ADD KEY `id_pembayaran` (`id_pembayaran`),
-  ADD KEY `id_pengguna` (`id_pengguna`);
 
 --
 -- Indeks untuk tabel `detail_program`
@@ -283,30 +293,30 @@ ALTER TABLE `pembayaran`
 -- AUTO_INCREMENT untuk tabel `data_pengguna`
 --
 ALTER TABLE `data_pengguna`
-  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT untuk tabel `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
+-- Ketidakleluasaan untuk tabel `cicilan`
+--
+ALTER TABLE `cicilan`
+  ADD CONSTRAINT `cicilan_ibfk_1` FOREIGN KEY (`id_pembayaran`) REFERENCES `pembayaran` (`id_pembayaran`),
+  ADD CONSTRAINT `cicilan_ibfk_2` FOREIGN KEY (`id_pengguna`) REFERENCES `data_pengguna` (`id_pengguna`);
+
+--
 -- Ketidakleluasaan untuk tabel `data_pengguna`
 --
 ALTER TABLE `data_pengguna`
   ADD CONSTRAINT `data_pengguna_ibfk_1` FOREIGN KEY (`id_program`) REFERENCES `paket_program` (`id_program`);
-
---
--- Ketidakleluasaan untuk tabel `detail_pembayaran`
---
-ALTER TABLE `detail_pembayaran`
-  ADD CONSTRAINT `detail_pembayaran_ibfk_1` FOREIGN KEY (`id_pembayaran`) REFERENCES `pembayaran` (`id_pembayaran`),
-  ADD CONSTRAINT `detail_pembayaran_ibfk_2` FOREIGN KEY (`id_pengguna`) REFERENCES `data_pengguna` (`id_pengguna`);
 
 --
 -- Ketidakleluasaan untuk tabel `detail_program`
@@ -337,6 +347,7 @@ ALTER TABLE `module`
 -- Ketidakleluasaan untuk tabel `pembayaran`
 --
 ALTER TABLE `pembayaran`
+  ADD CONSTRAINT `fk_id_pengguna` FOREIGN KEY (`id_pengguna`) REFERENCES `data_pengguna` (`id_pengguna`),
   ADD CONSTRAINT `pembayaran_ibfk_1` FOREIGN KEY (`id_program`) REFERENCES `paket_program` (`id_program`);
 COMMIT;
 
