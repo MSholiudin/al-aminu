@@ -44,7 +44,7 @@
                             <th>Nama</th>
                             <th>No. WA</th>
                             <th>Program</th>
-                            <th>Status</th>
+                            <th>Tanggungan</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -96,7 +96,6 @@
             // Tampilkan formulir edit dalam popup dengan data yang sesuai
             var popupContent = document.getElementById('popup');
             popupContent.innerHTML = `
-            <span class="popup-close" onclick="hidePopup()">&times;</span>
             <h2>Form Cicilan</h2>
             <form action="update_cicilan.php" method="post">
             <div class="input-box">

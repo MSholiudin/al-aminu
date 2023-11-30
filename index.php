@@ -174,7 +174,7 @@ if (!isset($_SESSION['username'])) {
                         <tr>
                             <th>Nama</th>
                             <th>NO Wa</th>
-                            <th>Status</th>
+                            <th>Tanggungan</th>
                         </tr>
                         <?php
                         // Mengambil data dari database

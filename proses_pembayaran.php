@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $bayar = $_POST['bayar'];
 
     // Menghitung status pembayaran
-    $status = ($bayar >= $harga) ? 'lunas' : 'belum lunas';
+    $status = $harga-$bayar;
 
     // Mendapatkan id_pengguna terakhir
     $queryLastPayment = "SELECT id_pengguna FROM data_pengguna ORDER BY id_pengguna DESC LIMIT 1";

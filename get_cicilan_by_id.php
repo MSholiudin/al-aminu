@@ -8,6 +8,7 @@ if (isset($_GET['id_pembayaran'])) {
     $result = $conn->query($query);
 
     echo "<table id='tableCicilan'>";
+    echo "<h2>Tabel Cicilan</h2>";
     echo "<thead>";
     echo "<tr><th>Bulan</th> <th>Jumlah Bayar</th> <th>Tanggal Bayar</th> <th>Status</th></tr>";
     echo "</thead>";

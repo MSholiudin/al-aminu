@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<title></title>
+	<title>Riwayat Pembayaran</title>
 	<link rel="stylesheet" href="css/style.css" type="text/css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -94,106 +94,56 @@
 			</div>
 		</div>
 
-		<div class="clearfix"></div>
-		<div class="col-div-81" style="position: relative; top: 30px; left: 20px;">
-			<div class="box-9" style="height: 630px;">
-				<div class="content-box">
-					<p><span style="position: relative; right: 1050px; top: 10px;">Cari</span></p>
-					<input style="position: relative; top: 10px;" type="text" id="pembayaran_jan" name="pembayaran_jan" class="pembayaran-input" placeholder="Pencarian" required>
-					<br />
-					<table style="top: 10px; position: relative;">
-						<tr>
-							<th>Nama</th>
-							<th>No.hp</th>
-							<th>Kelas</th>
-							<th>Cicilan</th>
-							<th>Status</th>
-						</tr>
-						<tr>
-							<td>Alfreds Futterkiste</td>
-							<td>Maria Anders</td>
-							<td>Germany</td>
-							<td>Germany</td>
-							<td>
-								<button class="view-button" onclick="viewRow(this)">Cetak</button>
-								<button class="delete-button" onclick="deleteRow(this)">Hapus</button>
-							</td>
-						</tr>
-						<tr>
-							<td>Centro comercial Moctezuma</td>
-							<td>Francisco Chang</td>
-							<td>Mexico</td>
-							<td>Germany</td>
-							<td>
-								<button class="view-button" onclick="viewRow(this)">Cetak</button>
-								<button class="delete-button" onclick="deleteRow(this)">Hapus</button>
-							</td>
-						</tr>
-						<tr>
-							<td>Ernst Handel</td>
-							<td>Roland Mendel</td>
-							<td>Austria</td>
-							<td>Germany</td>
-							<td>
-								<button class="view-button" onclick="viewRow(this)">Cetak</button>
-								<button class="delete-button" onclick="deleteRow(this)">Hapus</button>
-							</td>
-						</tr>
-						<tr>
-							<td>Island Trading</td>
-							<td>Helen Bennett</td>
-							<td>UK</td>
-							<td>Germany</td>
-							<td>
-								<button class="view-button" onclick="viewRow(this)">Cetak</button>
-								<button class="delete-button" onclick="deleteRow(this)">Hapus</button>
-							</td>
-						</tr>
-						<tr>
-							<td>Island Trading</td>
-							<td>Helen Bennett</td>
-							<td>UK</td>
-							<td>Germany</td>
-							<td>
-								<button class="view-button" onclick="viewRow(this)">Cetak</button>
-								<button class="delete-button" onclick="deleteRow(this)">Hapus</button>
-							</td>
-						</tr>
-						<tr>
-							<td>Island Trading</td>
-							<td>Helen Bennett</td>
-							<td>UK</td>
-							<td>Germany</td>
-							<td>
-								<button class="view-button" onclick="viewRow(this)">Cetak</button>
-								<button class="delete-button" onclick="deleteRow(this)">Hapus</button>
-							</td>
-						</tr>
-						<tr>
-							<td>Island Trading</td>
-							<td>Helen Bennett</td>
-							<td>UK</td>
-							<td>Germany</td>
-							<td>
-								<button class="view-button" onclick="viewRow(this)">Cetak</button>
-								<button class="delete-button" onclick="deleteRow(this)">Hapus</button>
-						</tr>
-						<tr>
-							<td>Island Trading</td>
-							<td>Helen Bennett</td>
-							<td>UK</td>
-							<td>Germany</td>
-							<td>
-								<button class="view-button" onclick="viewRow(this)">Cetak</button>
-								<button class="delete-button" onclick="deleteRow(this)">Hapus</button>
+		<?php
+// Include your database connection file
+		include('php/koneksi.php');
 
-							</td>
-						</tr>
+// Your SQL query
+		$sql = "SELECT data_pengguna.nama, cicilan.bulan, cicilan.tanggal_nyicil, cicilan.nyicil, cicilan.status
+		FROM data_pengguna JOIN cicilan ON data_pengguna.id_pengguna=cicilan.id_pengguna";
 
-					</table>
-				</div>
-			</div>
-		</div>
+// Execute the query
+		$result = mysqli_query($conn, $sql);
+
+// Check if the query was successful
+		if ($result) {
+			echo '
+			<table style="top: 10px; position: relative;">
+			<tr>
+			<th>Nama</th>
+			<th>Bulan</th>
+			<th>Tanggal Nyicil</th>
+			<th>Nyicil</th>
+			<th>Status</th>
+			<th>Action</th>
+			</tr>';
+
+    // Fetch data and generate table rows
+			while ($row = mysqli_fetch_assoc($result)) {
+				echo '
+				<tr>
+				<td>' . $row['nama'] . '</td>
+				<td>' . $row['bulan'] . '</td>
+				<td>' . $row['tanggal_nyicil'] . '</td>
+				<td>' . $row['nyicil'] . '</td>
+				<td>' . $row['status'] . '</td>
+				<td>
+				<button class="view-button" onclick="viewRow(this)">Cetak</button>
+				<button class="delete-button" onclick="deleteRow(this)">Hapus</button>
+				</td>
+				</tr>';
+			}
+
+			echo '</table>';
+		} else {
+    // Handle the case where the query fails
+			echo 'Error executing the query: ' . mysqli_error($conn);
+		}
+
+// Close the database connection (assuming you have a $conn variable in koneksi.php)
+		mysqli_close($conn);
+		?>
+
 
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -222,7 +172,7 @@
 			});
 		</script>
 
-</body>
+	</body>
 
 
-</html>
+	</html>

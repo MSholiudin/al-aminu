@@ -212,218 +212,134 @@
     </head>
 
     <body>
+        <div class="clearfix"></div>
+        <div class="col-div-81" style="position: relative; top: 30px; left: 20px;">
+            <div class="box-9" style="height: 630px;">
+                <div class="content-box">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Id Pembayaran</th>
+                                <th>Id Pengguna</th>
+                                <th>Nama</th>
+                                <th>No. WA</th>
+                                <th>Program</th>
+                                <th>Tanggungan</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            require_once('php/koneksi.php');
+                            $query = "SELECT pembayaran.id_pembayaran, data_pengguna.id_pengguna, data_pengguna.nama, data_pengguna.no_wa, paket_program.nama_program, pembayaran.status FROM pembayaran
+                            JOIN data_pengguna ON pembayaran.id_pengguna = data_pengguna.id_pengguna
+                            JOIN paket_program ON pembayaran.id_program = paket_program.id_program";
 
-        <div class="container">
-            <form action="proses_cicilan.php" method="post">
-                <div style="display: flex; gap: 16px;">
-                    <div style="flex: 1;">
-                        <b for="nama">Nama :</b>
-                        <input type="text" id="nama" name="nama" required>
-                    </div>
-                    <div style="flex: 1;">
-                        <label style="position: relative; top: 5px;" for="kelas"><b>Kelas:</b></label>
-                        <select style="position: relative; top: 5px;" id="kelas" name="kelas" required>
-                            <option value="" disabled selected>Pilih Kelas</option>
-                            <option value="Kelas 9 SMP">Kelas 9 SMP</option>
-                            <option value="Kelas 10 SMA">Kelas 10 SMA</option>
-                            <option value="Kelas 11 SMA">Kelas 11 SMA</option>
-                            <option value="Kelas 12 SMA">Kelas 12 SMA</option>
-                            <option value="Perguruan Tinggi">Perguruan Tinggi</option>
-                        </select>
-                        <div class="bulan-container">
-                            <div class="checkbox-container">
-                            </div>
-                        </div>
-                    </div>
+                            $result = $conn->query($query);
+
+                            while ($row = $result->fetch_assoc()) {
+                                echo "<tr>";
+                                echo "<td>" . $row["id_pembayaran"] . "</td>";
+                                echo "<td>" . $row["id_pengguna"] . "</td>";
+                                echo "<td>" . $row["nama"] . "</td>";
+                                echo "<td>" . $row["no_wa"] . "</td>";
+                                echo "<td>" . $row["nama_program"] . "</td>";
+                                echo "<td>" . $row["status"] . "</td>";
+                                echo "<td><button class='edit-button' onclick='showPopup(this)'>Detail</button></td>";
+                                echo "</tr>";
+                            }
+                            ?>
+                        </tbody>
+                    </table>
                 </div>
-                <label for="datepicker">Choose a date:</label>
-                <input type="text" id="datepicker" name="datepicker" autocomplete="off">
-
-                <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
-                <script>
-                    document.addEventListener('DOMContentLoaded', function () {
-                        flatpickr("#datepicker", {
-                            dateFormat: "Y-m-d",
-                            maxDate: "today",
-                            defaultDate: "today",
-                            onClose: function (selectedDates, dateStr, instance) {
-                    // Handle the date selection if needed
-                    console.log("Selected Date: ", dateStr);
-                }
-            });
-                    });
-                </script>
-                <div class="button-container">
-                    <button type="button" class="button-periksa">Periksa</button>
-                </div>
-
-
-
-                <div class="bulan-container">
-                    <div class="checkbox-container">
-                        <input style="position: relative; top: 15px;" type="checkbox" id="include_bunga_jan" name="include_bunga_jan" class="checkbox-input">
-                        <label style="position: relative; top: 10px;" for="include_bunga_jan" class="text-bulan">January</label>
-                    </div>
-                    <input style="position: relative; top: 10px;" type="text" id="pembayaran_jan" name="pembayaran_jan" class="pembayaran-input" placeholder="Pembayaran Bulan ini" required>
-                </div>
-
-                <div class="bulan-container">
-                    <div class="checkbox-container">
-                        <input style="position: relative; top: 15px;" type="checkbox" id="include_bunga_jan" name="include_bunga_jan" class="checkbox-input">
-                        <label style="position: relative; top: 10px;" for="include_bunga_jan" class="text-bulan">Febuary</label>
-                    </div>
-                    <input style="position: relative; top: 10px;" type="text" id="pembayaran_jan" name="pembayaran_jan" class="pembayaran-input" placeholder="Pembayaran Bulan ini" required>
-                </div>
-
-                <div class="bulan-container">
-                    <div class="checkbox-container">
-                        <input style="position: relative; top: 15px;" type="checkbox" id="include_bunga_jan" name="include_bunga_jan" class="checkbox-input">
-                        <label style="position: relative; top: 10px;" for="include_bunga_jan" class="text-bulan">Maret</label>
-                    </div>
-                    <input style="position: relative; top: 10px;" type="text" id="pembayaran_jan" name="pembayaran_jan" class="pembayaran-input" placeholder="Pembayaran Bulan ini" required>
-                </div>
-
-                <div class="bulan-container">
-                    <div class="checkbox-container">
-                        <input style="position: relative; top: 15px;" type="checkbox" id="include_bunga_jan" name="include_bunga_jan" class="checkbox-input">
-                        <label style="position: relative; top: 10px;" for="include_bunga_jan" class="text-bulan">April</label>
-                    </div>
-                    <input style="position: relative; top: 10px;" type="text" id="pembayaran_jan" name="pembayaran_jan" class="pembayaran-input" placeholder="Pembayaran Bulan ini" required>
-                </div>
-
-                <div class="bulan-container">
-                    <div class="checkbox-container">
-                        <input style="position: relative; top: 15px;" type="checkbox" id="include_bunga_jan" name="include_bunga_jan" class="checkbox-input">
-                        <label style="position: relative; top: 10px;" for="include_bunga_jan" class="text-bulan">Mei</label>
-                    </div>
-                    <input style="position: relative; top: 10px;" type="text" id="pembayaran_jan" name="pembayaran_jan" class="pembayaran-input" placeholder="Pembayaran Bulan ini" required>
-                </div>
-
-                <div class="bulan-container">
-                    <div class="checkbox-container">
-                        <input style="position: relative; top: 15px;" type="checkbox" id="include_bunga_jan" name="include_bunga_jan" class="checkbox-input">
-                        <label style="position: relative; top: 10px;" for="include_bunga_jan" class="text-bulan">Juni</label>
-                    </div>
-                    <input style="position: relative; top: 10px;" type="text" id="pembayaran_jan" name="pembayaran_jan" class="pembayaran-input" placeholder="Pembayaran Bulan ini" required>
-                </div>
-
-                <!-- Ganti untuk bulan-bulan lainnya -->
-            </form>
-            <div class="gambar" style="width: 300px; background-color: #f4f4f4; height: 330px; position: relative; left: 410px; bottom: 580px; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-                <h2 style="color: black; text-align: center; margin-bottom: 20px;">Pembayaran</h2>
-
-                <div style="margin-bottom: 20px;">
-                    <label for="total_harga" style="color: black; display: block; margin-bottom: 5px;">Total Harga:</label>
-                    <input type="text" style="width: 100%; padding: 10px; box-sizing: border-box; border: none; border-radius: 5px;" id="total_harga" name="total_harga" required>
-                </div>
-                <div style="margin-bottom: 20px;">
-                    <label for="durasi_cicilan" style="color: black; display: block; margin-bottom: 5px;">Total Bayar:</label>
-                    <input type="text" style="width: 100%; padding: 10px; box-sizing: border-box; border: none; border-radius: 5px;" id="durasi_cicilan" name="durasi_cicilan" required>
-                </div>
-                <button type="submit" class="button-bayar" style="width: 100%; padding: 10px; box-sizing: border-box; border: none; border-radius: 5px; background-color: #4caf50; color: #fff; cursor: pointer;">Bayar</button>
-                <div id="myModal" class="modal">
-                    <!-- Modal content -->
-                    <div class="modal-content">
-                        <span class="close" onclick="closeModal()">&times;</span>
-                        <p>Apakah Anda yakin ingin melanjutkan pembayaran?</p>
-                        <div class="modal-buttons">
-                            <button class="cancel" onclick="closeModal()">Kembali</button>
-                            <button class="confirm" onclick="confirmPayment()">Bayar</button>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
-    </div>
-    
-</body>
 
+        <div id="overlay"></div>
+        <div id="popup">
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script>
-    $(".nav").click(function() {
-        $("#mySidenav").css('width', '70px');
-        $("#main").css('margin-left', '70px');
-        $(".logo").css('visibility', 'hidden');
-        $(".logo span").css('visibility', 'visible');
-        $(".logo span").css('margin-left', '-10px');
-        $(".icon-a").css('visibility', 'hidden');
-        $(".icons").css('visibility', 'visible');
-        $(".icons").css('margin-left', '-8px');
-        $(".nav").css('display', 'none');
-        $(".nav2").css('display', 'block');
-    });
+        </div>
 
-    $(".nav2").click(function() {
-        $("#mySidenav").css('width', '300px');
-        $("#main").css('margin-left', '300px');
-        $(".logo").css('visibility', 'visible');
-        $(".icon-a").css('visibility', 'visible');
-        $(".icons").css('visibility', 'visible');
-        $(".nav").css('display', 'block');
-        $(".nav2").css('display', 'none');
-    });
-</script>
-<script>
-    $(document).ready(function() {
-                // Aktifkan datepicker pada semua field dengan class 'pembayaran-input'
-                $('.pembayaran-input').datepicker({
-                    dateFormat: 'dd-mm-yy', // Sesuaikan dengan format yang diinginkan
-                    onSelect: function(dateText, inst) {
-                        // Fungsi ini akan dijalankan saat memilih tanggal pada kalender
-                        // Anda dapat menyesuaikan apa yang ingin Anda lakukan saat tanggal dipilih
-                        $(this).val(dateText);
-                    }
-                });
-
-                // Tambahkan fungsi untuk tombol kalender
-                $('.button-kalender').click(function() {
-                    // Temukan input datepicker terkait dan aktifkan kalender
-                    $(this).prev('.pembayaran-input').datepicker('show');
-                });
-            });
-        </script>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script>
-    // Get the modal
-    var modal = document.getElementById('myModal');
+            function showPopup(button) {
+                var popupOverlay = document.getElementById('overlay');
 
-    // Get the button that opens the modal
-    var btn = document.querySelector('.button-bayar');
+            // Tampilkan overlay dan pop-up
+            popupOverlay.style.display = 'block';
+            // Dapatkan data baris yang sesuai dengan tombol Edit yang diklik
+            var row = button.parentNode.parentNode;
+            // Dapatkan data dari setiap sel pada baris tersebut
+            var idPembayaran = row.cells[0].innerHTML;
+            var idPengguna = row.cells[1].innerHTML;
+            var status = row.cells[5].innerHTML;
+            // Tampilkan formulir edit dalam popup dengan data yang sesuai
+            var popupContent = document.getElementById('popup');
+            popupContent.innerHTML = `
+            <h2>Form Cicilan</h2>
+            <form action="update_cicilan.php" method="post">
+            <div class="input-box">
+            <label for="id_pembayaran">ID Pembayaran:</label>
+            <input type="text" name="id_pembayaran" id="id_pembayaran" value="${idPembayaran}" readonly>
+            </div>
+            <div class="input-box">
+            <label for="id_pengguna">ID Pengguna:</label>
+            <input type="text" name="id_pengguna" id="id_pengguna" value="${idPengguna}" readonly>
+            </div>
+            <div class="input-box">
+            <label for="bulan">Bulan:</label>
+            <select id="bulan" name="bulan">
+            <option value="januari">Januari</option>
+            <option value="februari">Februari</option>
+            <option value="maret">Maret</option>
+            <option value="april">April</option>
+            <option value="mei">Mei</option>
+            <option value="juni">Juni</option>
+            <option value="juli">Juli</option>
+            <option value="agustus">Agustus</option>
+            <option value="september">September</option>
+            <option value="oktober">Oktober</option>
+            <option value="november">November</option>
+            <option value="desember">Desember</option>
+            </select>
+            </div>
+            <div class="input-box">
+            <label for="totTanggungan">Total Tanggungan : Rp</label>
+            <input type="number" name="totTanggungan" id="totTanggungan" value="${status}" readonly>
+            </div>
+            <div class="input-box">
+            <label for="jumlah_bayar">Jumlah Bayar: Rp</label>
+            <input type="number" name="jumlah_bayar" required>
+            </div>
+            <div class="button-container">
+            <button class="save-button" type="submit">Simpan</button>
+            <button class="cancel-button" type="button" onclick="hidePopup()">Batal</button>
+            </div>   
+            </form>
+            `;
 
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName('close')[0];
+            // Tampilkan tabel cicilan di dalam popup
+            $.ajax({
+                url: 'get_cicilan_by_id.php',
+                type: 'GET',
+                data: { id_pembayaran: idPembayaran },
+                success: function(data) {
+                    popupContent.innerHTML += data;
+                },
+                error: function(error) {
+                    console.log('Error fetching cicilan data:', error);
+                }
+            });
 
-    // When the user clicks the button, open the modal
-    btn.onclick = function() {
-        modal.style.display = 'block';
-    };
-
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-        closeModal();
-    };
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            closeModal();
+            // Tampilkan popup
+            popupContent.style.display = 'block';
         }
-    };
 
-    // Function to close the modal
-    function closeModal() {
-        modal.style.display = 'none';
-    }
-
-    // Function to confirm payment
-    function confirmPayment() {
-        // Add your logic for handling the payment confirmation here
-        alert('Pembayaran berhasil!');
-        closeModal();
-    }
-</script>
+        function hidePopup() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('popup').style.display = 'none';
+        }
+    </script>
 
 </body>
 
