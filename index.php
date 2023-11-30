@@ -132,16 +132,41 @@ if (!isset($_SESSION['username'])) {
         </div>
 
         <div class="col-div-3 " style="left: 7%; position: relative; bottom: 25px">
-            <div class="box">
-                <p style="color: aqua;">67<br /><span>Murid</span></p>
-                <i class="fa fa-users box-icon"></i>
-            </div>
+            <?php
+            include 'php/koneksi.php';
+
+            $sql = "SELECT COUNT(*) as total_murid FROM data_pengguna";
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                echo '<div class="box">';
+                echo '<p style="color: aqua;">' . $row['total_murid'] . '<br /><span>Murid</span></p>';
+                echo '<i class="fa fa-users box-icon"></i>';
+                echo '</div>';
+            } else {
+                echo "Tidak ada data murid.";
+            }
+            ?>
+
         </div>
         <div class="col-div-3" style="position: relative; bottom: 24px">
-            <div class="box">
-                <p style="color: aqua;">88<br /><span>Riwayat</span></p>
-                <i class="fa fa-list box-icon"></i>
-            </div>
+            <?php
+            include 'php/koneksi.php';
+
+            $sql = "SELECT COUNT(*) as total_riwayat_cicilan FROM cicilan";
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                echo '<div class="box">';
+                echo '<p style="color: aqua;">' . $row['total_riwayat_cicilan'] . '<br /><span>Riwayat</span></p>';
+                echo '<i class="fa fa-list box-icon"></i>';
+                echo '</div>';
+            } else {
+                echo "Tidak ada data murid.";
+            }
+            ?>
         </div>
         <div class="col-div-3" style="left: 7%; position: relative; bottom: 25px">
             <div class="box">
@@ -149,11 +174,23 @@ if (!isset($_SESSION['username'])) {
                 <i class="fa fa-shopping-bag box-icon"></i>
             </div>
         </div>
-        <div class="col-div-3">
-            <div class="box" style="position: relative; bottom: 25px">
-                <p style="color: aqua;">78<br /><span>Tasks</span></p>
-                <i class="fa fa-tasks box-icon"></i>
-            </div>
+        <div class="col-div-3" style="position: relative; bottom: 24px">
+            <?php
+            include 'php/koneksi.php';
+
+            $sql = "SELECT COUNT(*) as total_jadwal FROM jadwal";
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                echo '<div class="box">';
+                echo '<p style="color: aqua;">' . $row['total_jadwal'] . '<br /><span>Jadwal</span></p>';
+                echo '<i class="fa fa-task box-icon"></i>';
+                echo '</div>';
+            } else {
+                echo "Tidak ada data murid.";
+            }
+            ?>
         </div>
         <div class="gambar" style="margin-bottom: 80px;">
             <div id="popup" class="popup">
@@ -201,12 +238,6 @@ if (!isset($_SESSION['username'])) {
             </div>
         </div>
 
-
-        <?php
-        // Menutup koneksi
-        $conn->close();
-        ?>
-
         <div class="col-div-4">
             <div class="box-4" style="position: relative; bottom: 50px; height: 110px;">
                 <div class="content-box">
@@ -224,69 +255,79 @@ if (!isset($_SESSION['username'])) {
                         display: inline-block;
                     }
                 </style>
+                <?php
+                require_once('php/koneksi.php');
+                $query = "SELECT
+                data_pengguna.username,
+                data_pengguna.email,
+                paket_program.nama_program
+                FROM 
+                data_pengguna
+                JOIN 
+                paket_program ON data_pengguna.id_program = paket_program.id_program
+                ORDER BY data_pengguna.id_pengguna DESC
+                LIMIT 3";
+
+                $result = $conn->query($query);
+                ?>
 
                 <div class="table-container" style="position: relative; top: 25px;">
                     <div class="table-content">
                         <table class="custom-table">
-                            <tr>
-                                <th>Username</th>
-                                <th>Kelas</th>
-                                <th>Email <a href="murid.php" class="search-button button-style" style="position: relative; left: 10px; background-color: #00A9FF;">Lihat Murid</a></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <!-- Isi tabel -->
-                                <td>JohnDoe</td>
-                                <td>12A</td>
-                                <td>johndoe@example.com</td>
-                            </tr>
-                            <tr>
-                                <!-- Isi tabel -->
-                                <td>JohnDoe</td>
-                                <td>12A</td>
-                                <td>johndoe@example.com</td>
-                            </tr>
-                            <tr>
-                                <!-- Isi tabel -->
-                                <td>JohnDoe</td>
-                                <td>12A</td>
-                                <td>johndoe@example.com</td>
-                            </tr>
-                            <!-- Tambahkan baris lain jika diperlukan -->
-                        </tbody>
-                    </table>
-
+                            <thead>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Nama Program</th>
+                                    <th></th> <a href="murid.php" class="search-button button-style" style="position: relative; left: 10px; background-color: #00A9FF;">Lihat Murid</a>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                while ($row = $result->fetch_assoc()) {
+                                    echo "<tr>";
+                                    echo "<td>" . $row["username"] . "</td>";
+                                    echo "<td>" . $row["email"] . "</td>";
+                                    echo "<td>" . $row["nama_program"] . "</td>";
+                                    echo "</tr>";
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-            <script>
-                $(".nav").click(function () {
-                    $("#mySidenav").css('width', '70px');
-                    $("#main").css('margin-left', '70px');
-                    $(".logo").css('visibility', 'hidden');
-                    $(".logo span").css('visibility', 'visible');
-                    $(".logo span").css('margin-left', '-10px');
-                    $(".icon-a").css('visibility', 'hidden');
-                    $(".icons").css('visibility', 'visible');
-                    $(".icons").css('margin-left', '-8px');
-                    $(".nav").css('display', 'none');
-                    $(".nav2").css('display', 'block');
-                });
+        </div>
 
-                $(".nav2").click(function () {
-                    $("#mySidenav").css('width', '300px');
-                    $("#main").css('margin-left', '300px');
-                    $(".logo").css('visibility', 'visible');
-                    $(".icon-a").css('visibility', 'visible');
-                    $(".icons").css('visibility', 'visible');
-                    $(".nav").css('display', 'block');
-                    $(".nav2").css('display', 'none');
-                });
-            </script>
 
-            <!-- Kode untuk menampilkan tanggal dan jam -->
-            <script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            $(".nav").click(function () {
+                $("#mySidenav").css('width', '70px');
+                $("#main").css('margin-left', '70px');
+                $(".logo").css('visibility', 'hidden');
+                $(".logo span").css('visibility', 'visible');
+                $(".logo span").css('margin-left', '-10px');
+                $(".icon-a").css('visibility', 'hidden');
+                $(".icons").css('visibility', 'visible');
+                $(".icons").css('margin-left', '-8px');
+                $(".nav").css('display', 'none');
+                $(".nav2").css('display', 'block');
+            });
+
+            $(".nav2").click(function () {
+                $("#mySidenav").css('width', '300px');
+                $("#main").css('margin-left', '300px');
+                $(".logo").css('visibility', 'visible');
+                $(".icon-a").css('visibility', 'visible');
+                $(".icons").css('visibility', 'visible');
+                $(".nav").css('display', 'block');
+                $(".nav2").css('display', 'none');
+            });
+        </script>
+
+        <!-- Kode untuk menampilkan tanggal dan jam -->
+        <script>
                     // Fungsi untuk mendapatkan dan memformat tanggal
                     function updateTanggal() {
                         var today = new Date();

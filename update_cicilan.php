@@ -17,7 +17,7 @@ $sql = "INSERT INTO `cicilan` (`id_pengguna`, `id_pembayaran`, `bulan`, `tanggal
 $sqll = "UPDATE pembayaran SET status = '$newStatus' WHERE id_pembayaran = '$id_pembayaran'";
 // Jalankan kueri
 if (mysqli_query($conn, $sql) && mysqli_query($conn, $sqll)) {
-	header("Location: ccl.php");
+	header("Location: cicilan.php");
 	exit();
 } else {
 	echo "Error: " . $sql . "<br>" . mysqli_error($conn);
