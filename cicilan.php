@@ -101,6 +101,50 @@
             </div>
         </div>
         <style>
+            #popup {
+                display: none;
+                position: fixed;
+                z-index: 1;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                width: 60%;
+                /* Set the desired width, adjust as needed */
+                max-width: 400px;
+                /* Set the maximum width */
+                max-height: 80%;
+                /* Set the maximum height */
+                overflow-y: auto;
+                /* Enable vertical scrolling if the content exceeds the height */
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .input-box {
+                margin-bottom: 15px;
+            }
+
+            #popup h2 {
+                text-align: center;
+                color: #333;
+            }
+
+            /* Additional styles for better visibility of the close button */
+            .close-popup {
+                color: #aaa;
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                font-size: 20px;
+                cursor: pointer;
+            }
+
+            .close-popup:hover {
+                color: #333;
+            }
+
             .container {
                 max-width: 800px;
                 margin: 50px auto;
@@ -116,9 +160,27 @@
                 color: #333;
             }
 
+            /* Additional styles for form alignment */
             form {
-                display: flex;
-                flex-direction: column;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                /* Two equal-width columns */
+                gap: 15px;
+            }
+
+            .input-box {
+                margin-bottom: 0;
+                /* Remove the default margin */
+            }
+
+            .button-container {
+                grid-column: span 2;
+                /* Make the button container span two columns */
+            }
+
+            button {
+                width: 100%;
+                /* Make the buttons take the full width of the container */
             }
 
             label {
@@ -192,6 +254,20 @@
             .text-bulan {
                 width: 70px;
             }
+            .cancel-button{
+                background-color: red;
+            }
+
+            #overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.4);
+                z-index: 1;
+            }
         </style>
         <style>
             #calendar-container {
@@ -209,83 +285,79 @@
                 color: blue;
             }
         </style>
-    </head>
+        </head>
 
-    <body>
-        <div class="clearfix"></div>
-        <div class="col-div-81" style="position: relative; top: 30px; left: 20px;">
-            <div class="box-9" style="height: 630px;">
-                <div class="content-box">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Id Pembayaran</th>
-                                <th>Id Pengguna</th>
-                                <th>Nama</th>
-                                <th>No. WA</th>
-                                <th>Program</th>
-                                <th>Tanggungan</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php
-                            require_once('php/koneksi.php');
-                            $query = "SELECT pembayaran.id_pembayaran, data_pengguna.id_pengguna, data_pengguna.nama, data_pengguna.no_wa, paket_program.nama_program, pembayaran.status FROM pembayaran
+        <body>
+            <div class="clearfix"></div>
+            <div class="col-div-81" style="position: relative; top: 30px; left: 20px;">
+                <div class="box-9" style="height: 630px;">
+                    <div class="content-box">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Id Pembayaran</th>
+                                    <th>Id Pengguna</th>
+                                    <th>Nama</th>
+                                    <th>No. WA</th>
+                                    <th>Program</th>
+                                    <th>Tanggungan</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                require_once('php/koneksi.php');
+                                $query = "SELECT pembayaran.id_pembayaran, data_pengguna.id_pengguna, data_pengguna.nama, data_pengguna.no_wa, paket_program.nama_program, pembayaran.status FROM pembayaran
                             JOIN data_pengguna ON pembayaran.id_pengguna = data_pengguna.id_pengguna
                             JOIN paket_program ON pembayaran.id_program = paket_program.id_program";
 
-                            $result = $conn->query($query);
+                                $result = $conn->query($query);
 
-                            while ($row = $result->fetch_assoc()) {
-                                echo "<tr>";
-                                echo "<td>" . $row["id_pembayaran"] . "</td>";
-                                echo "<td>" . $row["id_pengguna"] . "</td>";
-                                echo "<td>" . $row["nama"] . "</td>";
-                                echo "<td>" . $row["no_wa"] . "</td>";
-                                echo "<td>" . $row["nama_program"] . "</td>";
-                                echo "<td>" . $row["status"] . "</td>";
-                                echo "<td><button class='edit-button' onclick='showPopup(this)'>Detail</button></td>";
-                                echo "</tr>";
-                            }
-                            ?>
-                        </tbody>
-                    </table>
+                                while ($row = $result->fetch_assoc()) {
+                                    echo "<tr>";
+                                    echo "<td>" . $row["id_pembayaran"] . "</td>";
+                                    echo "<td>" . $row["id_pengguna"] . "</td>";
+                                    echo "<td>" . $row["nama"] . "</td>";
+                                    echo "<td>" . $row["no_wa"] . "</td>";
+                                    echo "<td>" . $row["nama_program"] . "</td>";
+                                    echo "<td>" . $row["status"] . "</td>";
+                                    echo "<td><button class='edit-button' onclick='showPopup(this)'>Detail</button></td>";
+                                    echo "</tr>";
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div id="overlay"></div>
-        <div id="popup">
+            <div id="overlay"></div>
+            <div id="popup">
 
-        </div>
+            </div>
 
-        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-        <script>
-            function showPopup(button) {
-                var popupOverlay = document.getElementById('overlay');
+            <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+            <script>
+                function showPopup(button) {
+                    var popupOverlay = document.getElementById('overlay');
+                    var popupContent = document.getElementById('popup');
 
-            // Tampilkan overlay dan pop-up
-            popupOverlay.style.display = 'block';
-            // Dapatkan data baris yang sesuai dengan tombol Edit yang diklik
-            var row = button.parentNode.parentNode;
-            // Dapatkan data dari setiap sel pada baris tersebut
-            var idPembayaran = row.cells[0].innerHTML;
-            var idPengguna = row.cells[1].innerHTML;
-            var status = row.cells[5].innerHTML;
-            // Tampilkan formulir edit dalam popup dengan data yang sesuai
-            var popupContent = document.getElementById('popup');
-            popupContent.innerHTML = `
+                    // Tampilkan overlay dan pop-up
+                    popupOverlay.style.display = 'block';
+                    // Dapatkan data baris yang sesuai dengan tombol Edit yang diklik
+                    var row = button.parentNode.parentNode;
+                    // Dapatkan data dari setiap sel pada baris tersebut
+                    var idPembayaran = row.cells[0].innerHTML;
+                    var idPengguna = row.cells[1].innerHTML;
+                    var status = row.cells[5].innerHTML;
+                    // Tampilkan formulir edit dalam popup dengan data yang sesuai
+                    var popupContent = document.getElementById('popup');
+                    popupContent.innerHTML = `
             <h2>Form Cicilan</h2>
             <form action="update_cicilan.php" method="post">
             <div class="input-box">
             <label for="id_pembayaran">ID Pembayaran:</label>
             <input type="text" name="id_pembayaran" id="id_pembayaran" value="${idPembayaran}" readonly>
-            </div>
-            <div class="input-box">
-            <label for="id_pengguna">ID Pengguna:</label>
-            <input type="text" name="id_pengguna" id="id_pengguna" value="${idPengguna}" readonly>
-            </div>
             <div class="input-box">
             <label for="bulan">Bulan:</label>
             <select id="bulan" name="bulan">
@@ -303,6 +375,11 @@
             <option value="desember">Desember</option>
             </select>
             </div>
+            </div>
+            <div class="input-box">
+            <label for="id_pengguna">ID Pengguna:</label>
+            <input type="text" name="id_pengguna" id="id_pengguna" value="${idPengguna}" readonly>
+            </div>
             <div class="input-box">
             <label for="totTanggungan">Total Tanggungan : Rp</label>
             <input type="number" name="totTanggungan" id="totTanggungan" value="${status}" readonly>
@@ -312,35 +389,38 @@
             <input type="number" name="jumlah_bayar" required>
             </div>
             <div class="button-container">
-            <button class="save-button" type="submit">Simpan</button>
             <button class="cancel-button" type="button" onclick="hidePopup()">Batal</button>
+            <button class="save-button" type="submit">Simpan</button>
             </div>   
             </form>
             `;
 
-            // Tampilkan tabel cicilan di dalam popup
-            $.ajax({
-                url: 'get_cicilan_by_id.php',
-                type: 'GET',
-                data: { id_pembayaran: idPembayaran },
-                success: function(data) {
-                    popupContent.innerHTML += data;
-                },
-                error: function(error) {
-                    console.log('Error fetching cicilan data:', error);
+                    // Tampilkan tabel cicilan di dalam popup
+                    $.ajax({
+                        url: 'get_cicilan_by_id.php',
+                        type: 'GET',
+                        data: {
+                            id_pembayaran: idPembayaran
+                        },
+                        success: function(data) {
+                            popupContent.innerHTML += data;
+                        },
+                        error: function(error) {
+                            console.log('Error fetching cicilan data:', error);
+                        }
+                    });
+
+                    // Tampilkan popup
+                    popupContent.style.display = 'block';
                 }
-            });
 
-            // Tampilkan popup
-            popupContent.style.display = 'block';
-        }
+                function hidePopup() {
+                    document.getElementById('overlay').style.display = 'none';
+                    document.getElementById('popup').style.display = 'none';
 
-        function hidePopup() {
-            document.getElementById('overlay').style.display = 'none';
-            document.getElementById('popup').style.display = 'none';
-        }
-    </script>
+                }
+            </script>
 
-</body>
+        </body>
 
 </html>

@@ -48,10 +48,8 @@ if (!isset($_SESSION['username'])) {
     <div id="main">
         <div class="head" style="background-color: white; height: 30px; bottom: 35px; position: relative;">
             <div class="col-div-6">
-                <span style="font-size:30px;cursor:pointer; color: black; position: relative; bottom: 7px;"
-                class="nav">Dashboard</span>
-                <span style="font-size:30px;cursor:pointer; color: black; position: relative; bottom: 7px;"
-                class="nav2">☰ Dashboard</span>
+                <span style="font-size:30px;cursor:pointer; color: black; position: relative; bottom: 7px;" class="nav">Dashboard</span>
+                <span style="font-size:30px;cursor:pointer; color: black; position: relative; bottom: 7px;" class="nav2">☰ Dashboard</span>
             </div>
             <?php
             require_once('php/koneksi.php');
@@ -109,9 +107,9 @@ if (!isset($_SESSION['username'])) {
                 <script>
                     // Array of sentences to be displayed
                     const sentences = [
-                    "Selamat datang!",
-                    "Bagaimana kabarmu?",
-                    "Hello, <?php echo $nama_pengguna; ?>!"
+                        "Selamat datang!",
+                        "Bagaimana kabarmu?",
+                        "Hello, <?php echo $nama_pengguna; ?>!"
                     ];
                     const changingTextElements = document.querySelectorAll('.changing-text');
 
@@ -205,7 +203,8 @@ if (!isset($_SESSION['username'])) {
         <div class="col-div-8" style="position: relative; bottom: 40px;">
             <div class="box-8">
                 <div class="content-box">
-                    <p>Pemesanan <span>Lihat Semua</span></p>
+                    <p>Pemesanan <a class="button-style" href="pemesanan.php" style="width: 150px; height: 20px; outline: white; background-color: #00A9FF; border-radius: 10px; text-align: center; line-height: 16px; padding: 10px; display: inline-block; font-size: 15px; position: relative; top: 25%; left: 65%; color: #fff;">Lihat Pemesanan</a></p>
+
                     <br />
                     <table>
                         <tr>
@@ -302,7 +301,7 @@ if (!isset($_SESSION['username'])) {
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script>
-            $(".nav").click(function () {
+            $(".nav").click(function() {
                 $("#mySidenav").css('width', '70px');
                 $("#main").css('margin-left', '70px');
                 $(".logo").css('visibility', 'hidden');
@@ -315,7 +314,7 @@ if (!isset($_SESSION['username'])) {
                 $(".nav2").css('display', 'block');
             });
 
-            $(".nav2").click(function () {
+            $(".nav2").click(function() {
                 $("#mySidenav").css('width', '300px');
                 $("#main").css('margin-left', '300px');
                 $(".logo").css('visibility', 'visible');
@@ -328,46 +327,46 @@ if (!isset($_SESSION['username'])) {
 
         <!-- Kode untuk menampilkan tanggal dan jam -->
         <script>
-                    // Fungsi untuk mendapatkan dan memformat tanggal
-                    function updateTanggal() {
-                        var today = new Date();
-                        var options = {
-                            weekday: 'long',
-                            year: 'numeric',
-                            month: 'long',
-                            day: 'numeric'
-                        };
-                        var formattedDate = today.toLocaleDateString(undefined, options);
-                        document.getElementById('tanggal').textContent = 'Tanggal: ' + formattedDate;
-                    }
+            // Fungsi untuk mendapatkan dan memformat tanggal
+            function updateTanggal() {
+                var today = new Date();
+                var options = {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                };
+                var formattedDate = today.toLocaleDateString(undefined, options);
+                document.getElementById('tanggal').textContent = 'Tanggal: ' + formattedDate;
+            }
 
-                    // Fungsi untuk mendapatkan dan memformat jam
-                    function updateJam() {
-                        var today = new Date();
-                        var formattedTime = today.getHours() + ':' + (today.getMinutes() < 10 ? '0' : '') + today.getMinutes() + ':' + (today.getSeconds() < 10 ? '0' : '') + today.getSeconds();
-                        document.getElementById('jam').textContent = 'Jam: ' + formattedTime;
-                    }
+            // Fungsi untuk mendapatkan dan memformat jam
+            function updateJam() {
+                var today = new Date();
+                var formattedTime = today.getHours() + ':' + (today.getMinutes() < 10 ? '0' : '') + today.getMinutes() + ':' + (today.getSeconds() < 10 ? '0' : '') + today.getSeconds();
+                document.getElementById('jam').textContent = 'Jam: ' + formattedTime;
+            }
 
-                    // Panggil fungsi updateTanggal dan updateJam saat halaman dimuat
-                    window.onload = function () {
-                        updateTanggal();
-                        updateJam();
+            // Panggil fungsi updateTanggal dan updateJam saat halaman dimuat
+            window.onload = function() {
+                updateTanggal();
+                updateJam();
 
-                        // Perbarui waktu setiap detik
-                        setInterval(function () {
-                            updateJam();
-                        }, 1000);
-                    };
-                </script>
-                <!-- Kode untuk logout -->
-                <script>
-                    document.getElementById("logoutButton").addEventListener("click", function () {
-                        if (confirm("Apakah Anda yakin ingin keluar?")) {
-                            // Redirect ke halaman logout.php setelah konfirmasi OK
-                            window.location.href = "logout.php";
-                        }
-                    });
-                </script>
-            </body>
+                // Perbarui waktu setiap detik
+                setInterval(function() {
+                    updateJam();
+                }, 1000);
+            };
+        </script>
+        <!-- Kode untuk logout -->
+        <script>
+            document.getElementById("logoutButton").addEventListener("click", function() {
+                if (confirm("Apakah Anda yakin ingin keluar?")) {
+                    // Redirect ke halaman logout.php setelah konfirmasi OK
+                    window.location.href = "logout.php";
+                }
+            });
+        </script>
+</body>
 
-            </html>
+</html>

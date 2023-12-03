@@ -4,19 +4,19 @@ include 'php/koneksi.php';
 
 // submit module
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_module'])) {
-    // Ambil nilai dari formulir
+	// Ambil nilai dari formulir
 	$idModule = $_POST['idModule'];
 	$namaModule = $_POST['namaModule'];
 	$materi = $_POST['materi'];
 	$idMapel = $_POST['mapelMentor'];
 
-    // Lakukan query untuk menyimpan data ke database
+	// Lakukan query untuk menyimpan data ke database
 	$query = "INSERT INTO `module` (`id_module`, `nama_module`, `materi`, `id_mapel`) VALUES ('$idModule', '$namaModule', '$materi', '$idMapel')";
 
-    // Jalankan query
+	// Jalankan query
 	$result = mysqli_query($conn, $query);
 
-    // Periksa apakah query berhasil
+	// Periksa apakah query berhasil
 	if ($result) {
 		echo "Data berhasil disimpan ke database.";
 	} else {
@@ -26,19 +26,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_module'])) {
 
 // submit jadwal
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_jadwal'])) {
-    // Ambil nilai dari formulir
+	// Ambil nilai dari formulir
 	$idJadwal = $_POST['idJadwal'];
 	$hari = $_POST['hari'];
 	$jam = $_POST['jam'];
 	$idModule = $_POST['mapelMentor'];
 
-    // Lakukan query untuk menyimpan data ke database
+	// Lakukan query untuk menyimpan data ke database
 	$query = "INSERT INTO `jadwal` (`id_jadwal`, `hari`, `jam`, `id_module`) VALUES ('$idJadwal', '$hari', '$jam', '$idModule')";
 
-    // Jalankan query
+	// Jalankan query
 	$result = mysqli_query($conn, $query);
 
-    // Periksa apakah query berhasil
+	// Periksa apakah query berhasil
 	if ($result) {
 		echo "Data berhasil disimpan ke database.";
 	} else {
@@ -47,14 +47,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit_jadwal'])) {
 }
 
 if (isset($_POST['submit_mentor'])) {
-    // Ambil data dari formulir
+	// Ambil data dari formulir
 	$idMentor = $_POST['id_mentor'];
 	$namaMentor = $_POST['nama_mentor'];
 	$jkMentor = $_POST['jk_mentor'];
 	$waMentor = $_POST['wa_mentor'];
 	$mapelMentor = $_POST['mapelMentor'];
 
-    // Lakukan operasi INSERT ke database
+	// Lakukan operasi INSERT ke database
 	$query = "INSERT INTO `mentor` (`id_mentor`, `nama`, `jenis_kelamin`, `no_wa`, `id_mapel`) VALUES ('$idMentor', '$namaMentor', '$jkMentor', '$waMentor', '$mapelMentor')";
 
 	if ($conn->query($query) === TRUE) {
@@ -139,17 +139,20 @@ $resultMapell = $conn->query($queryMapell);
 			font-size: 16px;
 		}
 
+
 		.popup-container .save-button {
 			background-color: #4caf50;
 			color: white;
 		}
 
 		.popup-container .cancel-button {
-			background-color: #ccc;
-			color: #333;
+			background-color: red;
+			color: white;
+			margin-right: 20px;
+			/* Sesuaikan jarak yang diinginkan */
 		}
 
-		.overlay {
+		#overlay {
 			display: none;
 			position: fixed;
 			top: 0;
@@ -157,7 +160,8 @@ $resultMapell = $conn->query($queryMapell);
 			width: 100%;
 			height: 100%;
 			background: rgba(0, 0, 0, 0.5);
-			z-index: 1;
+			z-index: 3;
+			/* Ensure the overlay has a higher z-index than the navbar */
 		}
 
 		.popup-container {
@@ -166,7 +170,7 @@ $resultMapell = $conn->query($queryMapell);
 			top: 50%;
 			left: 50%;
 			transform: translate(-50%, -50%);
-			z-index: 2;
+			z-index: 4;
 			padding: 30px;
 			max-width: 1300px;
 			/* Ganti nilai sesuai kebutuhan Anda */
@@ -192,7 +196,7 @@ $resultMapell = $conn->query($queryMapell);
 			top: 50%;
 			left: 50%;
 			transform: translate(-50%, -50%);
-			z-index: 2;
+			z-index: 4;
 			padding: 30px;
 			max-width: 600px;
 			/* Adjust the maximum width as needed */
@@ -245,8 +249,8 @@ $resultMapell = $conn->query($queryMapell);
 		}
 
 		.popup-mentor .cancel-button {
-			background-color: #ccc;
-			color: #333;
+			background-color: red;
+			color: white;
 		}
 
 		.popup-container select {
@@ -284,8 +288,7 @@ $resultMapell = $conn->query($queryMapell);
 		}
 	</style>
 
-
-
+	<div class="overlay" id="overlay"></div>
 	<div id="mySidenav" class="sidenav">
 		<p class="logo" style="position: relative; right: 5px;"><span>AL</span>-AMIN</p>
 		<a href="index.php" class="icon-a"><i class="fa fa-dashboard icons"></i> Dashboard</a>
@@ -367,7 +370,7 @@ $resultMapell = $conn->query($queryMapell);
 							<label style="font-size: medium;" for="mapelMentor">Pilih Mata Pelajaran:</label>
 							<select style="font-size: large;" id="mapelMentor" name="mapelMentor">
 								<?php
-                    // Tampilkan pilihan program dari database
+								// Tampilkan pilihan program dari database
 								while ($row = $resultMapel->fetch_assoc()) {
 									echo "<option value=\"" . $row["id_mapel"] . "\">" . $row["nama"] . "</option>";
 								}
@@ -375,8 +378,9 @@ $resultMapell = $conn->query($queryMapell);
 							</select>
 							<!-- Tambahkan elemen lain sesuai kebutuhan -->
 							<div class="button-container">
-								<button class="save-button" type="submit" name="submit_module">Simpan Modul</button>
 								<button class="cancel-button" onclick="tutupPopupModule()">Batal</button>
+								<button class="save-button" type="submit" name="submit_module">Simpan Modul</button>
+
 							</div>
 						</form>
 					</div>
@@ -395,15 +399,16 @@ $resultMapell = $conn->query($queryMapell);
 							<label for="mapelMentor">Pilih Materi:</label>
 							<select style="font-size: large;" id="mapelMentor" name="mapelMentor">
 								<?php
-                // Tampilkan pilihan program dari database
+								// Tampilkan pilihan program dari database
 								while ($row = $resultModule->fetch_assoc()) {
 									echo "<option value=\"" . $row["id_module"] . "\">" . $row["nama_module"] . "</option>";
 								}
 								?>
 							</select>
 							<div class="button-container">
-								<button class="save-button" type="submit" name="submit_jadwal">Simpan Jadwal</button>
 								<button class="cancel-button" onclick="tutupPopup()">Batal</button>
+								<button class="save-button" type="submit" name="submit_jadwal">Simpan Jadwal</button>
+
 							</div>
 						</form>
 					</div>
@@ -424,7 +429,7 @@ $resultMapell = $conn->query($queryMapell);
 							<label style="font-size: medium;" for="mapelMentor">Pilih Mata Pelajaran:</label>
 							<select style="font-size: large;" id="mapelMentor" name="mapelMentor">
 								<?php
-                        // Tampilkan pilihan program dari database
+								// Tampilkan pilihan program dari database
 								while ($row = $resultMapell->fetch_assoc()) {
 									echo "<option value=\"" . $row["id_mapel"] . "\">" . $row["nama"] . "</option>";
 								}
@@ -433,8 +438,9 @@ $resultMapell = $conn->query($queryMapell);
 							<label style="position: relative; top: 10px;" for="image">Upload Foto:</label>
 							<input type="file" id="image" name="image" accept="image/*">
 							<div class="button-container">
-								<button class="save-button" type="submit" name="submit_mentor">Simpan Mentor</button>
 								<button class="cancel-button" onclick="tutupPopupMentor()">Batal</button>
+								<button class="save-button" type="submit" name="submit_mentor">Simpan Mentor</button>
+
 							</div>
 						</form>
 					</div>
@@ -598,4 +604,5 @@ $resultMapell = $conn->query($queryMapell);
 	</script>
 
 </body>
+
 </html>

@@ -115,7 +115,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         .login-image {
             width: 320px;
-            height: 420px;
+            height: 350px;
             border-radius: 8px;
             overflow: hidden;
         }
@@ -223,9 +223,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="button">
                         <button type="submit">Login</button>
                     </div>
-                    <div class="button">
-                        <button>Kembali</button>
-                    </div>
+
                 </form>
             </div>
 
