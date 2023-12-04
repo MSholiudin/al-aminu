@@ -44,7 +44,7 @@
 	<!-- Navbar End -->
 
 	<!-- Hero section start -->
-	<section class="hero" id="home" style="background-image: url('img/Desktop\ -\ 9.png.');">
+	<section class="hero" id="home" style="background-image: url('img/beranda.png');">
 		<main class="content">
 			<div class="hero-content">
 				<script>

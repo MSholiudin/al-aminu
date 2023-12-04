@@ -82,7 +82,6 @@
         <a href="index.php" class="icon-a"><i class="fa fa-dashboard icons"></i> Dashboard</a>
         <a href="jadwal.php" class="icon-a"><i class="fa fa-calendar icons"></i> Jadwal</a>
         <a href="murid.php" class="icon-a"><i class="fa fa-users icons"></i> Murid</a>
-        <a href="pemesanan.php" class="icon-a"><i class="fa fa-shopping-cart"></i> Pemesanan</a>
         <a href="cicilan.php" class="icon-a"><i class="fa fa-credit-card"></i> Cicilan</a>
         <a href="riwayat.php" class="icon-a"><i class="fa fa-list-alt icons"></i> Riwayat</a>
         <a href="notifikasi.php" class="icon-a"><i class="fa fa-regular fa-bell"></i> Notifikasi</a>

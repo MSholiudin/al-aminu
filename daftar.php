@@ -42,23 +42,29 @@ $conn->close();
 <body>
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background-image: url(img/Frame\ 3.png);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            background-image: url('img/daftar.png');
+            background-size: cover;
+            background-position: center;
             height: 100vh;
         }
 
         .container {
-    background-color: rgba(255, 255, 255, 0.8); /* Gunakan nilai alpha (kejernihan) sesuai kebutuhan */
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    width: 400px;
-    text-align: center;
-}
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            height: 80%;
+            width: 30%;
+            /* Ubah nilai width sesuai keinginan Anda */
+            text-align: center;
+            margin: auto;
+        }
+
+        /* ... (other existing styles remain unchanged) ... */
+
         form {
             display: flex;
             flex-direction: column;
@@ -67,6 +73,7 @@ $conn->close();
 
         h2 {
             color: #333;
+            font-size: 10mm;
         }
 
         .content {
@@ -77,10 +84,32 @@ $conn->close();
             margin-bottom: 15px;
         }
 
+        .input-box label {
+            color: #555;
+            /* Ganti dengan warna yang diinginkan */
+            font-size: 6mm;
+            text-align: center;
+            margin-bottom: 5px;
+            /* Tambahkan margin-bottom sesuai kebutuhan */
+        }
+
         label {
             display: block;
             margin-bottom: 5px;
-            color: #666;
+            color: #555;
+            font-size: 6mm;
+            text-align: center;
+
+        }
+
+        .input-box input,
+        .input-box select {
+            height: 50px;
+            /* Sesuaikan dengan lebar yang diinginkan, bisa dalam persen atau piksel */
+            padding: 10px;
+            /* Sesuaikan dengan padding yang diinginkan */
+            font-size: 16px;
+            /* Sesuaikan dengan ukuran font yang diinginkan */
         }
 
         input,
@@ -99,6 +128,9 @@ $conn->close();
             margin-top: 15px;
             margin-bottom: 5px;
             color: #666;
+            font-size: 6mm;
+            text-align: center;
+            /* Menengahkan teks */
         }
 
         .gender-category {
@@ -109,6 +141,12 @@ $conn->close();
 
         .gender-category input {
             margin-right: 5px;
+            /* Sesuaikan margin atau gaya lain sesuai kebutuhan */
+        }
+
+        .gender-category label {
+            font-size: 6mm;
+            /* Sesuaikan ukuran font sesuai kebutuhan */
         }
 
         .alert {
@@ -127,14 +165,15 @@ $conn->close();
             justify-content: space-between;
         }
 
+        .button-container button,
         .back-button {
-            padding: 10px 20px;
+            padding: 20px 85px;
             background-color: #ccc;
-            color: #333;
+            color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 6mm;
             margin-left: 40px;
         }
 
@@ -182,14 +221,14 @@ $conn->close();
                     <label for="programPackage">Pilih Program:</label>
                     <select name="programPackage">
                         <?php
-                    // Tampilkan pilihan program dari database
+                        // Tampilkan pilihan program dari database
                         while ($row = $resultPrograms->fetch_assoc()) {
                             echo "<option value=\"" . $row["id_program"] . "\">" . $row["nama_program"] . "</option>";
                         }
                         ?>
                     </select>
                 </div>
-                <span class="gender-title">Gender</span>
+                <span class="gender-title">Jenis Kelamin</span>
                 <div class="gender-category">
                     <input type="radio" name="gender" id="male" value="laki-laki">
                     <label for="male">Male</label>
@@ -198,7 +237,7 @@ $conn->close();
                 </div>
             </div>
             <div class="alert">
-                <p style="color: black;">Dengan mengeklik Daftar, Anda menyetujui <a href="#">Ketentuan,</a> <a href="#">Kebijakan Privasi</a> dan <a href="#">Kebijakan cookie</a> kami. Anda mungkin menerima pemberitahuan SMS dari kami dan dapat memilih untuk tidak ikut serta kapan saja.</p>
+                <p style="color: black; font-size: 5mm;">Dengan mengeklik Daftar, Anda menyetujui <a href="#">Ketentuan,</a> <a href="#">Kebijakan Privasi</a> dan <a href="#">Kebijakan cookie</a> kami. Anda mungkin menerima pemberitahuan SMS dari kami dan dapat memilih untuk tidak ikut serta kapan saja.</p>
             </div>
             <div class="button-container">
                 <button style="position: relative; right: 50px;" type="button" class="back-button" onclick="goBack()">Kembali</button>

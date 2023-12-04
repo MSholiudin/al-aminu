@@ -14,7 +14,6 @@
 		<a href="index.php" class="icon-a"><i class="fa fa-dashboard icons"></i> Dashboard</a>
 		<a href="jadwal.php" class="icon-a"><i class="fa fa-calendar icons"></i> Jadwal</a>
 		<a href="murid.php" class="icon-a"><i class="fa fa-users icons"></i> Murid</a>
-		<a href="pemesanan.php" class="icon-a"><i class="fa fa-shopping-cart"></i> Pemesanan</a>
 		<a href="cicilan.php" class="icon-a"><i class="fa fa-credit-card"></i> Cicilan</a>
 		<a href="riwayat.php" class="icon-a"><i class="fa fa-list-alt icons"></i> Riwayat</a>
 		<a href="notifikasi.php" class="icon-a"><i class="fa fa-regular fa-bell"></i> Notifikasi</a>
@@ -96,19 +95,22 @@
 		</div>
 
 		<?php
-// Include your database connection file
+		// Include your database connection file
 		include('php/koneksi.php');
 
-// Your SQL query
+		// Your SQL query
 		$sql = "SELECT data_pengguna.nama, cicilan.bulan, cicilan.tanggal_nyicil, cicilan.nyicil, cicilan.status
 		FROM data_pengguna JOIN cicilan ON data_pengguna.id_pengguna=cicilan.id_pengguna";
 
-// Execute the query
+		// Execute the query
 		$result = mysqli_query($conn, $sql);
 
-// Check if the query was successful
+		// Check if the query was successful
 		if ($result) {
 			echo '
+			<div class="col-div-81" style="position: relative; top: 30px; left: 20px;">
+			<div class="box-9" style="height: 630px;">
+				<div class="content-box">
 			<table style="top: 10px; position: relative;">
 			<tr>
 			<th>Nama</th>
@@ -119,7 +121,7 @@
 			<th>Action</th>
 			</tr>';
 
-    // Fetch data and generate table rows
+			// Fetch data and generate table rows
 			while ($row = mysqli_fetch_assoc($result)) {
 				echo '
 				<tr>
@@ -137,11 +139,11 @@
 
 			echo '</table>';
 		} else {
-    // Handle the case where the query fails
+			// Handle the case where the query fails
 			echo 'Error executing the query: ' . mysqli_error($conn);
 		}
 
-// Close the database connection (assuming you have a $conn variable in koneksi.php)
+		// Close the database connection (assuming you have a $conn variable in koneksi.php)
 		mysqli_close($conn);
 		?>
 
@@ -173,7 +175,7 @@
 			});
 		</script>
 
-	</body>
+</body>
 
 
-	</html>
+</html>

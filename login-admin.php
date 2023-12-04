@@ -64,13 +64,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <style>
-        body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background: url(img/Desktop\ -\ 8.png);
+         body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
+            display: flex;
+            background-image: url('img/loginadmin.png');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
         }
 
         .login-container {
@@ -115,7 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         .login-image {
             width: 320px;
-            height: 350px;
+            height: 370px;
             border-radius: 8px;
             overflow: hidden;
         }
@@ -229,7 +230,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <div class="login-image">
                 <!-- Tempatkan gambar Anda di sini -->
-                <img src="img/OIG (2).jpeg" alt="Gambar">
+                <img src="img/loginadmin1.jpeg" alt="Gambar">
             </div>
         </div>
 
