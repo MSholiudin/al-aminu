@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<title>Riwayat Pembayaran</title>
+	<title>Notifikasi</title>
 	<link rel="stylesheet" href="css/style.css" type="text/css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
@@ -17,7 +17,7 @@
 		<a href="pemesanan.php" class="icon-a"><i class="fa fa-shopping-cart"></i> Pemesanan</a>
 		<a href="cicilan.php" class="icon-a"><i class="fa fa-credit-card"></i> Cicilan</a>
 		<a href="riwayat.php" class="icon-a"><i class="fa fa-list-alt icons"></i> Riwayat</a>
-        <a href="notifikasi.php" class="icon-a"><i class="fa fa-regular fa-bell"></i> Notifikasi</a>
+		<a href="notifikasi.php" class="icon-a"><i class="fa fa-regular fa-bell"></i> Notifikasi</a>
 
 		<script>
 			// Fungsi untuk menampilkan data pada baris tabel
@@ -96,17 +96,13 @@
 		</div>
 
 		<?php
-// Include your database connection file
 		include('php/koneksi.php');
 
-// Your SQL query
-		$sql = "SELECT data_pengguna.nama, cicilan.bulan, cicilan.tanggal_nyicil, cicilan.nyicil, cicilan.status
-		FROM data_pengguna JOIN cicilan ON data_pengguna.id_pengguna=cicilan.id_pengguna";
+		$sql = "SELECT data_pengguna.nama, cicilan.bulan, cicilan.tanggal_nyicil, cicilan.nyicil
+		FROM data_pengguna JOIN cicilan ON data_pengguna.id_pengguna=cicilan.id_pengguna WHERE cicilan.konfirmasi_admin = 0";
 
-// Execute the query
 		$result = mysqli_query($conn, $sql);
 
-// Check if the query was successful
 		if ($result) {
 			echo '
 			<table style="top: 10px; position: relative;">
@@ -115,65 +111,117 @@
 			<th>Bulan</th>
 			<th>Tanggal Cicilan</th>
 			<th>Pembayaran Cicilan</th>
-			<th>Bukti Pembayaran</th>
 			<th>Action</th>
 			</tr>';
 
-    // Fetch data and generate table rows
 			while ($row = mysqli_fetch_assoc($result)) {
 				echo '
 				<tr>
 				<td>' . $row['nama'] . '</td>
 				<td>' . $row['bulan'] . '</td>
-				<td>' . $row['tanggal_nyicil'] . '</td>
+				<td class="tanggal-nyicil">' . $row['tanggal_nyicil'] . '</td>
 				<td>' . $row['nyicil'] . '</td>
-				<td>' . $row['status'] . '</td>
 				<td>
-				<button class="view-button" onclick="viewRow(this)">Konfirmasi</button>
-				<button class="delete-button" onclick="deleteRow(this)">Hapus</button>
+				<button class="view-button" onclick="konfirmasiRow(this)">Konfirmasi</button>
+				<button class="delete-button" onclick="hapusRow(this)">Hapus</button>
 				</td>
 				</tr>';
 			}
 
 			echo '</table>';
 		} else {
-    // Handle the case where the query fails
 			echo 'Error executing the query: ' . mysqli_error($conn);
 		}
 
-// Close the database connection (assuming you have a $conn variable in koneksi.php)
 		mysqli_close($conn);
 		?>
 
-
-
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script>
-			$(".nav").click(function() {
-				$("#mySidenav").css('width', '70px');
-				$("#main").css('margin-left', '70px');
-				$(".logo").css('visibility', 'hidden');
-				$(".logo span").css('visibility', 'visible');
-				$(".logo span").css('margin-left', '-10px');
-				$(".icon-a").css('visibility', 'hidden');
-				$(".icons").css('visibility', 'visible');
-				$(".icons").css('margin-left', '-8px');
-				$(".nav").css('display', 'none');
-				$(".nav2").css('display', 'block');
-			});
+			function konfirmasiRow(button) {
+    // Dapatkan data baris yang sesuai dengan tombol Konfirmasi yang diklik
+    var row = button.parentNode.parentNode;
 
-			$(".nav2").click(function() {
-				$("#mySidenav").css('width', '300px');
-				$("#main").css('margin-left', '300px');
-				$(".logo").css('visibility', 'visible');
-				$(".icon-a").css('visibility', 'visible');
-				$(".icons").css('visibility', 'visible');
-				$(".nav").css('display', 'block');
-				$(".nav2").css('display', 'none');
-			});
-		</script>
+    // Dapatkan data dari kolom ketiga (tanggal_nyicil)
+    var tanggalNyicil = row.cells[2].innerHTML;
 
-	</body>
+    // Konfirmasi sebelum mengonfirmasi cicilan
+    var confirmKonfirmasi = confirm("Apakah Anda yakin ingin mengonfirmasi cicilan ini?");
+
+    if (confirmKonfirmasi) {
+        // Kirim permintaan AJAX untuk mengonfirmasi cicilan
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+        	if (xhr.readyState == 4 && xhr.status == 200) {
+                // Tanggapi dari server setelah mengonfirmasi
+                console.log(xhr.responseText);
+                // Refresh halaman atau lakukan tindakan lain jika diperlukan
+                location.reload();
+            }
+        };
+        xhr.open('GET', 'cicilan_konfirmasi.php?tanggal_nyicil=' + tanggalNyicil, true);
+        xhr.send();
+    }
+}
 
 
-	</html>
+function hapusRow(button) {
+    // Dapatkan data baris yang sesuai dengan tombol Hapus yang diklik
+    var row = button.parentNode.parentNode;
+
+    // Dapatkan data dari kolom ketiga (tanggal_nyicil)
+    var tanggalNyicil = row.cells[2].innerHTML;
+
+    // Konfirmasi sebelum menghapus cicilan
+    var confirmDelete = confirm("Apakah Anda yakin ingin menghapus cicilan ini?");
+
+    if (confirmDelete) {
+        // Kirim permintaan AJAX untuk menghapus cicilan
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+        	if (xhr.readyState == 4 && xhr.status == 200) {
+                // Tanggapi dari server setelah menghapus
+                console.log(xhr.responseText);
+                // Refresh halaman atau lakukan tindakan lain jika diperlukan
+                location.reload();
+            }
+        };
+        xhr.open('GET', 'cicilan_hapus.php?tanggal_nyicil=' + tanggalNyicil, true);
+        xhr.send();
+    }
+}
+
+</script>
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+	$(".nav").click(function() {
+		$("#mySidenav").css('width', '70px');
+		$("#main").css('margin-left', '70px');
+		$(".logo").css('visibility', 'hidden');
+		$(".logo span").css('visibility', 'visible');
+		$(".logo span").css('margin-left', '-10px');
+		$(".icon-a").css('visibility', 'hidden');
+		$(".icons").css('visibility', 'visible');
+		$(".icons").css('margin-left', '-8px');
+		$(".nav").css('display', 'none');
+		$(".nav2").css('display', 'block');
+	});
+
+	$(".nav2").click(function() {
+		$("#mySidenav").css('width', '300px');
+		$("#main").css('margin-left', '300px');
+		$(".logo").css('visibility', 'visible');
+		$(".icon-a").css('visibility', 'visible');
+		$(".icons").css('visibility', 'visible');
+		$(".nav").css('display', 'block');
+		$(".nav2").css('display', 'none');
+	});
+</script>
+
+</body>
+
+
+</html>

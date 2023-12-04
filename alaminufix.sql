@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 04, 2023 at 05:19 AM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Waktu pembuatan: 04 Des 2023 pada 10.42
+-- Versi server: 10.4.24-MariaDB
+-- Versi PHP: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `absen`
+-- Struktur dari tabel `absen`
 --
 
 CREATE TABLE `absen` (
@@ -33,10 +33,10 @@ CREATE TABLE `absen` (
   `id_jadwal` char(10) NOT NULL,
   `status` varchar(10) NOT NULL,
   `tanggal` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `absen`
+-- Dumping data untuk tabel `absen`
 --
 
 INSERT INTO `absen` (`id_absen`, `id_pengguna`, `id_jadwal`, `status`, `tanggal`) VALUES
@@ -45,7 +45,7 @@ INSERT INTO `absen` (`id_absen`, `id_pengguna`, `id_jadwal`, `status`, `tanggal`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cicilan`
+-- Struktur dari tabel `cicilan`
 --
 
 CREATE TABLE `cicilan` (
@@ -54,24 +54,27 @@ CREATE TABLE `cicilan` (
   `bulan` varchar(10) NOT NULL,
   `tanggal_nyicil` datetime NOT NULL DEFAULT current_timestamp(),
   `nyicil` int(20) NOT NULL,
-  `status` char(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `konfirmasi_admin` tinyint(1) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `cicilan`
---
-
-INSERT INTO `cicilan` (`id_pengguna`, `id_pembayaran`, `bulan`, `tanggal_nyicil`, `nyicil`, `status`) VALUES
-(1, 1, 'December', '2023-12-03 14:52:23', 250000, 'lunas');
-
---
--- Triggers `cicilan`
+-- Trigger `cicilan`
 --
 DELIMITER $$
-CREATE TRIGGER `after_insert_cicilan` AFTER INSERT ON `cicilan` FOR EACH ROW BEGIN
+CREATE TRIGGER `update_tanggungan` AFTER INSERT ON `cicilan` FOR EACH ROW BEGIN
     UPDATE pembayaran
     SET status = status - NEW.nyicil
     WHERE id_pembayaran = NEW.id_pembayaran;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `update_tanggungan_konfirmasi` AFTER UPDATE ON `cicilan` FOR EACH ROW BEGIN
+    IF NEW.konfirmasi_admin = TRUE THEN
+        UPDATE pembayaran
+        SET status = status - NEW.nyicil
+        WHERE id_pembayaran = NEW.id_pembayaran;
+    END IF;
 END
 $$
 DELIMITER ;
@@ -79,7 +82,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data_pengguna`
+-- Struktur dari tabel `data_pengguna`
 --
 
 CREATE TABLE `data_pengguna` (
@@ -94,10 +97,10 @@ CREATE TABLE `data_pengguna` (
   `id_program` char(10) NOT NULL,
   `otp` text NOT NULL,
   `tanggal` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `data_pengguna`
+-- Dumping data untuk tabel `data_pengguna`
 --
 
 INSERT INTO `data_pengguna` (`id_pengguna`, `nama`, `email`, `username`, `password`, `no_wa`, `jenis_kelamin`, `status`, `id_program`, `otp`, `tanggal`) VALUES
@@ -108,18 +111,18 @@ INSERT INTO `data_pengguna` (`id_pengguna`, `nama`, `email`, `username`, `passwo
 -- --------------------------------------------------------
 
 --
--- Table structure for table `detail_program`
+-- Struktur dari tabel `detail_program`
 --
 
 CREATE TABLE `detail_program` (
-  `id_mapel` char(10) NOT NULL,
-  `id_program` char(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `id_program` char(10) NOT NULL,
+  `id_mapel` char(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jadwal`
+-- Struktur dari tabel `jadwal`
 --
 
 CREATE TABLE `jadwal` (
@@ -128,10 +131,10 @@ CREATE TABLE `jadwal` (
   `hari` varchar(10) NOT NULL,
   `jam` time NOT NULL,
   `id_module` char(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `jadwal`
+-- Dumping data untuk tabel `jadwal`
 --
 
 INSERT INTO `jadwal` (`id_jadwal`, `tanggal`, `hari`, `jam`, `id_module`) VALUES
@@ -143,7 +146,7 @@ INSERT INTO `jadwal` (`id_jadwal`, `tanggal`, `hari`, `jam`, `id_module`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jawaban`
+-- Struktur dari tabel `jawaban`
 --
 
 CREATE TABLE `jawaban` (
@@ -151,22 +154,22 @@ CREATE TABLE `jawaban` (
   `id_pengguna` int(10) NOT NULL,
   `id_module` char(10) NOT NULL,
   `file` mediumblob NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `mapel`
+-- Struktur dari tabel `mapel`
 --
 
 CREATE TABLE `mapel` (
   `id_mapel` char(10) NOT NULL,
   `nama` varchar(20) NOT NULL,
   `image` mediumblob NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `mapel`
+-- Dumping data untuk tabel `mapel`
 --
 
 INSERT INTO `mapel` (`id_mapel`, `nama`, `image`) VALUES
@@ -181,7 +184,7 @@ INSERT INTO `mapel` (`id_mapel`, `nama`, `image`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `mentor`
+-- Struktur dari tabel `mentor`
 --
 
 CREATE TABLE `mentor` (
@@ -191,10 +194,10 @@ CREATE TABLE `mentor` (
   `jenis_kelamin` varchar(20) NOT NULL,
   `no_wa` char(13) NOT NULL,
   `image` mediumblob NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `mentor`
+-- Dumping data untuk tabel `mentor`
 --
 
 INSERT INTO `mentor` (`id_mentor`, `id_mapel`, `nama`, `jenis_kelamin`, `no_wa`, `image`) VALUES
@@ -206,7 +209,7 @@ INSERT INTO `mentor` (`id_mentor`, `id_mapel`, `nama`, `jenis_kelamin`, `no_wa`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `module`
+-- Struktur dari tabel `module`
 --
 
 CREATE TABLE `module` (
@@ -214,10 +217,10 @@ CREATE TABLE `module` (
   `nama_module` varchar(20) NOT NULL,
   `materi` varchar(50) NOT NULL,
   `id_mapel` char(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `module`
+-- Dumping data untuk tabel `module`
 --
 
 INSERT INTO `module` (`id_module`, `nama_module`, `materi`, `id_mapel`) VALUES
@@ -229,7 +232,7 @@ INSERT INTO `module` (`id_module`, `nama_module`, `materi`, `id_mapel`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `paket_program`
+-- Struktur dari tabel `paket_program`
 --
 
 CREATE TABLE `paket_program` (
@@ -237,10 +240,10 @@ CREATE TABLE `paket_program` (
   `nama_program` varchar(20) NOT NULL,
   `harga` int(20) NOT NULL,
   `deskripsi` varchar(150) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `paket_program`
+-- Dumping data untuk tabel `paket_program`
 --
 
 INSERT INTO `paket_program` (`id_program`, `nama_program`, `harga`, `deskripsi`) VALUES
@@ -253,7 +256,7 @@ INSERT INTO `paket_program` (`id_program`, `nama_program`, `harga`, `deskripsi`)
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pembayaran`
+-- Struktur dari tabel `pembayaran`
 --
 
 CREATE TABLE `pembayaran` (
@@ -263,21 +266,14 @@ CREATE TABLE `pembayaran` (
   `id_program` char(10) NOT NULL,
   `tgl_pembayaran` datetime DEFAULT current_timestamp(),
   `id_pengguna` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `pembayaran`
---
-
-INSERT INTO `pembayaran` (`id_pembayaran`, `bayar`, `status`, `id_program`, `tgl_pembayaran`, `id_pengguna`) VALUES
-(1, 400000, 0, 'PR05', '2023-11-29 12:48:47', 1);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `absen`
+-- Indeks untuk tabel `absen`
 --
 ALTER TABLE `absen`
   ADD PRIMARY KEY (`id_absen`),
@@ -285,35 +281,35 @@ ALTER TABLE `absen`
   ADD KEY `id_jadwal` (`id_jadwal`);
 
 --
--- Indexes for table `cicilan`
+-- Indeks untuk tabel `cicilan`
 --
 ALTER TABLE `cicilan`
   ADD KEY `id_pembayaran` (`id_pembayaran`),
   ADD KEY `id_pengguna` (`id_pengguna`);
 
 --
--- Indexes for table `data_pengguna`
+-- Indeks untuk tabel `data_pengguna`
 --
 ALTER TABLE `data_pengguna`
   ADD PRIMARY KEY (`id_pengguna`),
   ADD KEY `id_program` (`id_program`);
 
 --
--- Indexes for table `detail_program`
+-- Indeks untuk tabel `detail_program`
 --
 ALTER TABLE `detail_program`
   ADD KEY `id_mapel` (`id_mapel`),
   ADD KEY `id_program` (`id_program`);
 
 --
--- Indexes for table `jadwal`
+-- Indeks untuk tabel `jadwal`
 --
 ALTER TABLE `jadwal`
   ADD PRIMARY KEY (`id_jadwal`),
   ADD KEY `jadwal_ibfk_3` (`id_module`);
 
 --
--- Indexes for table `jawaban`
+-- Indeks untuk tabel `jawaban`
 --
 ALTER TABLE `jawaban`
   ADD PRIMARY KEY (`id_jawaban`),
@@ -321,33 +317,33 @@ ALTER TABLE `jawaban`
   ADD KEY `id_module` (`id_module`);
 
 --
--- Indexes for table `mapel`
+-- Indeks untuk tabel `mapel`
 --
 ALTER TABLE `mapel`
   ADD PRIMARY KEY (`id_mapel`);
 
 --
--- Indexes for table `mentor`
+-- Indeks untuk tabel `mentor`
 --
 ALTER TABLE `mentor`
   ADD PRIMARY KEY (`id_mentor`),
   ADD KEY `id_mapel` (`id_mapel`);
 
 --
--- Indexes for table `module`
+-- Indeks untuk tabel `module`
 --
 ALTER TABLE `module`
   ADD PRIMARY KEY (`id_module`),
   ADD KEY `fk_id_mapel` (`id_mapel`);
 
 --
--- Indexes for table `paket_program`
+-- Indeks untuk tabel `paket_program`
 --
 ALTER TABLE `paket_program`
   ADD PRIMARY KEY (`id_program`);
 
 --
--- Indexes for table `pembayaran`
+-- Indeks untuk tabel `pembayaran`
 --
 ALTER TABLE `pembayaran`
   ADD PRIMARY KEY (`id_pembayaran`),
@@ -355,79 +351,79 @@ ALTER TABLE `pembayaran`
   ADD KEY `id_pengguna` (`id_pengguna`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `data_pengguna`
+-- AUTO_INCREMENT untuk tabel `data_pengguna`
 --
 ALTER TABLE `data_pengguna`
   MODIFY `id_pengguna` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
--- AUTO_INCREMENT for table `pembayaran`
+-- AUTO_INCREMENT untuk tabel `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `absen`
+-- Ketidakleluasaan untuk tabel `absen`
 --
 ALTER TABLE `absen`
   ADD CONSTRAINT `absen_ibfk_1` FOREIGN KEY (`id_pengguna`) REFERENCES `data_pengguna` (`id_pengguna`),
   ADD CONSTRAINT `absen_ibfk_2` FOREIGN KEY (`id_jadwal`) REFERENCES `jadwal` (`id_jadwal`);
 
 --
--- Constraints for table `cicilan`
+-- Ketidakleluasaan untuk tabel `cicilan`
 --
 ALTER TABLE `cicilan`
   ADD CONSTRAINT `cicilan_ibfk_1` FOREIGN KEY (`id_pembayaran`) REFERENCES `pembayaran` (`id_pembayaran`),
   ADD CONSTRAINT `cicilan_ibfk_2` FOREIGN KEY (`id_pengguna`) REFERENCES `data_pengguna` (`id_pengguna`);
 
 --
--- Constraints for table `data_pengguna`
+-- Ketidakleluasaan untuk tabel `data_pengguna`
 --
 ALTER TABLE `data_pengguna`
   ADD CONSTRAINT `data_pengguna_ibfk_1` FOREIGN KEY (`id_program`) REFERENCES `paket_program` (`id_program`);
 
 --
--- Constraints for table `detail_program`
+-- Ketidakleluasaan untuk tabel `detail_program`
 --
 ALTER TABLE `detail_program`
   ADD CONSTRAINT `detail_program_ibfk_1` FOREIGN KEY (`id_mapel`) REFERENCES `mapel` (`id_mapel`),
   ADD CONSTRAINT `detail_program_ibfk_2` FOREIGN KEY (`id_program`) REFERENCES `paket_program` (`id_program`);
 
 --
--- Constraints for table `jadwal`
+-- Ketidakleluasaan untuk tabel `jadwal`
 --
 ALTER TABLE `jadwal`
   ADD CONSTRAINT `jadwal_ibfk_1` FOREIGN KEY (`id_module`) REFERENCES `module` (`id_module`);
 
 --
--- Constraints for table `jawaban`
+-- Ketidakleluasaan untuk tabel `jawaban`
 --
 ALTER TABLE `jawaban`
   ADD CONSTRAINT `jawaban_ibfk_1` FOREIGN KEY (`id_pengguna`) REFERENCES `data_pengguna` (`id_pengguna`),
   ADD CONSTRAINT `jawaban_ibfk_2` FOREIGN KEY (`id_module`) REFERENCES `module` (`id_module`);
 
 --
--- Constraints for table `mentor`
+-- Ketidakleluasaan untuk tabel `mentor`
 --
 ALTER TABLE `mentor`
   ADD CONSTRAINT `mentor_ibfk_1` FOREIGN KEY (`id_mapel`) REFERENCES `mapel` (`id_mapel`);
 
 --
--- Constraints for table `module`
+-- Ketidakleluasaan untuk tabel `module`
 --
 ALTER TABLE `module`
   ADD CONSTRAINT `module_ibfk_1` FOREIGN KEY (`id_mapel`) REFERENCES `mapel` (`id_mapel`);
 
 --
--- Constraints for table `pembayaran`
+-- Ketidakleluasaan untuk tabel `pembayaran`
 --
 ALTER TABLE `pembayaran`
   ADD CONSTRAINT `fk_id_pengguna` FOREIGN KEY (`id_pengguna`) REFERENCES `data_pengguna` (`id_pengguna`),

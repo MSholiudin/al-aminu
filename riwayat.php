@@ -100,7 +100,7 @@
 		include('php/koneksi.php');
 
 // Your SQL query
-		$sql = "SELECT data_pengguna.nama, cicilan.bulan, cicilan.tanggal_nyicil, cicilan.nyicil, cicilan.status
+		$sql = "SELECT data_pengguna.nama, cicilan.bulan, cicilan.tanggal_nyicil, cicilan.nyicil
 		FROM data_pengguna JOIN cicilan ON data_pengguna.id_pengguna=cicilan.id_pengguna";
 
 // Execute the query
@@ -115,7 +115,6 @@
 			<th>Bulan</th>
 			<th>Tanggal Nyicil</th>
 			<th>Nyicil</th>
-			<th>Status</th>
 			<th>Action</th>
 			</tr>';
 
@@ -127,7 +126,6 @@
 				<td>' . $row['bulan'] . '</td>
 				<td>' . $row['tanggal_nyicil'] . '</td>
 				<td>' . $row['nyicil'] . '</td>
-				<td>' . $row['status'] . '</td>
 				<td>
 				<button class="view-button" onclick="viewRow(this)">Cetak</button>
 				<button class="delete-button" onclick="deleteRow(this)">Hapus</button>
