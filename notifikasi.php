@@ -17,7 +17,7 @@
 		<a href="pemesanan.php" class="icon-a"><i class="fa fa-shopping-cart"></i> Pemesanan</a>
 		<a href="cicilan.php" class="icon-a"><i class="fa fa-credit-card"></i> Cicilan</a>
 		<a href="riwayat.php" class="icon-a"><i class="fa fa-list-alt icons"></i> Riwayat</a>
-		<a href="notifikasi.php" class="icon-a"><i class="fa fa-regular fa-bell"></i> Notifikasi</a>
+        <a href="notifikasi.php" class="icon-a"><i class="fa fa-regular fa-bell"></i> Notifikasi</a>
 
 		<script>
 			// Fungsi untuk menampilkan data pada baris tabel
@@ -80,8 +80,8 @@
 
 		<div class="head">
 			<div class="col-div-6">
-				<span style="font-size:30px;cursor:pointer; color: black;" class="nav">Riwayat</span>
-				<span style="font-size:30px;cursor:pointer; color: black;" class="nav2">☰ Riwayat</span>
+				<span style="font-size:30px;cursor:pointer; color: black;" class="nav">Notifikasi</span>
+				<span style="font-size:30px;cursor:pointer; color: black;" class="nav2">☰ Notifikasi</span>
 			</div>
 			<div class="col-div-6">
 				<div class="profile">
@@ -113,9 +113,9 @@
 			<tr>
 			<th>Nama</th>
 			<th>Bulan</th>
-			<th>Tanggal Nyicil</th>
-			<th>Nyicil</th>
-			<th>Status</th>
+			<th>Tanggal Cicilan</th>
+			<th>Pembayaran Cicilan</th>
+			<th>Bukti Pembayaran</th>
 			<th>Action</th>
 			</tr>';
 
@@ -129,7 +129,7 @@
 				<td>' . $row['nyicil'] . '</td>
 				<td>' . $row['status'] . '</td>
 				<td>
-				<button class="view-button" onclick="viewRow(this)">Cetak</button>
+				<button class="view-button" onclick="viewRow(this)">Konfirmasi</button>
 				<button class="delete-button" onclick="deleteRow(this)">Hapus</button>
 				</td>
 				</tr>';

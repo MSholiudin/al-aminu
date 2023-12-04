@@ -85,6 +85,7 @@
         <a href="pemesanan.php" class="icon-a"><i class="fa fa-shopping-cart"></i> Pemesanan</a>
         <a href="cicilan.php" class="icon-a"><i class="fa fa-credit-card"></i> Cicilan</a>
         <a href="riwayat.php" class="icon-a"><i class="fa fa-list-alt icons"></i> Riwayat</a>
+        <a href="notifikasi.php" class="icon-a"><i class="fa fa-regular fa-bell"></i> Notifikasi</a>
 
     </div>
     <div id="main">
@@ -109,17 +110,21 @@
                 top: 50%;
                 transform: translate(-50%, -50%);
                 width: 60%;
-                /* Set the desired width, adjust as needed */
                 max-width: 400px;
-                /* Set the maximum width */
                 max-height: 80%;
-                /* Set the maximum height */
                 overflow-y: auto;
-                /* Enable vertical scrolling if the content exceeds the height */
                 background-color: #fff;
                 padding: 20px;
                 border-radius: 8px;
                 box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+
+            #popup .cancel-button:hover {
+                background-color: red;
+            }
+
+            #popup .save-button:hover{
+                background-color: #38E54D;
             }
 
             .input-box {
@@ -214,8 +219,9 @@
             }
 
             button:hover {
-                background-color: #45a049;
+                background-color: #4caf50;
             }
+
 
             .button-periksa {
                 background-color: #2196F3;
@@ -254,9 +260,11 @@
             .text-bulan {
                 width: 70px;
             }
-            .cancel-button{
-                background-color: red;
+
+            .cancel-button {
+                background-color: #C70039;
             }
+
 
             #overlay {
                 display: none;

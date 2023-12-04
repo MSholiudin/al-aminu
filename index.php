@@ -17,12 +17,40 @@ if (!isset($_SESSION['username'])) {
     <link rel="stylesheet" href="css/style.css" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
 
 </head>
 
 <body>
     <a href="#" class="icon-a"><i class="fa fa-user icons"></i> Accounts</a>
+
+    <style>
+        .search-button.button-style {
+            /* Aturan dasar */
+            background-color: #3498db;
+            /* ... aturan lainnya ... */
+        }
+
+        .search-button.button-style:hover {
+            /* Aturan hover */
+            background-color: #00A9FF;
+            /* ... aturan lainnya ... */
+        }
+
+        .button-style {
+            /* Aturan dasar */
+            background-color: #3498db;
+            /* ... aturan lainnya ... */
+        }
+
+        .button-style:hover {
+            /* Aturan hover */
+            background-color: #00A9FF;
+            /* ... aturan lainnya ... */
+        }
+    </style>
 
     <script>
         // Fungsi untuk menampilkan data pada baris tabel
@@ -43,6 +71,7 @@ if (!isset($_SESSION['username'])) {
         <a href="pemesanan.php" class="icon-a"><i class="fa fa-shopping-cart"></i> Pemesanan</a>
         <a href="cicilan.php" class="icon-a"><i class="fa fa-credit-card"></i> Cicilan</a>
         <a href="riwayat.php" class="icon-a"><i class="fa fa-list-alt icons"></i> Riwayat</a>
+        <a href="notifikasi.php" class="icon-a"> <i class="fa fa-regular fa-bell"></i></i> Notifikasi</a>
     </div>
 
     <div id="main">
@@ -81,7 +110,8 @@ if (!isset($_SESSION['username'])) {
                     }
                     ?>
                     <i class="fa fa-regular fa-bell" style="position: relative; right: 30%; bottom: 43px;"></i>
-                    <button id="logoutButton" class="icon-a"><i class="fa fa-users icons"></i> Logout</button>
+                    <button id="logoutButton" class="icon-a" style="position: relative; left: 20%;"><i class="fa-duotone fa-right-from-bracket"></i> Logout</button>
+
                 </div>
             </div>
         </div>
@@ -125,7 +155,7 @@ if (!isset($_SESSION['username'])) {
                     });
                 </script>
                 <p style="position: relative; top: 20px; left: 20px;">Selamat datang di manajemen aplikasi bimbel Al - Amin, selamat memakai fitur yang telah kami sediakan</p>
-                <a class="search-button button-style" href="jadwal.php" style="width: 200px; height: 45px; position: relative; left: 125px; top: 25%; outline: white; background-color: #00A9FF; border-radius: 25px; text-align: center; line-height: 45px; display: inline-block; font-size: 5mm;">Lihat Jadwal</a>
+                <a class="search-button button-style" href="jadwal.php" style="width: 200px; height: 45px; position: relative; left: 125px; top: 25%; outline: white; border-radius: 25px; text-align: center; line-height: 45px; display: inline-block; font-size: 5mm;">Lihat Jadwal</a>
             </div>
         </div>
 
@@ -201,9 +231,9 @@ if (!isset($_SESSION['username'])) {
         <br /><br />
 
         <div class="col-div-8" style="position: relative; bottom: 40px;">
-            <div class="box-8">
+            <div class="box-8" style="height: 400px;">
                 <div class="content-box">
-                    <p>Pemesanan <a class="button-style" href="pemesanan.php" style="width: 150px; height: 20px; outline: white; background-color: #00A9FF; border-radius: 10px; text-align: center; line-height: 16px; padding: 10px; display: inline-block; font-size: 15px; position: relative; top: 25%; left: 65%; color: #fff;">Lihat Pemesanan</a></p>
+                    <p>Pemesanan <a class="button-style" href="pemesanan.php" style="width: 150px; height: 20px; outline: white; border-radius: 10px; text-align: center; line-height: 16px; padding: 10px; display: inline-block; font-size: 15px; position: relative; top: 25%; left: 65%; color: #fff;">Lihat Pemesanan</a></p>
 
                     <br />
                     <table>
@@ -278,7 +308,7 @@ if (!isset($_SESSION['username'])) {
                                     <th>Username</th>
                                     <th>Email</th>
                                     <th>Nama Program</th>
-                                    <th></th> <a href="murid.php" class="search-button button-style" style="position: relative; left: 10px; background-color: #00A9FF;">Lihat Murid</a>
+                                    <th></th> <a href="murid.php" class="search-button button-style" style="position: relative; left: 10px;">Lihat Murid</a>
                                 </tr>
                             </thead>
                             <tbody>

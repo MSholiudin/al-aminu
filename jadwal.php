@@ -140,10 +140,56 @@ $resultMapell = $conn->query($queryMapell);
 		}
 
 
+		#popupJadwal .save-button:hover {
+			background-color: #38E54D;
+			color: white;
+		}
+
+		#popupJadwal .cancel-button:hover{
+			background-color: red;
+		}
+
+		#popupModule .cancel-button{
+			background-color: #C70039;
+		}
+
+		#popupModule .cancel-button:hover{
+			background-color: red;
+		}
+
+		#popupModule .save-button{
+			background-color: #4caf50;
+		}
+
+		#popupModule .save-button:hover{
+			background-color: #38E54D;
+		}
+
+		#popupMentor .cancel-button{
+			background-color: #C70039;
+		}
+
+		#popupMentor .cancel-button:hover{
+			background-color: red;
+		}
+
+		#popupMentor .save-button{
+			background-color: #4caf50;
+		}
+
+		#popupMentor .save-button:hover{
+			background-color: #38E54D;
+		}
+
+		#popupJadwal .cancel-button{
+			background-color: #C70039;
+		}
+
 		.popup-container .save-button {
 			background-color: #4caf50;
 			color: white;
 		}
+
 
 		.popup-container .cancel-button {
 			background-color: red;
@@ -190,6 +236,20 @@ $resultMapell = $conn->query($queryMapell);
 		}
 	</style>
 	<style>
+		.save-button{
+			background-color: green;
+		}
+		.cancel-button{
+			background-color: red;
+		}
+
+		#popup .save-button{
+			background-color: #38E54D;
+		}
+
+		#popup .cancel-button{
+			background-color: #4caf50;
+		}
 		.popup-mentor {
 			display: none;
 			position: fixed;
@@ -297,6 +357,7 @@ $resultMapell = $conn->query($queryMapell);
 		<a href="pemesanan.php" class="icon-a"><i class="fa fa-shopping-cart"></i> Pemesanan</a>
 		<a href="cicilan.php" class="icon-a"><i class="fa fa-credit-card"></i> Cicilan</a>
 		<a href="riwayat.php" class="icon-a"><i class="fa fa-list-alt icons"></i> Riwayat</a>
+		<a href="notifikasi.php" class="icon-a"><i class="fa fa-regular fa-bell"></i> Notifikasi</a>
 		<script>
 			window.onload = function() {
 				var today = new Date();
@@ -458,8 +519,8 @@ $resultMapell = $conn->query($queryMapell);
 				$resultJadwal = $conn->query($queryJadwal);
 				?>
 				<div class="content-box" style="position: relative; bottom: 20px;">
-					<button style="position: relative; top: 30px; left: 600px; height: 30px; " onclick="tampilkanPopupModule()">Tambah Module</button>
-					<p>Jadwal Harian <button style="position: relative; bottom: 1px; left: 600px; height: 30px; " onclick="tampilkanPopup()">Tambah Jadwal</button></p>
+				<p style="position: relative; top: 10px;">Jadwal Pertemuan <button style="position: relative; top: 10px; left: 570px; height: 40px; " onclick="tampilkanPopup()">Tambah Jadwal</button></p>
+					<button style="position: relative; bottom: 20px; left: 600px; height: 40px; " onclick="tampilkanPopupModule()">Tambah Module</button>
 					<br />
 					<table>
 						<tr>

@@ -376,7 +376,7 @@ footer .socials a {
 
 footer .socials a:hover,
 footer .links a:hover {
-	color: var(--bg);
+	color: #068FFF;
 }
 
 footer .links {

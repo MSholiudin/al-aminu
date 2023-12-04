@@ -100,6 +100,14 @@
             animation: fadeIn 0.5s ease-out;
         }
 
+        button.cari-button:hover {
+            background-color: red;
+        }
+
+        .cari-button:hover {
+            background-color: #38E54D !important;
+        }
+
         @keyframes fadeIn {
             0% {
                 opacity: 0;
@@ -118,6 +126,7 @@
         <a href="pemesanan.php" class="icon-a"><i class="fa fa-shopping-cart"></i> Pemesanan</a>
         <a href="cicilan.php" class="icon-a"><i class="fa fa-credit-card"></i> Cicilan</a>
         <a href="riwayat.php" class="icon-a"><i class="fa fa-list-alt icons"></i> Riwayat</a>
+        <a href="notifikasi.php" class="icon-a"><i class="fa fa-regular fa-bell"></i> Notifikasi</a>
 
         <script>
             function editRow(button) {
@@ -311,11 +320,10 @@
                 <div class="content-box">
                     <div class="bulan-container">
                         <p>Data pengguna</p>
-                        <input style="position: relative; top: 10px;" type="text" id="pembayaran_jan" name="pembayaran_jan" class="pembayaran-input" placeholder="Nama murid" required>
+                        <input style="position: relative; height: 25px;  top: 10px;" type="text" id="pembayaran_jan" name="pembayaran_jan" class="pembayaran-input" placeholder="Nama Murid" required>
                     </div>
-                    <p><span style="position: relative; right: 82%; bottom: 13px;" id="searchSpan">Cari</span>
-
-                        <br />
+                    <button class="cari-button" style="height: 30px; background-color: green; position: relative; left: 15%; bottom: 20px;" onclick="cari()">Cari</button>
+                    <br />
                     <table>
                         <tr>
                             <th>Id_Pengguna</th>
