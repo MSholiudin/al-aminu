@@ -149,41 +149,41 @@
                 var popupContent = document.getElementById('popup-container');
                 popupContent.innerHTML = `
                 <div class="popup-content">
-                    <span class="popup-close" onclick="closePopup()">&times;</span>
-                    <h2>Edit Data</h2>
-                    <form action="update_data.php" method="post">
-                        <input type="hidden" name="id_pengguna" value="${idPengguna}">
-                        <div class="input-box">
-                            <label for="nama">Nama:</label>
-                            <input type="text" name="nama" value="${nama}">
-                        </div>
-                        <div class="input-box">
-                            <label for="email">Email:</label>
-                            <input type="text" name="email" value="${email}">
-                        </div>
-                        <div class="input-box">
-                            <label for="username">Username:</label>
-                            <input type="text" name="username" value="${username}">
-                        </div>
-                        <div class="input-box">
-                            <label for="password">Password:</label>
-                            <input type="text" name="password" value="${password}">
-                        </div>
-                        <div class="input-box">
-                            <label for="no_wa">No. Wa:</label>
-                            <input type="text" name="no_wa" value="${noWa}">
-                        </div>
-                        <div class="input-box">
-                            <label for="nama_program">Nama Program:</label>
-                            <input type="text" name="nama_program" value="${namaProgram}">
-                        </div>
-                        <div class="button-container">
-                            <button class="save-button" type="submit">Simpan</button>
-                            <button class="cancel-button" type="button" onclick="closePopup()">Batal</button>
-                        </div>
-                    </form>
+                <span class="popup-close" onclick="closePopup()">&times;</span>
+                <h2>Edit Data</h2>
+                <form action="update_data.php" method="post">
+                <input type="hidden" name="id_pengguna" value="${idPengguna}">
+                <div class="input-box">
+                <label for="nama">Nama:</label>
+                <input type="text" name="nama" value="${nama}">
                 </div>
-            `;
+                <div class="input-box">
+                <label for="email">Email:</label>
+                <input type="text" name="email" value="${email}">
+                </div>
+                <div class="input-box">
+                <label for="username">Username:</label>
+                <input type="text" name="username" value="${username}">
+                </div>
+                <div class="input-box">
+                <label for="password">Password:</label>
+                <input type="text" name="password" value="${password}">
+                </div>
+                <div class="input-box">
+                <label for="no_wa">No. Wa:</label>
+                <input type="text" name="no_wa" value="${noWa}">
+                </div>
+                <div class="input-box">
+                <label for="nama_program">Nama Program:</label>
+                <input type="text" name="nama_program" value="${namaProgram}">
+                </div>
+                <div class="button-container">
+                <button class="save-button" type="submit">Simpan</button>
+                <button class="cancel-button" type="button" onclick="closePopup()">Batal</button>
+                </div>
+                </form>
+                </div>
+                `;
 
                 // Tampilkan popup
                 popupContent.style.display = 'block';
@@ -297,17 +297,17 @@
 
         // Query untuk mengambil data dari database
         $query = "SELECT 
-                data_pengguna.id_pengguna,
-                data_pengguna.nama,
-                data_pengguna.email,
-                data_pengguna.username,
-                data_pengguna.password,
-                data_pengguna.no_wa,
-                paket_program.nama_program
-            FROM 
-                data_pengguna
-            JOIN 
-                paket_program ON data_pengguna.id_program = paket_program.id_program";
+        data_pengguna.id_pengguna,
+        data_pengguna.nama,
+        data_pengguna.email,
+        data_pengguna.username,
+        data_pengguna.password,
+        data_pengguna.no_wa,
+        paket_program.nama_program
+        FROM 
+        data_pengguna
+        JOIN 
+        paket_program ON data_pengguna.id_program = paket_program.id_program";
 
         // Menjalankan query
         $result = $conn->query($query);
@@ -411,6 +411,6 @@
         </script>
 
 
-</body>
+    </body>
 
-</html>
+    </html>
